@@ -10,7 +10,6 @@ module.exports = {
       name: {
         allowNull: false,
         type: Sequelize.STRING,
-        field: 'display_name',
       },
       email: {
         allowNull: false,

@@ -1,17 +1,17 @@
-import * as express from 'express';
-import 'express-async-errors';
-import ErrorHandler from '../middlewares/ErrorHandler';
-import { LoginRouter } from './routers';
+const express = require('express');
+const cors = require('cors');
+const ErrorHandler = require('../middlewares/ErrorMiddleware');
+const LoginRouter = require('../routers/LoginRouter');
 
 class App {
   constructor() {
     this.app = express();
 
-    this._config();
-    this._routes();
+    this.config();
+    this.routes();
   }
 
-  _config() {
+  config() {
     const accessControl = (_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
@@ -20,10 +20,11 @@ class App {
     };
 
     this.app.use(express.json());
+    this.app.use(cors()); // cors() e accessControl fazem o mesmo papel?
     this.app.use(accessControl);
   }
 
-  _routes() {
+  routes() {
     this.app.use('/login', LoginRouter);
     this.app.get('/coffee', (_req, res) => res.status(418).end());
     this.app.use(ErrorHandler.errorMiddleware);
@@ -34,6 +35,4 @@ class App {
   }
 }
 
-
 module.exports = App;
-

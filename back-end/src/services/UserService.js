@@ -25,9 +25,23 @@ class UserService extends AbstractService {
     if (!md5(password) === result.password) { 
       throw new HttpException(statusCode.UNAUTHORIZED, 'Invalid email or password');
     }
-    // to-do: gerar token e enviar no retorno
     const token = signToken(email);
-    return token;
+    return { token };
+  }
+
+  async register(user) {
+    const { email, password, role, name } = user;
+    const validateUser = this.getByEmail(email);
+    if (validateUser) {
+      throw new HttpException(statusCode.UNAUTHORIZED, 'Invalid email or password');
+    }
+    const newUser = await this.create({
+      email,
+      password: md5(password),
+      role,
+      name,
+    });
+    return newUser;
   }
 }
 

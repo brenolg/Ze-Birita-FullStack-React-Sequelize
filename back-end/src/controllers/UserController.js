@@ -1,20 +1,30 @@
+const StatusCodes = require('../utils/statusCode');
 const AbstractController = require('./AbstractController');
 
 class UserController extends AbstractController {
-  constructor(loginService, req, res, next) {
+  constructor(userService, req, res, next) {
     super(
-      loginService,
+      userService,
       req,
       res,
       next,
     );
-    this.loginService = loginService;
+    this.userService = userService;
   }
 
   async login() {
     try {
-      const newObj = await this.loginService.login(this.req.body);
-      return this.res.status(200).json(newObj);
+      const newObj = await this.userService.login(this.req.body);
+      return this.res.status(StatusCodes.OK).json(newObj);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  async register() {
+    try {
+      const newObj = await this.userService.register(this.req.body);
+      return this.res.status(StatusCodes.CREATED).json(newObj);
     } catch (error) {
       this.next(error);
     }

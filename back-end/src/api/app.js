@@ -29,7 +29,7 @@ class App {
     this.app.use('/login', loginRouter);
     this.app.use('/register', registerRouter);    
     this.app.get('/coffee', (_req, res) => res.status(418).end());
-    this.app.use(ErrorHandler.errorMiddleware);
+    this.app.use(ErrorHandler.handle);
   }
 
   start(PORT) {

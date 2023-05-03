@@ -11,7 +11,7 @@ export class AppComponent {
 
   title = 'app-test';
 
-  ngOnInit() {
-    this.router.navigate(['login'])
-  }
+  // ngOnInit() {
+  //   this.router.navigate(['login'])
+  // }
 }

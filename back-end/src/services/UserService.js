@@ -3,6 +3,7 @@ const AbstractService = require('./AbstractService');
 const { User } = require('../database/models');
 const HttpException = require('../utils/HttpException');
 const statusCode = require('../utils/statusCode');
+const { signToken } = require('../utils/jwtConfig');
 
 class UserService extends AbstractService {
   constructor() {
@@ -25,7 +26,8 @@ class UserService extends AbstractService {
       throw new HttpException(statusCode.UNAUTHORIZED, 'Invalid email or password');
     }
     // to-do: gerar token e enviar no retorno
-    return result;
+    const token = signToken(email);
+    return token;
   }
 }
 

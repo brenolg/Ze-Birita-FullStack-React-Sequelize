@@ -1,14 +1,10 @@
-import { Router } from 'express';
-import 'express-async-errors';
-
+const { Router } = require('express');
+const LoginController = require('../controllers/UserController');
+const LoginService = require('../services/UserService');
 
 const router = Router();
+const loginService = new LoginService();
 
-//registro
-router.post('/', (req, res) => {});
+router.post('/', (req, res, next) => new LoginController(loginService, req, res, next).login());
 
-//login
-router.get('/', (req, res) => {});
-
-
-export default router;
+module.exports = router;

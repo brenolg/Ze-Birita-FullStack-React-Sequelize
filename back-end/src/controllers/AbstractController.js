@@ -1,9 +1,9 @@
 class AbstractController {
   constructor(service, req, res, next) {
+    this.service = service;
     this.req = req;
     this.res = res;
     this.next = next;
-    this.service = service;
   }
 
   async getAll() {

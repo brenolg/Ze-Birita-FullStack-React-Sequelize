@@ -1,6 +1,6 @@
 import * as express from 'express';
 import 'express-async-errors';
-import errorHandler from './middlewares/ErrorHandler';
+import ErrorHandler from '../middlewares/ErrorHandler';
 import { LoginRouter } from './routers';
 
 class App {
@@ -26,7 +26,7 @@ class App {
   _routes() {
     this.app.use('/login', LoginRouter);
     this.app.get('/coffee', (_req, res) => res.status(418).end());
-    this.app.use(errorHandler);
+    this.app.use(ErrorHandler.errorMiddleware);
   }
 
   start(PORT) {

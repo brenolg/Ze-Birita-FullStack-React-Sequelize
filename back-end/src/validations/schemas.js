@@ -3,10 +3,7 @@ const { joiPasswordExtendCore } = require('joi-password');
 
 const joiPassword = joi.extend(joiPasswordExtendCore);
 
-const Joi = require('joi');
-
-const newUserSchema = Joi.object({
-  name: Joi.string().min(12).required(),
+const newLoginSchema = joi.object().keys({
   email: joi.string().email().required(),
   password: joiPassword
   .string()
@@ -16,38 +13,11 @@ const newUserSchema = Joi.object({
   .minOfNumeric(1)
   .noWhiteSpaces()
   .onlyLatinCharacters()
-  .required()
-  .messages({
-    'password.minOfUppercase': '{#label} should contain at least {#min} uppercase character',
-    'password.minOfSpecialCharacters':
-          '{#label} should contain at least {#min} special character',
-    'password.minOfLowercase': '{#label} should contain at least {#min} lowercase character',
-    'password.minOfNumeric': '{#label} should contain at least {#min} numeric character',
-    'password.noWhiteSpaces': '{#label} should not contain white spaces',
-    'password.onlyLatinCharacters': '{#label} should contain only latin characters',
-}),
+  .required(),
 });
 
-const newLoginSchema = Joi.object({
-  email: joi.string().email().required(),
-  password: joiPassword
-  .string()
-  .minOfSpecialCharacters(1)
-  .minOfLowercase(1)
-  .minOfUppercase(1)
-  .minOfNumeric(1)
-  .noWhiteSpaces()
-  .onlyLatinCharacters()
-  .required()
-  .messages({
-    'password.minOfUppercase': '{#label} should contain at least {#min} uppercase character',
-    'password.minOfSpecialCharacters':
-          '{#label} should contain at least {#min} special character',
-    'password.minOfLowercase': '{#label} should contain at least {#min} lowercase character',
-    'password.minOfNumeric': '{#label} should contain at least {#min} numeric character',
-    'password.noWhiteSpaces': '{#label} should not contain white spaces',
-    'password.onlyLatinCharacters': '{#label} should contain only latin characters',
-}),
+const newUserSchema = newLoginSchema.keys({
+  name: joi.string().min(12).required(),
 });
 
 // Existe essa verificação de characters Latin

@@ -23,7 +23,7 @@ class UserService extends AbstractService {
   async login(user) {
     const { email, password } = user;
     
-    const error = await schema.validateNewUser(user);
+    const error = await schema.validateLogin(user);
     if (error.type) throw new HttpException(statusCode.BAD_REQUEST, error.message);
     
     const result = await this.getByEmail(email);

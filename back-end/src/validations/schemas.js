@@ -7,6 +7,7 @@ const newLoginSchema = joi.object().keys({
   email: joi.string().email().required(),
   password: joiPassword
   .string()
+  .min(6)
   .minOfSpecialCharacters(1)
   .minOfLowercase(1)
   .minOfUppercase(1)
@@ -19,7 +20,5 @@ const newLoginSchema = joi.object().keys({
 const newUserSchema = newLoginSchema.keys({
   name: joi.string().min(12).required(),
 });
-
-// Existe essa verificação de characters Latin
 
 module.exports = { newUserSchema, newLoginSchema };

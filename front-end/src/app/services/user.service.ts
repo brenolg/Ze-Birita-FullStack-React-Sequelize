@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { take } from "rxjs";
-import IUser from "../interfaces/IUser";
+import { IUser } from "../interfaces/user.interface";
 
 @Injectable()
 export class UserService {

@@ -1,9 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { UserForm } from 'src/app/interfaces/forms.interface';
-import { IUserLogado } from 'src/app/interfaces/IState';
+import { IUser, IUserLogado } from 'src/app/interfaces/user.interface';
 import { getLoginInfo } from 'src/app/reducers/userActions';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,15 +12,16 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./form.component.css']
 })
 
-export class FormComponent implements OnInit {
+export class FormComponent {
+  @Input() isRegister: boolean = false;
+  @Input() url: string = 'home';
+  
   handleSubmit!: Function;    
   userLogado!: IUserLogado;
   errorResponse!: HttpErrorResponse;
 
   isLoading: boolean = false;
-  isRegister: boolean = false;
-  
-  user: UserForm = {
+  user: IUser = {
     email: '',
     password: '',
   };
@@ -30,6 +30,7 @@ export class FormComponent implements OnInit {
     private router: Router, 
     private service: UserService,
     private store: Store) {
+
       const userData = localStorage.getItem('user');
       if(userData) {
         const user = JSON.parse(userData).user;
@@ -44,8 +45,7 @@ export class FormComponent implements OnInit {
   } 
   
   ngOnInit() {
-    const url = this.router.routerState.snapshot.url;
-    this.handleRoute(url); 
+    this.handleRoute(this.url); 
   }
 
   handleRoute(url: string){
@@ -59,13 +59,13 @@ export class FormComponent implements OnInit {
 
   handleError({ error }: HttpErrorResponse){
     this.errorResponse = error.message;
-    this.isLoading = false
+    this.isLoading = false;
   }
 
   handleLogin(data: object){
     const user = data as IUserLogado;
     this.store.dispatch(getLoginInfo({ user }))
-    this.isLoading = false
+    this.isLoading = false;
     if(user.role === 'customer') {
       this.router.navigate(['/products']);
     } else {
@@ -84,7 +84,7 @@ export class FormComponent implements OnInit {
 
   handleRegistry(data: object){
     const user = data as IUserLogado;
-    this.store.dispatch(getLoginInfo({ user }))
+    this.store.dispatch(getLoginInfo({ user }));
     this.router.navigate(['/products']);
   }
 

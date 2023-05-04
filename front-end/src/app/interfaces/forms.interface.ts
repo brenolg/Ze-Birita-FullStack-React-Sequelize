@@ -23,7 +23,7 @@ export interface elementsData {
   inputsData: InputData[]
 }
 
-export interface UserAccess {
+export interface UserForm {
   name?: string;
   email: string;
   password: string;

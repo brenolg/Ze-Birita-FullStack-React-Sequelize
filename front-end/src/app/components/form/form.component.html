@@ -60,14 +60,19 @@
         </div>
         <br>
         <br>
+         <div *ngIf="errorResponse"
+          class="alert alert-danger"
+          role="alert">
+          {{ errorResponse }}
+        </div>
           <button 
             type="submit" 
             class="button button_primary" 
             [disabled]="!form.valid"
             *ngIf="isRegister"
           >
-            <!-- <div class="login__button_loading" *ngIf="isLoading">
-            <div class="loader"></div> -->
+            <div *ngIf="isLoading" class="loader login__button_loading">
+            </div>
             CADASTRO
           </button>
         <ng-template [ngIf]="!isRegister">

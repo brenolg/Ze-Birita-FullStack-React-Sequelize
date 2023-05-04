@@ -18,6 +18,7 @@ class AbstractService {
 
   async create(obj) {
     const created = await this.model.create(obj);
+    delete created.dataValues.password;
     return created;
   }
 

@@ -6,7 +6,6 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginModule } from './pages/login/login.module';
 import { UserService } from './services/user.service';
 import { userReducer } from './reducers/userReducer';
 
@@ -15,6 +14,8 @@ export function localStorageSyncReducer(userReducer: ActionReducer<any>): Action
 }
 
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
+import { AccessModule } from './pages/access/access.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     HttpClientModule,
     StoreModule.forRoot({user: userReducer}, {metaReducers}),
     AppRoutingModule,
-    LoginModule
+    AccessModule,
+    BrowserAnimationsModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

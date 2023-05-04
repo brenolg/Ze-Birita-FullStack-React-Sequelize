@@ -22,6 +22,10 @@ class UserService extends AbstractService {
 
   async login(user) {
     const { email, password } = user;
+    
+    const error = await schema.validateNewUser(user);
+    if (error.type) throw new HttpException(statusCode.BAD_REQUEST, error.message);
+    
     const result = await this.getByEmail(email);
     if (!result) throw new HttpException(statusCode.NOT_FOUND, 'Email not Found');
     if (md5(password) !== result.password) {
@@ -34,13 +38,14 @@ class UserService extends AbstractService {
 
   async register(user) {
     const { email, password, name } = user;
+
+    const error = await schema.validateNewUser(user);
+    if (error.type) throw new HttpException(statusCode.BAD_REQUEST, error.message);
+    
     const validateUser = await this.getByEmail(email);
     if (validateUser) {
       throw new HttpException(statusCode.UNAUTHORIZED, 'Usuário ja registrado');
     }
-
-    const error = await schema.validateNewUser(user);
-    if (error.type) throw new HttpException(statusCode.BAD_REQUEST, error.message);
 
     const newUser = await this.create({
       email,

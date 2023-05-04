@@ -4,6 +4,7 @@ const { User } = require('../database/models');
 const HttpException = require('../utils/HttpException');
 const statusCode = require('../utils/statusCode');
 const { signToken } = require('../utils/jwtConfig');
+const schema = require('../validations/validationInputValues');
 
 class UserService extends AbstractService {
   constructor() {
@@ -13,7 +14,7 @@ class UserService extends AbstractService {
 
   async getByEmail(email) {
     const result = await this.user.findOne({
-      where: { email }, attributes: { exclude: ['password'] }, raw: true,
+      where: { email }, raw: true,
     });
 
     return result;
@@ -23,11 +24,11 @@ class UserService extends AbstractService {
     const { email, password } = user;
     const result = await this.getByEmail(email);
     if (!result) throw new HttpException(statusCode.NOT_FOUND, 'Email not Found');
-    if (!md5(password) === result.password) { 
-      throw new HttpException(statusCode.UNAUTHORIZED, 'Invalid email or password');
+    if (md5(password) !== result.password) {
+      throw new HttpException(statusCode.UNAUTHORIZED, 'Password incorreto');
     }
     const token = signToken(email);
-
+    delete result.password;
     return { ...result, token };
   }
 
@@ -37,6 +38,10 @@ class UserService extends AbstractService {
     if (validateUser) {
       throw new HttpException(statusCode.UNAUTHORIZED, 'Usuário ja registrado');
     }
+
+    const error = await schema.validateNewUser(user);
+    if (error.type) throw new HttpException(statusCode.BAD_REQUEST, error.message);
+
     const newUser = await this.create({
       email,
       password: md5(password),

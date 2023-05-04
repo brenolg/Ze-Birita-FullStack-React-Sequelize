@@ -4,16 +4,16 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3001/login",
-    "url": "http://localhost:3001/login",
+    "url": "http://localhost:3001/register",
     "method": "POST",
     "sortNum": 0,
     "created": "2023-05-03T19:08:47.081Z",
-    "modified": "2023-05-03T20:51:23.768Z",
+    "modified": "2023-05-04T00:28:04.209Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"email\": \"adm@dsddeddldivfdderyaaspp.com\",\n  \"password\": \"--adm2@21!!--\",\n  \"name\": \"edudsd  dsdsdsd\"\n}",
+      "raw": "{\n\"name\": \"dfsd32323dssdsd\",\n    \"email\": \"breslgydsdahsoo.com.br\",\n    \"password\": \"dsd\"\n \n}",
       "form": []
     },
     "tests": []

@@ -1,0 +1,91 @@
+<form #form="ngForm" (ngSubmit)="handleSubmit()">
+      <div class="form_fields">
+        <ng-template [ngIf]="isRegister">
+          <label class="label" for="name">
+            <p>Nome</p>
+            <input 
+              #name="ngModel"
+              class="input" 
+              type="text" 
+              name="name" 
+              placeholder="Seu nome completo"
+              [(ngModel)]="user.name"
+              minlength="3"
+              required
+            />
+          </label>
+          <div [hidden]="name.untouched || name.valid || name.pristine"
+          class="alert alert-danger"
+          role="alert">
+          <p>
+            O nome é obrigatório.
+          </p>
+        </div>
+        </ng-template>
+        <label class="label" for="email">
+          <p>{{ isRegister ? 'Email' : 'Login' }}</p>
+          <input 
+            #email="ngModel"
+            class="input" 
+            type="email" 
+            name="email" 
+            placeholder="user@email.com"
+            [(ngModel)]="user.email"
+            email
+            required
+          />
+        </label>
+        <div [hidden]="email.untouched || email.valid || email.pristine"
+          class="alert alert-danger"
+          role="alert">
+            Preencha um formato de e-mail válido.
+        </div>
+        <label class="label" for="password">
+          <p>Senha</p>
+          <input 
+            #password="ngModel"
+            class="input" 
+            type="password" 
+            name="password" 
+            placeholder="******" 
+            minlength="6"
+            [(ngModel)]="user.password"
+            required 
+          />
+        </label>
+        <div [hidden]="password.untouched || password.valid || password.pristine"
+          class="alert alert-danger"
+          role="alert">
+          A senha deve conter no mínimo 6 caracteres.
+        </div>
+        <br>
+        <br>
+          <button 
+            type="submit" 
+            class="button button_primary" 
+            [disabled]="!form.valid"
+            *ngIf="isRegister"
+          >
+            <!-- <div class="login__button_loading" *ngIf="isLoading">
+            <div class="loader"></div> -->
+            CADASTRO
+          </button>
+        <ng-template [ngIf]="!isRegister">
+          <button 
+            type="submit" 
+            class="button button_primary" 
+            [disabled]="!form.valid"
+          >
+            <div *ngIf="isLoading" class="loader login__button_loading"></div>
+            LOGIN
+          </button>
+          <button 
+            type="button" 
+            class="button button_tertiary" 
+            (click)="onClickRedirect()"
+          >
+            Ainda não tenho conta
+          </button>
+        </ng-template>
+      </div>
+    </form>

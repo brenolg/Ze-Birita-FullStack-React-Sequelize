@@ -1,5 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const SalesProduct = sequelize.define('SalesProduct', {
+    saleId: { type: DataTypes.INTEGER, foreign: true },
+    productId: { type: DataTypes.INTEGER, foreign: true },
     quantity: { type: DataTypes.INTEGER },
   }, {
     timestamps: false,
@@ -8,17 +10,17 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   SalesProduct.associate = (models) => {
-    models.Product.belongsToMany(models.Sales,
+    models.Product.belongsToMany(models.Sale,
       { 
         foreignKey: 'productId', 
-        as: 'products',
+        as: 'product',
         through: SalesProduct,
         otherKey: 'saleId'
       });
-    models.Sale.belongsToMany(models.Products,
+    models.Sale.belongsToMany(models.Product,
       { 
         foreignKey: 'saleId', 
-        as: 'sales',
+        as: 'sale',
         through: SalesProduct,
         otherKey: 'productId'
       });

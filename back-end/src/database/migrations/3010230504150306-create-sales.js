@@ -1,7 +1,7 @@
-'use strict';
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up: async(queryInterface, Sequelize) => {
     await queryInterface.createTable('sales', {
+
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,24 +12,24 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
         field: 'user_id',
         references: {
           model: 'users',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       sellerId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
         field: 'seller_id',
         references: {
           model: 'users',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       totalPrice: {
         type: Sequelize.DECIMAL,

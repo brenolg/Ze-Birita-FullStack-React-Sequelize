@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('products', {
@@ -9,18 +7,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+
       name: {
         allowNull: false,
         type: Sequelize.STRING,
       },
+
       price: {
         allowNull: true,
         type: Sequelize.DECIMAL
       },
+      
       urlImage: {
         allowNull: false,
         type: Sequelize.STRING,
-        field: 'url_image'
       },
     });
   },

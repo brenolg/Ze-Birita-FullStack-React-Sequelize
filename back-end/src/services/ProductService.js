@@ -16,6 +16,11 @@ class UserService extends AbstractService {
 
     return product;
   }
+
+  async getByAll() {
+    const allProducts = await this.product.findAll();
+    return allProducts;
+  }
 }
 
 module.exports = UserService;

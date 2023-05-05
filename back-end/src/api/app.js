@@ -2,7 +2,7 @@ const express = require('express');
 require('express-async-errors');
 const cors = require('cors');
 const ErrorHandler = require('../middlewares/ErrorMiddleware');
-const { loginRouter, registerRouter } = require('../routers/index');
+const { loginRouter, registerRouter, productRouter } = require('../routers/index');
 
 class App {
   constructor() {
@@ -27,7 +27,8 @@ class App {
 
   routes() {
     this.app.use('/login', loginRouter);
-    this.app.use('/register', registerRouter);    
+    this.app.use('/register', registerRouter);   
+    this.app.use('/products', productRouter);     
     this.app.get('/coffee', (_req, res) => res.status(418).end());
     this.app.use(ErrorHandler.handle);
   }

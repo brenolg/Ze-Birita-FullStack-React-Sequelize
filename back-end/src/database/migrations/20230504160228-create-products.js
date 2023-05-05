@@ -21,6 +21,7 @@ module.exports = {
       urlImage: {
         allowNull: false,
         type: Sequelize.STRING,
+        field: 'url_image',
       },
     });
   },

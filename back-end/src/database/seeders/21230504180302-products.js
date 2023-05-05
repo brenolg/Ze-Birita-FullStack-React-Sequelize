@@ -4,12 +4,12 @@ module.exports = {
       {
         name: '51',
         price: 10.00,
-        urlImage: 'sem URL',
+        url_Image: 'sem URL',
       
       }, {
         name: 'absolut',
         price: 20.00,
-        urlImage: 'sem URL',
+        url_Image: 'sem URL',
       },
     ], {});
   },

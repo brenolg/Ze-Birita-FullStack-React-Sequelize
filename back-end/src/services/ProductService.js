@@ -26,6 +26,7 @@ class UserService extends AbstractService {
     const removed = await this.product.destroy({
       where: { id },
     });
+    
     if (!removed) throw new HttpException(404, 'Not Found');
     return removed;
   }

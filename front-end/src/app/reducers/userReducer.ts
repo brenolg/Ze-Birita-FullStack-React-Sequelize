@@ -1,5 +1,6 @@
-import { createReducer, on } from '@ngrx/store';
-import IState from "../interfaces/IState";
+import { ActionReducer, createReducer, MetaReducer, on } from '@ngrx/store';
+import { localStorageSync } from 'ngrx-store-localstorage';
+import { IState } from "../interfaces/user.interface";
 import { getLoginInfo } from './userActions';
 
 export const initialUserInfo: IState = {
@@ -17,3 +18,9 @@ export const userReducer = createReducer(
     return newState;
   })
 )
+
+export function localStorageSyncReducer(userReducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({keys: ['user']})(userReducer);
+}
+
+export const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];

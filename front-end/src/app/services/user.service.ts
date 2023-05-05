@@ -1,25 +1,25 @@
-import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import IUser from "../interfaces/IUser";
+import { Injectable } from "@angular/core";
 import { take } from "rxjs";
+import { IUser } from "../interfaces/user.interface";
 
 @Injectable()
 export class UserService {
+api = 'http://localhost:3001';
 
   constructor(private http: HttpClient) {
-
   }
 
   login(user: IUser) {
     return this.http.post(
-      'http://localhost:3001/login',
+      `${this.api}/login`,
       user,
-    ).pipe(take(1));
+    );
   }
 
   register(user: IUser) {
     return this.http.post(
-      'http://localhost:3001/register',
+      `${this.api}/register`,
       user,
     ).pipe(take(1));
   }

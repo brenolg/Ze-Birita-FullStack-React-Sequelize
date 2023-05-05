@@ -1,5 +1,5 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
-import IState from '../interfaces/IState';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { IState } from '../interfaces/user.interface';
 
 export const selectUser = createSelector(
   createFeatureSelector('user'),

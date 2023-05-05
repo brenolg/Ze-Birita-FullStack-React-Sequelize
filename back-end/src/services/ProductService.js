@@ -21,6 +21,14 @@ class UserService extends AbstractService {
     const allProducts = await this.product.findAll();
     return allProducts;
   }
+
+  async remove(id) {
+    const removed = await this.product.destroy({
+      where: { id },
+    });
+    if (!removed) throw new HttpException(404, 'Not Found');
+    return removed;
+  }
 }
 
 module.exports = UserService;

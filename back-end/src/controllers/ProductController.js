@@ -23,6 +23,13 @@ class ProductsController extends AbstractController {
     const newObj = await this.productService.getAll();
     return this.res.status(StatusCodes.OK).json(newObj);
   }
+
+  async remove() {
+    const { id } = this.req.params;
+
+    await this.productService.remove(id);
+    return this.res.status(StatusCodes.OK).json();
+  }
 }
 
 module.exports = ProductsController;

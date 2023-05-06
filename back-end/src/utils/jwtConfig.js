@@ -8,6 +8,6 @@ const jwtConfig = {
 const secret = process.env.JWT_SECRET || 'ng_secret';
 
 module.exports = {
-  signToken: (email) => jwt.sign({ data: { email } }, secret, jwtConfig),
+  signToken: (email, role) => jwt.sign({ data: { email, role } }, secret, jwtConfig),
   verifyToken: (token) => jwt.verify(token, secret),
 };

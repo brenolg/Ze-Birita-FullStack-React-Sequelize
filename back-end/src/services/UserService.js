@@ -31,13 +31,16 @@ class UserService extends AbstractService {
     if (md5(password) !== result.password) {
       throw new HttpException(statusCode.UNAUTHORIZED, 'Incorrect password');
     }
-    const token = signToken(email);
+
+    const { role } = result;
+    
+    const token = signToken(email, role);
     delete result.password;
     return { ...result, token };
   }
 
   async register(user) {
-    const { email, password, name } = user;
+    const { email, password, name, role } = user;
 
     const error = schema.validateNewUser(user);
     if (error.type) throw new HttpException(statusCode.BAD_REQUEST, error.message);
@@ -51,6 +54,7 @@ class UserService extends AbstractService {
       email,
       password: md5(password),
       name,
+      role,
     });
     
     return newUser;

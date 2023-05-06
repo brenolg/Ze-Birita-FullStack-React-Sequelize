@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const ProductController = require('../controllers/ProductController');
 const ProductService = require('../services/ProductService');
+const UserHandler = require('../middlewares/UserMiddlewares');
+const role = require('../utils/rolesList');
 
 const router = Router();
 const productService = new ProductService();
@@ -11,7 +13,14 @@ router.get('/', (req, res, next) => new ProductController(productService, req, r
 router.get('/:id', (req, res, next) => new ProductController(productService, req, res, next)
 .getById());
 
-router.delete('/:id', (req, res, next) => new ProductController(productService, req, res, next)
-.remove());
+router.delete(
+'/:id', 
+UserHandler.defaultAccess,
+
+UserHandler.roleAccess(role.SELLER),
+
+(req, res, next) => new ProductController(productService, req, res, next)
+.remove(),
+);
 
 module.exports = router;

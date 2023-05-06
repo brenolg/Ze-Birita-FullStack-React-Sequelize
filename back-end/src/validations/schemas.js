@@ -19,6 +19,7 @@ const newLoginSchema = joi.object().keys({
 
 const newUserSchema = newLoginSchema.keys({
   name: joi.string().min(12).required(),
+  role: joi.string().valid('administrator', 'customer', 'seller'),
 });
 
 module.exports = { newUserSchema, newLoginSchema };

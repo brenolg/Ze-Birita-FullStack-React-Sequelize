@@ -27,7 +27,8 @@ class UserService extends AbstractService {
       where: { id },
     });
     
-    if (!removed) throw new HttpException(404, 'Not Found');
+    if (!removed) throw new HttpException(statusCode.NOT_FOUND, 'Product not found');
+    
     return removed;
   }
 }

@@ -3,7 +3,7 @@ const { verifyToken } = require('../utils/jwtConfig');
 const StatusCodes = require('../utils/statusCode');
 
 class UserHandler {
-  static grantAces(req, _res, next) {
+  static grantAuthorization(req, _res, next) {
     const token = req.header('Authorization');
     
     if (!token) {

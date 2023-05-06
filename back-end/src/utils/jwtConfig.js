@@ -5,7 +5,7 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const secret = 'my-secret-jwt-ng';
+const secret = process.env.JWT_SECRET || 'ng_secret';
 
 module.exports = {
   signToken: (email) => jwt.sign({ data: { email } }, secret, jwtConfig),

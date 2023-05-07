@@ -13,6 +13,9 @@ router.get('/', (req, res, next) => new ProductController(productService, req, r
 router.get('/:id', (req, res, next) => new ProductController(productService, req, res, next)
 .getById());
 
+router.post('/', (req, res, next) => new ProductController(productService, req, res, next)
+.create());
+
 router.delete(
 '/:id', 
 

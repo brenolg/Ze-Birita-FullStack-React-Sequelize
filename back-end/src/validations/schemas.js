@@ -22,4 +22,10 @@ const newUserSchema = newLoginSchema.keys({
   role: joi.string().valid('administrator', 'customer', 'seller'),
 });
 
-module.exports = { newUserSchema, newLoginSchema };
+const newProductSchema = joi.object().keys({
+  name: joi.string().min(5).required(),
+  price: joi.number().min(0.01).positive().required(),
+  urlImage: joi.string().uri().required(),
+});
+
+module.exports = { newUserSchema, newLoginSchema, newProductSchema };

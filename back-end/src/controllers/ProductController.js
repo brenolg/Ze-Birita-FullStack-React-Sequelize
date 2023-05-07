@@ -30,6 +30,12 @@ class ProductsController extends AbstractController {
     await this.productService.remove(id);
     return this.res.status(StatusCodes.OK).json();
   }
+
+  async create() {
+    const newObj = await this.productService.create(this.req.body);
+
+    return this.res.status(StatusCodes.CREATED).json(newObj);
+  }
 }
 
 module.exports = ProductsController;

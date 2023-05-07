@@ -15,9 +15,9 @@ router.get('/:id', (req, res, next) => new ProductController(productService, req
 
 router.delete(
 '/:id', 
-UserHandler.defaultAccess,
 
-UserHandler.roleAccess(role.SELLER),
+UserHandler.defaultAccess,
+UserHandler.roleAccess(role.ADMIN),
 
 (req, res, next) => new ProductController(productService, req, res, next)
 .remove(),

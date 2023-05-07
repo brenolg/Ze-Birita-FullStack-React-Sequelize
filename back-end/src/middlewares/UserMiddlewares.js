@@ -22,12 +22,15 @@ class UserHandler {
   }
 }
 
-static roleAccess(RouteRole) {
+static roleAccess(...RouteRoles) {
   return (req, _res, next) => {
     const { role } = req.body;
+    
     if (!req.body.role) throw new HttpException(StatusCodes.UNAUTHORIZED, 'Invalid Authorization ');
-  
-    const hasAccess = RouteRole === role;
+
+    const rolesList = [...RouteRoles];
+    
+    const hasAccess = rolesList.includes(role);
 
     if (!hasAccess) throw new HttpException(StatusCodes.UNAUTHORIZED, 'Invalid Authorization');
     next();

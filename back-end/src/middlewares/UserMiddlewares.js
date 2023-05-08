@@ -26,13 +26,13 @@ static roleAccess(...RouteRoles) {
   return (req, _res, next) => {
     const { role } = req.body;
     
-    if (!req.body.role) throw new HttpException(StatusCodes.UNAUTHORIZED, 'Invalid Authorization ');
+    if (!req.body.role) throw new HttpException(StatusCodes.FORBIDDEN, 'Invalid Authorization ');
 
     const rolesList = [...RouteRoles];
     
     const hasAccess = rolesList.includes(role);
 
-    if (!hasAccess) throw new HttpException(StatusCodes.UNAUTHORIZED, 'Invalid Authorization');
+    if (!hasAccess) throw new HttpException(StatusCodes.FORBIDDEN, 'Invalid Authorization');
     next();
   };
 }

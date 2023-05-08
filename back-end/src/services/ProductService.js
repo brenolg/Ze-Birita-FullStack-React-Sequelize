@@ -17,18 +17,18 @@ class UserService extends AbstractService {
 
     return product;
   }
-
+  
+  async getByAll() {
+    const allProducts = await this.product.findAll();
+    return allProducts;
+  }
+  
   async getByName(nameSearched) {
     const product = await this.product.findOne({
       where: { name: `${nameSearched}` },
     });
 
     return product;
-  }
-
-  async getByAll() {
-    const allProducts = await this.product.findAll();
-    return allProducts;
   }
 
   async create(product) {
@@ -40,7 +40,7 @@ class UserService extends AbstractService {
     const hasProduct = await this.getByName(name);
     if (hasProduct !== null) { 
       throw new HttpException(statusCode.CONFLICT, 'Product already registered'); 
-}
+    }
 
     const newProduct = await this.product.create({ name, price, urlImage });
   

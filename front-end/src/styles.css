@@ -57,7 +57,9 @@
 
 body {
   font-family: Roboto , sans-serif;
+  height: 100vh;
   margin: auto;
+  width: 100vw;
 }
 
 .button {
@@ -77,6 +79,7 @@ body {
 .button_primary {
   background: var(--color-primary);
   color: var(--color-text-light);
+  margin: 28px 0 16px;
 }
 
 .button_secondary {

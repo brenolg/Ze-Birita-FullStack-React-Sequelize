@@ -10,10 +10,10 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: AccessComponent },
   { path: 'register', component: AccessComponent },
-  { path: ':role/orders', component: OrdersComponent },
-  { path: ':role/orders/:id', component: OrdersComponent },
-  { path: ':role/products', component: ProductsComponent },
-  { path: 'customer/checkout', component: CheckoutComponent },
+  { path: 'orders', component: OrdersComponent },
+  { path: 'orders/:id', component: OrdersComponent },
+  { path: 'products', component: ProductsComponent },
+  { path: 'checkout', component: CheckoutComponent },
 ]
 
 @NgModule({

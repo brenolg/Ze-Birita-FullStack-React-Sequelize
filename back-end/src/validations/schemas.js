@@ -10,7 +10,7 @@ const newLoginSchema = joi.object().keys({
   .min(6)
   .minOfSpecialCharacters(1)
   .minOfLowercase(1)
-  .minOfUppercase(1)
+  // .minOfUppercase(1)
   .minOfNumeric(1)
   .noWhiteSpaces()
   .onlyLatinCharacters()

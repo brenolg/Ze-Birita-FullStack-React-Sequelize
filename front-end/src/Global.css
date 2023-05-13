@@ -28,7 +28,6 @@ a {
 }
 
 button {
-  cursor: pointer;
-  outline: none;
+  all: unset;
 }
 

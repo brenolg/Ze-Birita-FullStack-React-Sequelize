@@ -1,12 +1,11 @@
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import AccessPageForm from './FormComponent';
+import Context from '../../context/Context';
 
-export default function AccessPage({ login }) {
+export default function AccessPage() {
+  const { logIn } = useContext(Context);
+
   return (
-    <AccessPageForm logIn={ login } />
+    <AccessPageForm logIn={ logIn } />
   );
 }
-
-AccessPage.propTypes = ({
-  login: PropTypes.bool.isRequired,
-});

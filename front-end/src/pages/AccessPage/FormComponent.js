@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import accessFetch from '../../utils/APICommunication';
-import AccessForm from '../styles';
+import { accessFetch } from '../../utils/APICommunication';
+import AccessForm from './styles';
 
 export default function AccessPageForm({ logIn }) {
   const history = useHistory();
@@ -21,6 +21,8 @@ export default function AccessPageForm({ logIn }) {
     const accessData = await accessFetch(accessCredentials, logIn);
     // após a requisição, usar o context para salvar as infos do usuário no estado global
     console.log(accessData);
+    // antes de fazer o history.push, verificar se o accessData tem o token
+    history.push('/products');
   };
 
   return (

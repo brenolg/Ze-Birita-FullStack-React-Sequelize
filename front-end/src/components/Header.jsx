@@ -46,13 +46,6 @@ export default function AccessPage() {
     }
   }, [logIn, setLogIn, userData, setUserData]);
 
-  const handleTest = () => {
-    LocalStorage.set('user', userLocal);
-
-    const user = LocalStorage.get('user');
-    setUserData(user);
-  };
-
   const handleAccessBtn = () => {
     if (logIn) {
       LocalStorage.remove('user');

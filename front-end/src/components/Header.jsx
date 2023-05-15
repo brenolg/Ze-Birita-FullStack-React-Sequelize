@@ -1,24 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../context/Context';
 import './Header.css';
 import LocalStorage from '../utils/LocalStorageHandler';
 
 export default function AccessPage() {
   const [roleText, setRoleText] = useState('');
-  const { logIn, userData, setUserData } = useContext(Context);
+  const { logIn, setLogIn, userData, setUserData } = useContext(Context);
   const [userName, setUserName] = useState('');
-  const [userRole, setUserRole] = useState('');
   const [roleTextDetails, setRoleTextDetails] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     if (userData) {
       setUserName(userData.name);
-      setUserRole(userData.role);
     } else {
-      setUserRole(null);
       setUserName(null);
     }
-  }, [logIn, userData]);
+  }, [logIn, setLogIn, setUserData, userData]);
 
   const buildRoleText = (role) => {
     if (role) {
@@ -38,30 +37,31 @@ export default function AccessPage() {
     if (role === 'customer') {
       setRoleTextDetails('Meus Pedidos');
     }
-    return null;
   };
 
   useEffect(() => {
-    if (logIn) {
-      buildRoleText(userRole);
-      buildRoleDetails(userRole);
-    } else {
-      buildRoleText(null);
-      buildRoleDetails(null);
+    if (userData) {
+      buildRoleText(userData.role);
+      buildRoleDetails(userData.role);
     }
-  }, [logIn, userData, userRole]);
+  }, [logIn, setLogIn, userData, setUserData]);
 
-  const userLocal = {
-    name: 'breno',
-    role: 'seller',
-    email: 'adm@deliveryapp.com',
-    token: '123456' };
-
-  const handleLogInBtn = () => {
+  const handleTest = () => {
     LocalStorage.set('user', userLocal);
 
     const user = LocalStorage.get('user');
     setUserData(user);
+  };
+
+  const handleAccessBtn = () => {
+    if (logIn) {
+      LocalStorage.remove('user');
+      setUserData(null);
+      setLogIn(false);
+      history.push('/products');
+    } else {
+      history.push('/login');
+    }
   };
 
   return (
@@ -81,32 +81,30 @@ export default function AccessPage() {
         </div>
       </div>
 
-      <span className="details-info  logInInfo">{`Login: ${logIn}`}</span>
-      <button
-        className="details-info "
-        type="button"
-        onClick={ () => {
-          handleLogInBtn();
-        } }
+      <div
+        className="user-container"
+        style={ logIn
+          ? { justifyContent: 'space-between' }
+          : { justifyContent: 'flex-end' } }
       >
-        Set User
-
-      </button>
-
-      <div className="user-container">
-        <div className="username-info">
-          <span className="user-title">
-            {userName}
-          </span>
-        </div>
+        {logIn && (
+          <div className="username-info">
+            <span className="user-title">
+              {userName}
+            </span>
+          </div>
+        )}
         <nav className="nav-header">
           <button
             type="button"
             className="header-btns"
+            onClick={ () => {
+              handleAccessBtn();
+            } }
 
           >
             <span className="header-btns-content">
-              {logIn ? 'Entrar' : 'Sair'}
+              {logIn ? 'Sair' : 'Log-In'}
             </span>
           </button>
         </nav>

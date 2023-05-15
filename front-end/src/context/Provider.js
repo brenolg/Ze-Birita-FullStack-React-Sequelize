@@ -7,6 +7,7 @@ export default function Provider({ children }) {
   const [logIn, setLogIn] = useState(false);
   const [userData, setUserData] = useState({
     name: '', email: '', role: '', token: '' });
+  const [productList, setProductList] = useState([]);
 
   const userHasLogin = async () => {
     const userLogin = await LocalStorage.get('user');
@@ -27,27 +28,29 @@ export default function Provider({ children }) {
 
   const userDataValue = async () => {
     const userValues = await LocalStorage.get('user');
-    setUserData({
-      name: userValues.name,
-      email: userValues.email,
-      role: userValues.role,
-      token: userValues.token });
+    if (userValues !== null) {
+      setUserData({
+        name: userValues.name,
+        email: userValues.email,
+        role: userValues.role,
+        token: userValues.token });
+    }
   };
 
   useEffect(() => {
-    if (logIn) {
-      userDataValue();
-    }
-  }, [logIn, setLogIn]);
+    userDataValue();
+  }, [logIn, setLogIn, setUserData]);
 
   const value = useMemo(
     () => ({
+      productList,
       logIn,
       setLogIn,
       userData,
       setUserData,
+      setProductList,
     }),
-    [logIn, userData],
+    [logIn, userData, productList],
   );
 
   return <Context.Provider value={ value }>{children}</Context.Provider>;

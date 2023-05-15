@@ -13,6 +13,6 @@ export default function ProductCard({ id, name, price, url }) {
 ProductCard.propTypes = ({
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
 });

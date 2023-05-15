@@ -8,7 +8,7 @@ module.exports = {
         role: 'administrator'
       },
       //Token:
-      //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIn0sImlhdCI6MTY4MzQ3NTY5NCwiZXhwIjoxNjgzNTYyMDk0fQ.w52T0yE325ogRfLlrbX4bk6aPeeeKxikUmx_kNerqro
+      //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIn0sImlhdCI6MTY4NDE3NDU4NCwiZXhwIjoxNjg1NDcwNTg0fQ.RaJ1DsFdI1q5Ek8IToR2tnA6jTTvZht9ky4vmKWDYFY
       {
         id: 2,
         name: 'Fulana Pereira',
@@ -17,7 +17,7 @@ module.exports = {
         role: 'seller'
       },
       //Token:
-      // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiZnVsYW5hQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJzZWxsZXIifSwiaWF0IjoxNjgzNDc1NDc2LCJleHAiOjE2ODM1NjE4NzZ9.Y7zikv8Tg0sUFO0194W81wnAsApsV7VcD-50zPbm3hs
+      // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiZnVsYW5hQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJzZWxsZXIifSwiaWF0IjoxNjg0MTc0NjkwLCJleHAiOjE2ODU0NzA2OTB9.nQPsfRCw9cePYLdVpoxhL_0S-Cu79f3qaMWsREEV_sY
   
       {
         id: 3,
@@ -27,7 +27,7 @@ module.exports = {
         role: 'customer'
       }, 
       // Token:
-      // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiemViaXJpdGFAZW1haWwuY29tIiwicm9sZSI6ImN1c3RvbWVyIn0sImlhdCI6MTY4MzQ3NTU4MiwiZXhwIjoxNjgzNTYxOTgyfQ.IRbKKB7kpCiuMvvPdw4U25-x1yRItNQK73kCCSvVQcI
+      // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiemViaXJpdGFAZW1haWwuY29tIiwicm9sZSI6ImN1c3RvbWVyIn0sImlhdCI6MTY4NDE3NDcyNSwiZXhwIjoxNjg1NDcwNzI1fQ.VE8ilUvAVI3h9XNsQYnL_1d-YfME4A5MTqIcCVhC1jw
     ], {});
 
   },

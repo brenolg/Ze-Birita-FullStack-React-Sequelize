@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import LocalStorage from '../services/LocalStorageHandler';
 import Context from './Context';
-import LocalStorage from '../utils/LocalStorageHandler';
 
 export default function Provider({ children }) {
   const [logIn, setLogIn] = useState(false);

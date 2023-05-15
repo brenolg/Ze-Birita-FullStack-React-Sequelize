@@ -1,16 +1,12 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import AccessPageForm from './FormComponent';
-import Context from '../../context/Context';
+import Header from '../../components/Header';
 
 export default function AccessPage() {
-  const { logIn } = useContext(Context);
-
   return (
-    <AccessPageForm logIn={ logIn } />
+    <>
+      <Header />
+      <AccessPageForm />
+    </>
   );
 }
-
-AccessPageForm.propTypes = ({
-  logIn: PropTypes.bool.isRequired,
-});

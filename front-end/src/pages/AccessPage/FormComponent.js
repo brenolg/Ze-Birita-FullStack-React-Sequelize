@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { accessFetch } from '../../utils/APICommunication';
 import AccessForm from './styles';
+import Context from '../../context/Context';
 
-export default function AccessPageForm({ logIn }) {
+export default function AccessPageForm() {
+  const { logIn } = useContext(Context);
   const history = useHistory();
   const [accessCredentials, setAccessCredentials] = useState({
     name: '',
@@ -65,7 +66,7 @@ export default function AccessPageForm({ logIn }) {
           type="button"
           onClick={ handleAccess }
         >
-          {logIn ? 'LOGIN' : 'CADASTRAR'}
+          {logIn ? 'CADASTRAR' : 'LOGIN' }
         </button>
         {logIn && (
           <button type="button" onClick={ () => history.push('/register') }>
@@ -75,7 +76,3 @@ export default function AccessPageForm({ logIn }) {
     </AccessForm>
   );
 }
-
-AccessPageForm.propTypes = ({
-  logIn: PropTypes.bool.isRequired,
-});

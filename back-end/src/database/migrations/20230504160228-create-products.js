@@ -15,7 +15,7 @@ module.exports = {
 
       price: {
         allowNull: true,
-        type: Sequelize.DECIMAL
+        type: Sequelize.DOUBLE(4, 2),
       },
       
       urlImage: {

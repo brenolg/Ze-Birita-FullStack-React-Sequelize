@@ -86,3 +86,5 @@ module.exports = {
     await queryInterface.bulkDelete('products', null, {});
   }
 };
+
+// solução para DECIMAL retorna number ao invés de string retirada de: https://stackoverflow.com/questions/51165069/why-is-my-sequelize-query-that-sums-a-decimal-column-returning-as-a-string

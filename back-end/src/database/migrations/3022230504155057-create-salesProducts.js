@@ -1,7 +1,6 @@
 
   module.exports = {
     up: (queryInterface, Sequelize) => queryInterface.createTable('sales_products', {
-
       saleId: {
         type: Sequelize.INTEGER,
         field: 'sale_id',

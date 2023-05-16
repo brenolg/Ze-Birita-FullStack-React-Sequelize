@@ -1,6 +1,7 @@
 const express = require('express');
 require('express-async-errors');
 const cors = require('cors');
+const path = require('path');
 const ErrorHandler = require('../middlewares/ErrorMiddleware');
 const { loginRouter, registerRouter, productRouter } = require('../routers/index');
 
@@ -26,9 +27,14 @@ class App {
   }
 
   routes() {
+    this.app.use(
+      '/products/register', 
+      express.static(path.resolve(__dirname, '..', '..', 'public', 'images')),
+      );
     this.app.use('/login', loginRouter);
     this.app.use('/register', registerRouter);   
-    this.app.use('/products', productRouter);     
+    this.app.use('/products', productRouter); 
+    this.app.use(express.static('public'));    
     
     this.app.use(ErrorHandler.handle);
   }

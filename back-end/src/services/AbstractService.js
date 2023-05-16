@@ -1,8 +1,9 @@
 const HttpException = require('../utils/HttpException');
 
 class AbstractService {
-  constructor(model) {
+  constructor(model, element) {
     this.model = model;
+    this.element = element;
   }
 
   async getAll() {
@@ -12,7 +13,7 @@ class AbstractService {
 
   async getById(id) {
     const item = await this.model.findByPk(id);
-    if (!item) throw new HttpException(404, 'Not Found');
+    if (!item) throw new HttpException(404, `${this.element} Not Found`);
     return item;
   }
 
@@ -31,7 +32,7 @@ class AbstractService {
 
   async remove(id) {
     const removed = await this.model.destroy({ where: { id } });
-    if (!removed) throw new HttpException(404, 'Not Found');
+    if (!removed) throw new HttpException(404, `${this.element} Not Found`);
     return removed;
   }
 }

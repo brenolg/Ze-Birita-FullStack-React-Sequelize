@@ -12,27 +12,10 @@ class ProductsController extends AbstractController {
     this.productService = productService;
   }
 
-  async getById() {
-    const { id } = this.req.params;
-    
-    const newObj = await this.productService.getById(id);
-    return this.res.status(StatusCodes.OK).json(newObj);
-  }
-
-  async getAll() {
-    const newObj = await this.productService.getAll();
-    return this.res.status(StatusCodes.OK).json(newObj);
-  }
-
-  async remove() {
-    const { id } = this.req.params;
-
-    await this.productService.remove(id);
-    return this.res.status(StatusCodes.OK).json();
-  }
-
   async create() {
-    const newObj = await this.productService.create(this.req.body);
+    const urlImage = `http://localhost:3001/images/${this.req.file.filename}`;
+    const { name, price } = this.req.body;
+    const newObj = await this.productService.create({ name, price, urlImage });
 
     return this.res.status(StatusCodes.CREATED).json(newObj);
   }

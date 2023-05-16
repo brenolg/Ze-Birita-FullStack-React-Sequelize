@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
 
     name: { type: DataTypes.STRING(100), allowNull: false },
 
-    price: { type: DataTypes.DOUBLE(4, 2), allowNull: false },
+    price: { type: DataTypes.DECIMAL(4, 2), allowNull: false, defaultValue: 0.00,
+      get() {
+        return parseFloat(this.getDataValue('price')) || null;
+      } },
 
     urlImage: { type: DataTypes.STRING, allowNull: false },
 

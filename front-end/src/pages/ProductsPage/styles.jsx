@@ -7,12 +7,20 @@ const ProductsStyle = styled.div`
   gap: 8px;
   justify-content: space-between;
   margin: 32px;
+  position: relative;
+  }
+
+  .cart-value-container {
+    position: absolute;
+    bottom: 10vh;
+    right: 10vw;
+    z-index: 99;
   }
 `;
 
 export const ProductCardStyle = styled.div`
     .card_content {
-    align-content: space-betweet;
+    align-content: space-between;
     display: flex;
     height: 200px;
     margin: 12px;

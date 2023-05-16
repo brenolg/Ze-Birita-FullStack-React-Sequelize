@@ -6,7 +6,7 @@ import ProductCard from './ProductCard';
 import ProductsStyle from './styles';
 
 export default function ProductsPage() {
-  const { setProductList, productList } = useContext(Context);
+  const { setProductList, productList, cartValue } = useContext(Context);
 
   useEffect(() => {
     getProducts().then((response) => {
@@ -17,8 +17,14 @@ export default function ProductsPage() {
   return (
     <>
       <Header />
+
       <ProductsStyle>
         <main className="container_products">
+
+          <div className="cart-value-container">
+            <button type="button">{`Ver Carrinho: R$ ${cartValue}`}</button>
+          </div>
+
           {productList.length && productList.map((product) => (
             <ProductCard
               key={ product.id }

@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { ProductCardStyle } from './styles';
 import LocalStorage from '../../services/LocalStorageHandler';
+import Context from '../../context/Context';
 
 export default function ProductCard({ id, name, price, url, quantity }) {
+  const { cartValue, setCartValue } = useContext(Context);
   const [cardQuantity, setCardQuantity] = useState(quantity);
 
   const writeNewQuantity = (oldCart, newQuantity) => {
@@ -20,6 +22,9 @@ export default function ProductCard({ id, name, price, url, quantity }) {
   const addQuantity = () => {
     const newQuantity = cardQuantity + 1;
     setCardQuantity(newQuantity);
+
+    const newCartValue = Number(cartValue) + Number(price);
+    setCartValue(newCartValue);
 
     const oldCart = LocalStorage.get('shopping_cart') || [];
 
@@ -43,6 +48,9 @@ export default function ProductCard({ id, name, price, url, quantity }) {
     const newQuantity = cardQuantity - 1;
     setCardQuantity(newQuantity);
 
+    const newCartValue = Number(cartValue) - Number(price);
+    setCartValue(newCartValue);
+
     const oldCart = LocalStorage.get('shopping_cart') || [];
 
     const findProduct = oldCart.find(
@@ -62,6 +70,7 @@ export default function ProductCard({ id, name, price, url, quantity }) {
 
   return (
     <ProductCardStyle>
+
       <div key={ id } className="content card_content">
         <figure>
           <figcaption className="product_detail">

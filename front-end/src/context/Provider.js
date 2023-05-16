@@ -8,6 +8,7 @@ export default function Provider({ children }) {
   const [userData, setUserData] = useState({
     name: '', email: '', role: '', token: '' });
   const [productList, setProductList] = useState([]);
+  const [shoppingCart, setshoppingCart] = useState([]);
 
   const userHasLogin = async () => {
     const userLogin = await LocalStorage.get('user');
@@ -49,8 +50,10 @@ export default function Provider({ children }) {
       userData,
       setUserData,
       setProductList,
+      shoppingCart,
+      setshoppingCart,
     }),
-    [logIn, userData, productList],
+    [logIn, userData, productList, shoppingCart],
   );
 
   return <Context.Provider value={ value }>{children}</Context.Provider>;

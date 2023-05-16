@@ -30,6 +30,7 @@ export async function getProducts() {
   const response = await fetch(`${url}/products`, {
     method: 'GET',
   });
-  const ProductsData = await response.json();
-  return ProductsData;
+  const productsData = await response.json();
+  console.log(productsData);
+  return productsData;
 }

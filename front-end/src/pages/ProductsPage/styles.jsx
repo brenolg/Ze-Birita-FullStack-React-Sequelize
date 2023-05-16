@@ -1,98 +1,81 @@
 import styled from 'styled-components';
 
 const ProductsStyle = styled.div`
+
   .container_products {
-  display: inline-flex;
-  flex-flow: wrap;
-  gap: 8px;
-  justify-content: space-between;
-  margin: 32px;
-  position: relative;
+    display: flex;
+    flex-flow: wrap;
+    gap: 5rem;
+    justify-content: space-between;
+    padding: 0rem 10rem 10rem;
+    position: relative;
   }
 
-  .cart-value-container {
+  .cart-value-container{
     position: absolute;
     bottom: 10vh;
     right: 10vw;
-    z-index: 99;
+    font-size: 3rem;
+    background-color: #0011ff;
   }
-`;
 
-export const ProductCardStyle = styled.div`
-    .card_content {
-    align-content: space-between;
+  .card_content{
+    width:20%;
     display: flex;
-    height: 200px;
-    margin: 12px;
-    position: relative;
-    width: 135px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid black;
+    border-radius: 2rem;
+  }
+
+  .product_img{
+    width: 150px;
+    height: 150px;
+  }
+
+  .counter_container{
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    background-color: #1a8d85;
+    width: 100%;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
   }
 
   .product_name {
-    font: var(--font-product-name);
-    position: absolute;
+    text-align: center;
   }
 
-  .counter_container {
-    align-items: flex-end;
-    display: inline-flex;
-    height: 50px;
-    justify-content: center;
-    margin: auto;
-    width: 100%;
-  }
-
-  .counter {
-    bottom: 0;
-    display: inline-flex;
-    height: 30px;
-    justify-content: center;
-    margin: 8px;
-    position: absolute;
-    width: 120px;
-  }
-
-  .button_counter {
+  .counter{
+    display: flex;
     align-items: center;
-    background: #036b52;
-    border: var(--border-button);
-    border-radius: 8px;
-    color: var(--color-bg-light);
-    cursor: pointer;
-    font: var(--font-details);
-    height: 30px;
-    position: absolute;
-    width: 35px;
+    justify-content: center;
+    margin: 0.5rem;
+  }
+
+  .button_counter{
+    padding: 0.8rem;
+    font-size: 1.5rem;
   }
 
   .decrease {
-    display: flex;
-    justify-content: flex-start;
-    left: 15%;
-    padding-left: 10px;
-    z-index: 0;
-  }
-
-  .quantity {
-    align-items: center;
-    background-color: var(--color-white);
-
-    /* border: var(--border-input); */
-    display: flex;
-    height: 30px;
-    justify-content: center;
-    position: absolute;
-    width: 32px;
-    z-index: 1;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
   }
 
   .increase {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 8px;
-    right: 15%;
-    z-index: 0;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
   }
+  
+  .quantity {
+    background-color: white;
+    padding: 0.8rem;
+  }
+
+
 `;
 
 export default ProductsStyle;

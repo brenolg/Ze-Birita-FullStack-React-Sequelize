@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useContext } from 'react';
-import { ProductCardStyle } from './styles';
+import { useState, useContext, useEffect } from 'react';
 import LocalStorage from '../../services/LocalStorageHandler';
 import Context from '../../context/Context';
 
@@ -18,6 +17,18 @@ export default function ProductCard({ id, name, price, url, quantity }) {
 
     return values;
   };
+
+  useEffect(() => {
+    const oldCart = LocalStorage.get('shopping_cart') || [];
+
+    const findProduct = oldCart.find(
+      (cartProduct) => cartProduct.id === id,
+    );
+
+    if (findProduct) {
+      setCardQuantity(findProduct.quantity);
+    }
+  }, [setCardQuantity, id]);
 
   const addQuantity = () => {
     const newQuantity = cardQuantity + 1;
@@ -69,40 +80,42 @@ export default function ProductCard({ id, name, price, url, quantity }) {
   };
 
   return (
-    <ProductCardStyle>
 
-      <div key={ id } className="content card_content">
-        <figure>
-          <figcaption className="product_detail">
-            R$
-            { Number(price).toFixed(1)}
-          </figcaption>
-          <img src={ url } alt={ name } />
-        </figure>
-        <div className="counter_container">
-          <p className="product_name">{ name }</p>
-          <div className="counter">
-            <button
-              className="button_counter decrease"
-              type="button"
-              name="decrease"
-              onClick={ removeQuantity }
-            >
-              -
-            </button>
-            <span className="quantity">{cardQuantity}</span>
-            <button
-              className="button_counter increase"
-              type="button"
-              name="increase"
-              onClick={ addQuantity }
-            >
-              +
-            </button>
-          </div>
+    <div key={ id } className="card_content">
+      <figure>
+        <figcaption className="product_detail">
+          R$
+          { Number(price.toFixed(2))}
+        </figcaption>
+
+        <img className="product_img" src={ url } alt={ name } />
+      </figure>
+
+      <div className="counter_container">
+        <p className="product_name">{ name }</p>
+
+        <div className="counter">
+          <button
+            className="button_counter decrease"
+            type="button"
+            name="decrease"
+            onClick={ removeQuantity }
+          >
+            -
+          </button>
+          <span className="quantity">{cardQuantity}</span>
+          <button
+            className="button_counter increase"
+            type="button"
+            name="increase"
+            onClick={ addQuantity }
+          >
+            +
+          </button>
         </div>
       </div>
-    </ProductCardStyle>
+    </div>
+
   );
 }
 

@@ -19,23 +19,25 @@ export default function ProductsPage() {
       <Header />
 
       <ProductsStyle>
-        <main className="container_products">
+        <div>
+          <main className="container_products">
 
-          <div className="cart-value-container">
-            <button type="button">{`Ver Carrinho: R$ ${cartValue}`}</button>
-          </div>
+            <div className="cart-value-container">
+              {`Ver Carrinho: R$ ${cartValue.toFixed(2)}`}
+            </div>
 
-          {productList.length && productList.map((product) => (
-            <ProductCard
-              key={ product.id }
-              id={ product.id }
-              name={ product.name }
-              url={ product.urlImage }
-              price={ product.price }
-              quantity={ product.quantity || 0 }
-            />
-          ))}
-        </main>
+            {productList.length && productList.map((product) => (
+              <ProductCard
+                key={ product.id }
+                id={ product.id }
+                name={ product.name }
+                url={ product.urlImage }
+                price={ product.price }
+                quantity={ product.quantity || 0 }
+              />
+            ))}
+          </main>
+        </div>
       </ProductsStyle>
     </>
   );

@@ -13,7 +13,9 @@ class ProductsController extends AbstractController {
   }
 
   async create() {
-    const newObj = await this.productService.create(this.req.body);
+    const urlImage = `http://localhost:3001/images/${this.req.file.filename}`;
+    const { name, price } = this.req.body;
+    const newObj = await this.productService.create({ name, price, urlImage });
 
     return this.res.status(StatusCodes.CREATED).json(newObj);
   }

@@ -14,11 +14,8 @@ module.exports = (sequelize, DataTypes) => {
 
     price: { 
       type: DataTypes.DECIMAL(4, 2), 
-      allowNull: false, 
-      defaultValue: 0.00,
-      get() {
-        return parseFloat(this.getDataValue('price')) || null;
-      } },
+      allowNull: false,
+    },
 
     urlImage: { 
       type: DataTypes.STRING, 

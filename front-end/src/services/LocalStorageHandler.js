@@ -1,10 +1,36 @@
-const remove = async (key) => JSON.parse(localStorage.removeItem(key));
+if (!localStorage.getItem('shopping_cart')) {
+  localStorage.setItem('shopping_cart', JSON.stringify([]));
+}
+const readShoppingCart = () => {
+  const shoppingCart = localStorage.getItem('shopping_cart');
+  return JSON.parse(shoppingCart);
+};
 
-const set = async (key, value) => localStorage.setItem(key, JSON.stringify(value));
+export const saveShoppingCart = (shoppingCart) => localStorage
+  .setItem('shopping_cart', JSON.stringify(shoppingCart));
 
-const get = async (key) => JSON.parse(localStorage.getItem(key));
+export const getShoppingCart = () => {
+  const shoppingCart = readShoppingCart();
+  return shoppingCart;
+};
 
-const clear = async () => localStorage.clear();
+export const addProduct = (product) => {
+  const shoppingCart = readShoppingCart();
+  saveShoppingCart([...shoppingCart, product]);
+};
+
+export const removeProduct = (product) => {
+  const shoppingCart = readShoppingCart();
+  saveShoppingCart(shoppingCart.filter((p) => p.id !== product.id));
+};
+
+const remove = (key) => JSON.parse(localStorage.removeItem(key));
+
+const set = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+
+const get = (key) => JSON.parse(localStorage.getItem(key));
+
+const clear = () => localStorage.clear();
 
 const LocalStorage = { clear, get, remove, set };
 

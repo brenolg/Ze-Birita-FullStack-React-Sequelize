@@ -1,33 +1,42 @@
-// import PropTypes from 'prop-types';
-
-import { useEffect, useContext } from 'react';
-import Context from '../../context/Context';
-import ProductCard from './ProductCard';
-import ProductsDiv from './styles';
+import { useContext, useEffect } from 'react';
 import Header from '../../components/Header';
-import { getProducts } from '../../utils/APICommunication';
+import Context from '../../context/Context';
+import { getProducts } from '../../services/APICommunication';
+import ProductCard from './ProductCard';
+import ProductsStyle from './styles';
 
 export default function ProductsPage() {
-  const { setProductList, productList } = useContext(Context);
+  const { setProductList, productList, cartValue } = useContext(Context);
 
   useEffect(() => {
-    getProducts().then((response) => setProductList(response));
+    getProducts().then((response) => {
+      setProductList(response);
+    });
   }, [setProductList]);
 
   return (
     <>
       <Header />
-      <ProductsDiv>
-        {productList.length && productList.map((product) => (
-          <ProductCard
-            key={ product.id }
-            id={ product.id }
-            name={ product.name }
-            url={ product.urlImage }
-            price={ product.price }
-          />
-        ))}
-      </ProductsDiv>
+
+      <ProductsStyle>
+        <main className="container_products">
+
+          <div className="cart-value-container">
+            <button type="button">{`Ver Carrinho: R$ ${cartValue}`}</button>
+          </div>
+
+          {productList.length && productList.map((product) => (
+            <ProductCard
+              key={ product.id }
+              id={ product.id }
+              name={ product.name }
+              url={ product.urlImage }
+              price={ product.price }
+              quantity={ product.quantity || 0 }
+            />
+          ))}
+        </main>
+      </ProductsStyle>
     </>
   );
 }

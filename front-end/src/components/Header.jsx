@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../context/Context';
+import LocalStorage from '../services/LocalStorageHandler';
 import './Header.css';
-import LocalStorage from '../utils/LocalStorageHandler';
 
 export default function AccessPage() {
   const [roleText, setRoleText] = useState('');
@@ -32,6 +32,14 @@ export default function AccessPage() {
       }
     }
   };
+  /* const buildRoleText = (role) => {
+      const setRole = {
+      administrator: setRoleText('Gerenciar Usuários'),
+      customer: setRoleText('Produtos'),
+      seller: setRoleText('Pedidos'),
+      }
+      setRole[role];
+  */
 
   const buildRoleDetails = (role) => {
     if (role === 'customer') {

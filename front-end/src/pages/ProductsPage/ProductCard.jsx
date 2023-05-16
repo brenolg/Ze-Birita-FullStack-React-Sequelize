@@ -1,14 +1,72 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { ProductCardStyle } from './styles';
+import LocalStorage from '../../services/LocalStorageHandler';
 
-export default function ProductCard({ id, name, price, url, onAdd, onRemove, quantity }) {
+export default function ProductCard({ id, name, price, url, quantity }) {
+  const [cardQuantity, setCardQuantity] = useState(quantity);
+
+  const writeNewQuantity = (oldCart, newQuantity) => {
+    const values = oldCart.map((cartProduct) => {
+      if (cartProduct.id === id) {
+        return { ...cartProduct, quantity: newQuantity };
+      }
+      return cartProduct;
+    });
+
+    return values;
+  };
+
+  const addQuantity = () => {
+    const newQuantity = cardQuantity + 1;
+    setCardQuantity(newQuantity);
+
+    const oldCart = LocalStorage.get('shopping_cart') || [];
+
+    const findProduct = oldCart.find(
+      (cartProduct) => cartProduct.id === id,
+    );
+
+    if (findProduct) {
+      const values = writeNewQuantity(oldCart, newQuantity);
+      LocalStorage.set('shopping_cart', values);
+    }
+
+    if (!findProduct) {
+      const values = [...oldCart, { id, name, price, quantity: newQuantity }];
+      LocalStorage.set('shopping_cart', values);
+    }
+  };
+
+  const removeQuantity = () => {
+    if (cardQuantity === 0) return 0;
+    const newQuantity = cardQuantity - 1;
+    setCardQuantity(newQuantity);
+
+    const oldCart = LocalStorage.get('shopping_cart') || [];
+
+    const findProduct = oldCart.find(
+      (cartProduct) => cartProduct.id === id,
+    );
+
+    if (findProduct) {
+      const values = writeNewQuantity(oldCart, newQuantity);
+      LocalStorage.set('shopping_cart', values);
+    }
+
+    if (!findProduct) {
+      const values = [...oldCart, { id, name, price, quantity: newQuantity }];
+      LocalStorage.set('shopping_cart', values);
+    }
+  };
+
   return (
     <ProductCardStyle>
       <div key={ id } className="content card_content">
         <figure>
           <figcaption className="product_detail">
             R$
-            { price }
+            { Number(price).toFixed(1)}
           </figcaption>
           <img src={ url } alt={ name } />
         </figure>
@@ -19,16 +77,16 @@ export default function ProductCard({ id, name, price, url, onAdd, onRemove, qua
               className="button_counter decrease"
               type="button"
               name="decrease"
-              onClick={ onRemove }
+              onClick={ removeQuantity }
             >
               -
             </button>
-            <span className="quantity">{ quantity }</span>
+            <span className="quantity">{cardQuantity}</span>
             <button
               className="button_counter increase"
               type="button"
               name="increase"
-              onClick={ onAdd }
+              onClick={ addQuantity }
             >
               +
             </button>
@@ -45,6 +103,5 @@ ProductCard.propTypes = ({
   price: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
-  onRemove: PropTypes.func.isRequired,
-  onAdd: PropTypes.func.isRequired,
+
 });

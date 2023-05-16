@@ -8,7 +8,7 @@ export default function Provider({ children }) {
   const [userData, setUserData] = useState({
     name: '', email: '', role: '', token: '' });
   const [productList, setProductList] = useState([]);
-  const [shoppingCart, setshoppingCart] = useState([]);
+  const [shoppingCart, setShoppingCart] = useState([]);
 
   const userHasLogin = async () => {
     const userLogin = await LocalStorage.get('user');
@@ -51,7 +51,7 @@ export default function Provider({ children }) {
       setUserData,
       setProductList,
       shoppingCart,
-      setshoppingCart,
+      setShoppingCart,
     }),
     [logIn, userData, productList, shoppingCart],
   );

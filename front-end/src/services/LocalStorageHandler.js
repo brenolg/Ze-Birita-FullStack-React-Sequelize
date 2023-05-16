@@ -24,13 +24,13 @@ export const removeProduct = (product) => {
   saveShoppingCart(shoppingCart.filter((p) => p.id !== product.id));
 };
 
-const remove = async (key) => JSON.parse(localStorage.removeItem(key));
+const remove = (key) => JSON.parse(localStorage.removeItem(key));
 
-const set = async (key, value) => localStorage.setItem(key, JSON.stringify(value));
+const set = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
-const get = async (key) => JSON.parse(localStorage.getItem(key));
+const get = (key) => JSON.parse(localStorage.getItem(key));
 
-const clear = async () => localStorage.clear();
+const clear = () => localStorage.clear();
 
 const LocalStorage = { clear, get, remove, set };
 

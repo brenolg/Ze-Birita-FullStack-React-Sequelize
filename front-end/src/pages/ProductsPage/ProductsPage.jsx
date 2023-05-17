@@ -22,9 +22,9 @@ export default function ProductsPage() {
         <div>
           <main className="container_products">
 
-            <div className="cart-value-container">
+            <button type="button" className="cart-value-container">
               {`Ver Carrinho: R$ ${cartValue.toFixed(2)}`}
-            </div>
+            </button>
 
             {productList.length && productList.map((product) => (
               <ProductCard

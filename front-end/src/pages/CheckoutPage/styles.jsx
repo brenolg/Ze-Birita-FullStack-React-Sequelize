@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ProductsStyle = styled.div`
+export const ProductsStyle = styled.div`
 
   .container_products {
     display: flex;
@@ -80,4 +80,4 @@ const ProductsStyle = styled.div`
 
 `;
 
-export default ProductsStyle;
+export default CheckoutStyle;

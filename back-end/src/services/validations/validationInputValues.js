@@ -1,4 +1,4 @@
-const { newUserSchema, newLoginSchema, newProductSchema } = require('./schemas');
+const { newUserSchema, newLoginSchema, newProductSchema, newSaleSchema } = require('./schemas');
 
 const validateNewUser = (user) => {
   const { error } = newUserSchema.validate(user);
@@ -30,8 +30,19 @@ const validateNewProduct = (product) => {
   return { type: 'INVALID_VALUES', message: error.message };
 };
 
+const validateNewSale = (sale) => {
+  const { error } = newSaleSchema.validate(sale);
+  if (!error) {
+    return { type: null, message: null, 
+  }; 
+}
+
+  return { type: 'INVALID_VALUES', message: error.message };
+};
+
 module.exports = {
   validateNewUser,
   validateLogin,
   validateNewProduct,
+  validateNewSale,
 };

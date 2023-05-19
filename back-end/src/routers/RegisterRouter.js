@@ -1,11 +1,10 @@
 const { Router } = require('express');
-const RegisterController = require('../controllers/UserController');
-const RegisterService = require('../services/UserService');
+const UserController = require('../controllers/UserController');
+const UserService = require('../services/UserService');
 
 const router = Router();
-const registerService = new RegisterService();
+const userService = new UserService();
 
-router.post('/', (req, res, next) => new RegisterController(registerService, req, res, next)
-.register());
+router.post('/', (req, res, next) => new UserController(userService, req, res, next).register());
 
 module.exports = router;

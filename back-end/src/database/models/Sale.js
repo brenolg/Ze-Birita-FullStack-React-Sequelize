@@ -56,13 +56,14 @@ module.exports = (sequelize, DataTypes) => {
 
     status: { 
       type: DataTypes.STRING(50), 
-      allowNull: false 
+      allowNull: false,
+      defaultValue: 'Pendente',
     },
     
   }, {
   
     updatedAt: false,
-    createdAt: 'sale_date',
+    createdAt: 'saleDate',
     tableName: 'sales',
     underscored: true,
   });

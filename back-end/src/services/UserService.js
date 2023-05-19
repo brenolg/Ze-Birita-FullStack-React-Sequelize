@@ -4,7 +4,7 @@ const { User } = require('../database/models');
 const HttpException = require('../utils/HttpException');
 const statusCode = require('../utils/statusCode');
 const { signToken } = require('../utils/jwtConfig');
-const schema = require('../validations/validationInputValues');
+const schema = require('./validations/validationInputValues');
 
 class UserService extends AbstractService {
   constructor() {
@@ -49,15 +49,15 @@ class UserService extends AbstractService {
     if (validateUser) {
       throw new HttpException(statusCode.CONFLICT, 'User already registered');
     }
-
     const newUser = await this.create({
       email,
       password: md5(password),
       name,
       role,
     });
+    const token = signToken(email, role);
     
-    return newUser;
+    return { ...newUser, token };
   }
 }
 

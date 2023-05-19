@@ -56,6 +56,7 @@ module.exports = {
       status: {
         type: Sequelize.STRING,
         field: 'status',
+        defaultValue: 'Pendente',
       },
     });
   },

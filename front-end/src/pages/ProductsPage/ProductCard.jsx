@@ -92,6 +92,13 @@ export default function ProductCard({ id, name, price, url }) {
     }
   };
 
+  useEffect(() => {
+    const oldCart = LocalStorage.get('shopping_cart') || [];
+    const updatedValues = oldCart.filter((cartProduct) => cartProduct.quantity !== 0);
+    LocalStorage.set('shopping_cart', updatedValues);
+  }, [cardQuantity, id]);
+  // Retorna localstorage sem quantity 0
+
   return (
 
     <div key={ id } className="card_content">

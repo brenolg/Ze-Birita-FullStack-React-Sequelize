@@ -28,7 +28,7 @@ export default function CartItem({ id, name, price, quantity, index }) {
     if (findProduct) {
       setCardQuantity(findProduct.quantity);
     }
-  }, []);
+  }, [id]);
   // Retorna os valores do localStorage e seta o valor do cartValue e cardQuantity
 
   const addQuantity = () => {

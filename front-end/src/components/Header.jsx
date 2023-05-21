@@ -39,7 +39,7 @@ export default function AccessPage() {
       seller: setRoleText('Pedidos'),
       }
       setRole[role];
-  */
+  */ // Review Ligia / Tentar aplicar quando revisitar codigo
 
   const buildRoleDetails = (role) => {
     if (role === 'customer') {

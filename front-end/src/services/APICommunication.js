@@ -31,6 +31,6 @@ export async function getProducts() {
     method: 'GET',
   });
   const productsData = await response.json();
-  console.log(productsData);
+  // console.log(productsData);
   return productsData;
 }

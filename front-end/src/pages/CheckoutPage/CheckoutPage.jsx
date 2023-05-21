@@ -1,18 +1,38 @@
-import React from 'react';
-
-import CheckoutStyle from './styles';
+import React, { useEffect, useContext, useState } from 'react';
+import { CheckoutStyle } from './styles';
+import Context from '../../context/Context';
+import LocalStorage from '../../services/LocalStorageHandler';
+import CartItem from './CartItem';
 
 export default function CheckoutPage() {
+  const { cartValue } = useContext(Context);
+  const [productList, setProductList] = useState([]);
+
+  useEffect(() => {
+    const cartList = LocalStorage.get('shopping_cart') || [];
+    setProductList(cartList);
+  }, []);
+
   return (
     <CheckoutStyle>
-      <div className="conteiner access__conteiner">
-        <div className="content access__content">
-          <hgroup className="access__title">
-            <h1>App Delivery</h1>
-            <h2>{ loginRoute ? 'Login' : 'Cadastro' }</h2>
-          </hgroup>
-        </div>
-      </div>
+      <main className="checkout-main">
+        <span>
+          Total: R$
+          {cartValue.toFixed(2) }
+        </span>
+        <div className="description">Description</div>
+
+        {productList.length && productList.map((product, index) => (
+          <CartItem
+            index={ index }
+            key={ product.id }
+            id={ product.id }
+            name={ product.name }
+            price={ product.price }
+            quantity={ product.quantity || 0 }
+          />
+        ))}
+      </main>
     </CheckoutStyle>
   );
 }

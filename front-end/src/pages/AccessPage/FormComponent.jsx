@@ -27,7 +27,7 @@ export default function AccessPageForm() {
     } else {
       accessData = await fetchRegister(accessCredentials);
     }
-    console.log('handleAccess', accessData);
+    // console.log('handleAccess', accessData);
     // antes de fazer o history.push, verificar se o accessData tem o token
     LocalStorage.set('user', accessData);
     setLogIn(true);

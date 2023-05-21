@@ -3,14 +3,9 @@ import { useState, useContext, useEffect } from 'react';
 import LocalStorage from '../../services/LocalStorageHandler';
 import Context from '../../context/Context';
 
-export default function ProductCard({ id, name, price, url }) {
-  const {
-    cartValue,
-    setCartValue,
-    totalPriceArray,
-  } = useContext(Context);
-
-  const [cardQuantity, setCardQuantity] = useState(0);
+export default function SaleItem({ id, name, price, quantity, index }) {
+  const { cartValue, setCartValue } = useContext(Context);
+  const [cardQuantity, setCardQuantity] = useState(quantity);
 
   const writeNewQuantity = (oldCart, newQuantity) => {
     const values = oldCart.map((cartProduct) => {
@@ -25,21 +20,15 @@ export default function ProductCard({ id, name, price, url }) {
 
   useEffect(() => {
     const oldCart = LocalStorage.get('shopping_cart') || [];
-    // retorna muitos objetos ??? discutir com ligia
+
     const findProduct = oldCart.find(
       (cartProduct) => cartProduct.id === id,
     );
 
     if (findProduct) {
       setCardQuantity(findProduct.quantity);
-      const itemTotal = findProduct.price * findProduct.quantity;
-      totalPriceArray.push(itemTotal);
-
-      const totalValue = totalPriceArray.reduce((acc, curr) => acc + curr, 0);
-
-      setCartValue(totalValue);
     }
-  }, [id, totalPriceArray, setCartValue]);
+  }, [id]);
   // Retorna os valores do localStorage e seta o valor do cartValue e cardQuantity
 
   const addQuantity = () => {
@@ -92,27 +81,29 @@ export default function ProductCard({ id, name, price, url }) {
     }
   };
 
-  useEffect(() => {
-    const oldCart = LocalStorage.get('shopping_cart') || [];
-    const updatedValues = oldCart.filter((cartProduct) => cartProduct.quantity !== 0);
-    LocalStorage.set('shopping_cart', updatedValues);
-  }, [cardQuantity, id]);
-  // Retorna localstorage sem quantity 0
+  const totalByItem = () => {
+    const total = price * cardQuantity;
+    return total.toFixed(2);
+  };
 
   return (
 
-    <div key={ id } className="card_content">
-      <figure>
-        <figcaption className="product_detail">
-          R$
-          { price.toFixed(2)}
-        </figcaption>
+    <div key={ id } className="cart_content">
+      <span>{index + 1}</span>
 
-        <img className="product_img" src={ url } alt={ name } />
-      </figure>
+      <span className="product_name">{ name }</span>
+
+      <span className="product_price">
+        R$
+        { price}
+      </span>
+
+      <span className="product_total_price">
+        R$
+        {totalByItem()}
+      </span>
 
       <div className="counter_container">
-        <p className="product_name">{ name }</p>
 
         <div className="counter">
           <button
@@ -132,6 +123,8 @@ export default function ProductCard({ id, name, price, url }) {
           >
             +
           </button>
+
+          <button className="rmv_button" type="button">Remover</button>
         </div>
       </div>
     </div>
@@ -139,9 +132,10 @@ export default function ProductCard({ id, name, price, url }) {
   );
 }
 
-ProductCard.propTypes = ({
+SaleItem.propTypes = ({
   id: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  url: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
 });

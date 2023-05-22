@@ -12,6 +12,7 @@ export default function CheckoutPage() {
     address: '',
     number: '',
   });
+  const [error, setError] = useState(null);
 
   const handleAddressChange = ({ target: { name, value } }) => {
     const newState = { ...userAddress, [name]: value };
@@ -39,12 +40,17 @@ export default function CheckoutPage() {
         shoppingCart: [...shoppingCartValues],
 
       };
-      await postSale(body);
+      try {
+        await postSale(body);
+      } catch (err) {
+        setError(err.message);
+        console.log('erro', error);
+      }
     }
-    return alert('Faça login para finalizar a compra');
   };
 
   return (
+
     <CheckoutStyle>
       <main className="checkout-main">
 
@@ -95,6 +101,7 @@ export default function CheckoutPage() {
           </label>
           <button type="button" onClick={ handlePostSale }>Test</button>
         </form>
+        <h1>{error}</h1>
       </main>
     </CheckoutStyle>
   );

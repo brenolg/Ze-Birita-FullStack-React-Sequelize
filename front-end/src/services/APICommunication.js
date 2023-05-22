@@ -37,7 +37,6 @@ export async function getProducts() {
 }
 
 export async function postSale(data) {
-  console.log('fetch Post Sale inicio', data, url);
   const response = await fetch(`${url}/sales`, {
     method: 'POST',
     headers: {
@@ -47,5 +46,7 @@ export async function postSale(data) {
   });
   const saleData = await response.json();
   console.log('fetch Post Sale response', saleData);
+  const { message } = saleData;
+  console.log('fetch Post Sale message', message);
   return saleData;
 }

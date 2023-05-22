@@ -2,9 +2,9 @@ const AbstractService = require('./AbstractService');
 const { Product } = require('../database/models');
 const HttpException = require('../utils/HttpException');
 const statusCode = require('../utils/statusCode');
-const schema = require('../validations/validationInputValues');
+const schema = require('./validations/validationInputValues');
 
-class UserService extends AbstractService {
+class ProductService extends AbstractService {
   constructor() {
     super(Product, 'Product');
     this.product = Product;
@@ -35,4 +35,4 @@ class UserService extends AbstractService {
   }
 }
 
-module.exports = UserService;
+module.exports = ProductService;

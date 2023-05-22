@@ -28,6 +28,15 @@ module.exports = {
       }, 
       // Token:
       // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiemViaXJpdGFAZW1haWwuY29tIiwicm9sZSI6ImN1c3RvbWVyIn0sImlhdCI6MTY4NDE3NDcyNSwiZXhwIjoxNjg1NDcwNzI1fQ.VE8ilUvAVI3h9XNsQYnL_1d-YfME4A5MTqIcCVhC1jw
+    
+      {
+        id: 4,
+        name: 'Vendedor e-commerce',
+        email: 'ecommerce@deliveryapp.com',
+        password: 'de25f2d8b3ebee022368a68c6311eade', // fulanA@123
+        role: 'seller'
+      },
+    
     ], {});
 
   },

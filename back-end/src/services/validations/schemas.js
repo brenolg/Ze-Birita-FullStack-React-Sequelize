@@ -28,4 +28,18 @@ const newProductSchema = joi.object().keys({
   urlImage: joi.string().uri().required(),
 });
 
-module.exports = { newUserSchema, newLoginSchema, newProductSchema };
+const sale = joi.object({
+  productId: joi.number().integer().required(),
+  quantity: joi.number().integer().required(),
+});
+
+const newSaleSchema = joi.object({
+  userId: joi.number().integer().required(),
+  sellerId: joi.number().integer().required(),
+  totalPrice: joi.number().required(),
+  deliveryAddress: joi.string().required(),
+  deliveryNumber: joi.number().required(),
+  shoppingCart: joi.array().items(sale).required(),
+});
+
+module.exports = { newUserSchema, newLoginSchema, newProductSchema, newSaleSchema };

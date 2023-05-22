@@ -32,12 +32,14 @@ export default function ProductCard({ id, name, price, url }) {
 
     if (findProduct) {
       setCardQuantity(findProduct.quantity);
-      const itemTotal = findProduct.price * findProduct.quantity;
-      totalPriceArray.push(itemTotal);
+      if (cartValue === 0) {
+        const itemTotal = findProduct.price * findProduct.quantity;
+        totalPriceArray.push(itemTotal);
 
-      const totalValue = totalPriceArray.reduce((acc, curr) => acc + curr, 0);
+        const totalValue = totalPriceArray.reduce((acc, curr) => acc + curr, 0);
 
-      setCartValue(totalValue);
+        setCartValue(totalValue);
+      }
     }
   }, [id, totalPriceArray, setCartValue]);
   // Retorna os valores do localStorage e seta o valor do cartValue e cardQuantity

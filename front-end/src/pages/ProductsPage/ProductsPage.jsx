@@ -8,6 +8,7 @@ import ProductsStyle from './styles';
 export default function ProductsPage() {
   const history = useHistory();
   const { setProductList, productList, cartValue } = useContext(Context);
+  // preciso de productList global
 
   useEffect(() => {
     getProducts().then((response) => {

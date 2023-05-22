@@ -20,26 +20,13 @@ export default function AccessPage() {
   }, [logIn, setLogIn, setUserData, userData]);
 
   const buildRoleText = (role) => {
-    if (role) {
-      if (role === 'administrator') {
-        setRoleText('Gerenciar Usuários');
-      }
-      if (role === 'customer') {
-        setRoleText('Produtos');
-      }
-      if (role === 'seller') {
-        setRoleText('Pedidos');
-      }
-    }
+    const setRole = {
+      administrator: 'Gerenciar Usuários',
+      customer: 'Produtos',
+      seller: 'Pedidos',
+    };
+    setRoleText(setRole[role]);
   };
-  /* const buildRoleText = (role) => {
-      const setRole = {
-      administrator: setRoleText('Gerenciar Usuários'),
-      customer: setRoleText('Produtos'),
-      seller: setRoleText('Pedidos'),
-      }
-      setRole[role];
-  */
 
   const buildRoleDetails = (role) => {
     if (role === 'customer') {
@@ -55,14 +42,10 @@ export default function AccessPage() {
   }, [logIn, setLogIn, userData, setUserData]);
 
   const handleAccessBtn = () => {
-    if (logIn) {
-      LocalStorage.remove('user');
-      setUserData(null);
-      setLogIn(false);
-      history.push('/products');
-    } else {
-      history.push('/login');
-    }
+    setLogIn(false);
+    setUserData(null);
+    LocalStorage.remove('user');
+    history.push('/login');
   };
 
   return (

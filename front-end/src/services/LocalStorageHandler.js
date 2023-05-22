@@ -23,8 +23,9 @@ export const removeProduct = (product) => {
   const shoppingCart = readShoppingCart();
   saveShoppingCart(shoppingCart.filter((p) => p.id !== product.id));
 };
+// Posso deletar ligia ?
 
-const remove = (key) => JSON.parse(localStorage.removeItem(key));
+const remove = (key) => localStorage.removeItem(key);
 
 const set = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 

@@ -16,7 +16,9 @@ const ProductsStyle = styled.div`
     bottom: 10vh;
     right: 10vw;
     font-size: 3rem;
-    background-color: #0011ff;
+    padding: 1rem;
+    border-radius: 2rem;
+    background-color: #06514b;
   }
 
   .card_content{

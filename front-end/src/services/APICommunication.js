@@ -37,7 +37,7 @@ export async function getProducts() {
 }
 
 export async function postSale(data) {
-  const response = await fetch(`${url}/sales`, {
+  const response = await fetch(`${url}/orders`, {
     method: 'POST',
     headers: {
       'Content-Type': appJson,

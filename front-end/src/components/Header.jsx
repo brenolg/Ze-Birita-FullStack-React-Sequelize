@@ -20,26 +20,13 @@ export default function AccessPage() {
   }, [logIn, setLogIn, setUserData, userData]);
 
   const buildRoleText = (role) => {
-    if (role) {
-      if (role === 'administrator') {
-        setRoleText('Gerenciar Usuários');
-      }
-      if (role === 'customer') {
-        setRoleText('Produtos');
-      }
-      if (role === 'seller') {
-        setRoleText('Pedidos');
-      }
-    }
+    const setRole = {
+      administrator: 'Gerenciar Usuários',
+      customer: 'Produtos',
+      seller: 'Pedidos',
+    };
+    setRoleText(setRole[role]);
   };
-  /* const buildRoleText = (role) => {
-      const setRole = {
-      administrator: setRoleText('Gerenciar Usuários'),
-      customer: setRoleText('Produtos'),
-      seller: setRoleText('Pedidos'),
-      }
-      setRole[role];
-  */ // Review Ligia / Tentar aplicar quando revisitar codigo
 
   const buildRoleDetails = (role) => {
     if (role === 'customer') {

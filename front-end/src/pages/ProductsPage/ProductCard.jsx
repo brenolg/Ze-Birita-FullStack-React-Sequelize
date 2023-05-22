@@ -7,8 +7,8 @@ export default function ProductCard({ id, name, price, url }) {
   const {
     cartValue,
     setCartValue,
+    totalPriceArray,
   } = useContext(Context);
-  const [totalPriceArray] = useState([]);
 
   const [cardQuantity, setCardQuantity] = useState(0);
 
@@ -41,7 +41,7 @@ export default function ProductCard({ id, name, price, url }) {
         setCartValue(totalValue);
       }
     }
-  }, [id, totalPriceArray, setCartValue]);
+  }, [id, totalPriceArray, setCartValue, cartValue]);
   // Retorna os valores do localStorage e seta o valor do cartValue e cardQuantity
 
   const addQuantity = () => {

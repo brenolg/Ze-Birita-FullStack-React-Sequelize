@@ -20,7 +20,6 @@ export default function SaleItem({ id, name, price, quantity, index }) {
 
   useEffect(() => {
     const oldCart = LocalStorage.get('shopping_cart') || [];
-
     const findProduct = oldCart.find(
       (cartProduct) => cartProduct.id === id,
     );
@@ -47,6 +46,7 @@ export default function SaleItem({ id, name, price, quantity, index }) {
     if (findProduct) {
       const values = writeNewQuantity(oldCart, newQuantity);
       LocalStorage.set('shopping_cart', values);
+      console.log(list);
     }
 
     if (!findProduct) {

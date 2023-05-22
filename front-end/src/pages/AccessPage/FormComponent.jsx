@@ -6,7 +6,7 @@ import LocalStorage from '../../services/LocalStorageHandler';
 import { AccessFormStyle } from './styles';
 
 export default function AccessPageForm() {
-  const { setLogIn } = useContext(Context); // @Breno: Conferir se faz sentido seguir usando esse estado!!
+  const { setLogIn } = useContext(Context);
   const loginRoute = useRouteMatch('/login');
 
   const history = useHistory();

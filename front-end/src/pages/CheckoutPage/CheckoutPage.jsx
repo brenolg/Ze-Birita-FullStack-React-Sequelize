@@ -7,7 +7,7 @@ import { postSale } from '../../services/APICommunication';
 
 export default function CheckoutPage() {
   const { cartValue, logIn } = useContext(Context);
-  const [productList, setProductList] = useState([]);
+  const [saleList, setSaleList] = useState([]);
   const [userAddress, setUserAddress] = useState({
     address: '',
     number: '',
@@ -21,7 +21,7 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     const cartList = LocalStorage.get('shopping_cart') || [];
-    setProductList(cartList);
+    setSaleList(cartList);
   }, []);
 
   const handlePostSale = async () => {
@@ -60,7 +60,7 @@ export default function CheckoutPage() {
         </span>
         <div className="description">Description</div>
 
-        {productList.length && productList.map((product, index) => (
+        {saleList.length && saleList.map((product, index) => (
           <SaleItem
             index={ index }
             key={ product.id }
@@ -68,8 +68,8 @@ export default function CheckoutPage() {
             name={ product.name }
             price={ product.price }
             quantity={ product.quantity || 0 }
-            list={ productList }
-            setList={ setProductList }
+            list={ saleList }
+            setList={ setSaleList }
           />
         ))}
         <form>

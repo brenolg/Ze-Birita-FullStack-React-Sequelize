@@ -25,7 +25,7 @@ export default function ProductCard({ id, name, price, url }) {
 
   useEffect(() => {
     const oldCart = LocalStorage.get('shopping_cart') || [];
-    // retorna muitos objetos ??? discutir com ligia
+
     const findProduct = oldCart.find(
       (cartProduct) => cartProduct.id === id,
     );

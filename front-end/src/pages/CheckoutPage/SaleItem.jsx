@@ -3,7 +3,8 @@ import { useState, useContext, useEffect } from 'react';
 import LocalStorage from '../../services/LocalStorageHandler';
 import Context from '../../context/Context';
 
-export default function SaleItem({ id, name, price, quantity, index }) {
+export default function SaleItem({ id, name, price, quantity, index, list,
+  setList }) {
   const { cartValue, setCartValue } = useContext(Context);
   const [cardQuantity, setCardQuantity] = useState(quantity);
 
@@ -80,6 +81,12 @@ export default function SaleItem({ id, name, price, quantity, index }) {
     }
   };
 
+  const handleDelete = () => {
+    const newList = list.filter((item) => item.id !== id);
+    setList(newList);
+    console.log(newList);
+  };
+
   const totalByItem = () => {
     const total = price * cardQuantity;
     return total.toFixed(2);
@@ -123,7 +130,15 @@ export default function SaleItem({ id, name, price, quantity, index }) {
             +
           </button>
 
-          <button className="rmv_button" type="button">Remover</button>
+          <button
+            className="rmv_button"
+            id={ id }
+            type="button"
+            onClick={ handleDelete }
+          >
+            Remover
+
+          </button>
         </div>
       </div>
     </div>
@@ -137,4 +152,6 @@ SaleItem.propTypes = ({
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   quantity: PropTypes.number.isRequired,
+  list: PropTypes.arrayOf().isRequired,
+  setList: PropTypes.func.isRequired,
 });

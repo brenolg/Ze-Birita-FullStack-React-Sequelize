@@ -34,7 +34,7 @@ class App {
     this.app.use('/login', loginRouter);
     this.app.use('/register', registerRouter);   
     this.app.use('/products', productRouter);
-    this.app.use('/custumer/orders', orderRouter);
+    this.app.use('/customer/orders', orderRouter);
     // this.app.use('/saller/orders', orderRouter);
     this.app.use(express.static('public'));    
     

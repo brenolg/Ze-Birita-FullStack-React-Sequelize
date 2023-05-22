@@ -84,7 +84,7 @@ export default function SaleItem({ id, name, price, quantity, index, list,
   const handleDelete = () => {
     const newList = list.filter((item) => item.id !== id);
     setList(newList);
-    console.log(newList);
+    LocalStorage.set('shopping_cart', newList);
   };
 
   const totalByItem = () => {
@@ -152,6 +152,6 @@ SaleItem.propTypes = ({
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   quantity: PropTypes.number.isRequired,
-  list: PropTypes.arrayOf().isRequired,
+  list: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
   setList: PropTypes.func.isRequired,
 });

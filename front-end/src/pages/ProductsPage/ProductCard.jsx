@@ -3,11 +3,11 @@ import { useState, useContext, useEffect } from 'react';
 import LocalStorage from '../../services/LocalStorageHandler';
 import Context from '../../context/Context';
 
-export default function ProductCard({ id, name, price, url }) {
+export default function ProductCard({ id, name, price, url, priceArray }) {
   const {
     cartValue,
     setCartValue,
-    totalPriceArray,
+
   } = useContext(Context);
 
   const [cardQuantity, setCardQuantity] = useState(0);
@@ -34,14 +34,14 @@ export default function ProductCard({ id, name, price, url }) {
       setCardQuantity(findProduct.quantity);
       if (cartValue === 0) {
         const itemTotal = findProduct.price * findProduct.quantity;
-        totalPriceArray.push(itemTotal);
+        priceArray.push(itemTotal);
 
-        const totalValue = totalPriceArray.reduce((acc, curr) => acc + curr, 0);
+        const totalValue = priceArray.reduce((acc, curr) => acc + curr, 0);
 
         setCartValue(totalValue);
       }
     }
-  }, [id, totalPriceArray, setCartValue, cartValue]);
+  }, [id, priceArray, setCartValue, cartValue]);
   // Retorna os valores do localStorage e seta o valor do cartValue e cardQuantity
 
   const addQuantity = () => {
@@ -146,4 +146,5 @@ ProductCard.propTypes = ({
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
+  priceArray: PropTypes.arrayOf(PropTypes.number).isRequired,
 });

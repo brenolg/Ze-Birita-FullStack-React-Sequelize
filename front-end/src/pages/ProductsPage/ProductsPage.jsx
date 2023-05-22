@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
 import { getProducts } from '../../services/APICommunication';
@@ -8,6 +8,7 @@ import ProductsStyle from './styles';
 export default function ProductsPage() {
   const history = useHistory();
   const { setProductList, productList, cartValue } = useContext(Context);
+  const [priceArray] = useState([]);
   // preciso de productList global
 
   useEffect(() => {
@@ -41,6 +42,7 @@ export default function ProductsPage() {
               name={ product.name }
               url={ product.urlImage }
               price={ product.price }
+              priceArray={ priceArray }
             />
           ))}
         </main>

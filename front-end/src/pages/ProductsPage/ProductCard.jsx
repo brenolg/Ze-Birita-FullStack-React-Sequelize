@@ -7,8 +7,8 @@ export default function ProductCard({ id, name, price, url }) {
   const {
     cartValue,
     setCartValue,
-    totalPriceArray,
   } = useContext(Context);
+  const [totalPriceArray] = useState([]);
 
   const [cardQuantity, setCardQuantity] = useState(0);
 

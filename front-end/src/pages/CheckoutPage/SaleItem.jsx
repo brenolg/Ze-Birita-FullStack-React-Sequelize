@@ -46,7 +46,6 @@ export default function SaleItem({ id, name, price, quantity, index }) {
     if (findProduct) {
       const values = writeNewQuantity(oldCart, newQuantity);
       LocalStorage.set('shopping_cart', values);
-      console.log(list);
     }
 
     if (!findProduct) {

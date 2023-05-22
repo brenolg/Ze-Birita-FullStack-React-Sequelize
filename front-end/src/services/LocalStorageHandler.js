@@ -25,7 +25,7 @@ export const removeProduct = (product) => {
 };
 // Posso deletar ligia ?
 
-const remove = (key) => JSON.parse(localStorage.removeItem(key));
+const remove = (key) => localStorage.removeItem(key);
 
 const set = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 

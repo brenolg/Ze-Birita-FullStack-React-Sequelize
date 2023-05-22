@@ -6,7 +6,7 @@ import LocalStorage from '../../services/LocalStorageHandler';
 import { AccessFormStyle } from './styles';
 
 export default function AccessPageForm() {
-  const { setLogIn } = useContext(Context);
+  const { setLogIn, setUserData } = useContext(Context);
   const loginRoute = useRouteMatch('/login');
 
   const history = useHistory();
@@ -30,9 +30,11 @@ export default function AccessPageForm() {
     // console.log('handleAccess', accessData);
     // antes de fazer o history.push, verificar se o accessData tem o token
     LocalStorage.set('user', accessData);
+    setUserData(accessData);
     setLogIn(true);
     history.push('/products');
   };
+  // ps: esta redirecionando para pagina products sem efetuar login com dados corretos
 
   return (
     <AccessFormStyle>

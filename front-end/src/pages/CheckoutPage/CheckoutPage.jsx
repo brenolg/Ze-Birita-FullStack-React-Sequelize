@@ -3,31 +3,51 @@ import { CheckoutStyle } from './styles';
 import Context from '../../context/Context';
 import LocalStorage from '../../services/LocalStorageHandler';
 import SaleItem from './SaleItem';
+import { postSale } from '../../services/APICommunication';
 
 export default function CheckoutPage() {
-  const { cartValue } = useContext(Context);
+  const { cartValue, logIn } = useContext(Context);
   const [productList, setProductList] = useState([]);
+  const [userAddress, setUserAddress] = useState({
+    address: '',
+    number: '',
+  });
+
+  const handleAddressChange = ({ target: { name, value } }) => {
+    const newState = { ...userAddress, [name]: value };
+    setUserAddress(newState);
+  };
 
   useEffect(() => {
     const cartList = LocalStorage.get('shopping_cart') || [];
     setProductList(cartList);
   }, []);
 
-  const button = () => {
+  const handlePostSale = async () => {
     const cartList = LocalStorage.get('shopping_cart') || [];
     const userInfo = LocalStorage.get('user') || [];
     const shoppingCartValues = cartList.map((product) => {
       const { id, quantity } = product;
       return { productId: id, quantity };
     });
-    const body = { userId: userInfo.id, shoppingCart: [...shoppingCartValues] };
-    console.log(body);
+    if (logIn) {
+      const body = {
+        userId: userInfo.id,
+        sellerId: 4,
+        deliveryAddress: userAddress.address,
+        deliveryNumber: userAddress.number,
+        shoppingCart: [...shoppingCartValues],
+
+      };
+      await postSale(body);
+    }
+    return alert('Faça login para finalizar a compra');
   };
 
   return (
     <CheckoutStyle>
       <main className="checkout-main">
-        <button type="button" onClick={ button }>Test</button>
+
         <span>
           Total: R$
           {cartValue.toFixed(2) }
@@ -46,6 +66,35 @@ export default function CheckoutPage() {
             setList={ setProductList }
           />
         ))}
+        <form>
+          <label className="label" htmlFor="name">
+            <p>Endereço</p>
+            <input
+              className="input field-address"
+              type="text"
+              name="address"
+              placeholder="xxx"
+              value={ handleAddressChange.address }
+              onChange={ handleAddressChange }
+              minLength="12"
+              required
+            />
+          </label>
+          <label className="label" htmlFor="name">
+            <p>Numero</p>
+            <input
+              className="input field-address"
+              type="number"
+              name="number"
+              placeholder="xxx"
+              value={ handleAddressChange.number }
+              onChange={ handleAddressChange }
+              minLength="12"
+              required
+            />
+          </label>
+          <button type="button" onClick={ handlePostSale }>Test</button>
+        </form>
       </main>
     </CheckoutStyle>
   );

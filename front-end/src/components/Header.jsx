@@ -55,14 +55,10 @@ export default function AccessPage() {
   }, [logIn, setLogIn, userData, setUserData]);
 
   const handleAccessBtn = () => {
-    if (logIn) {
-      LocalStorage.remove('user');
-      setUserData(null);
-      setLogIn(false);
-      history.push('/products');
-    } else {
-      history.push('/login');
-    }
+    setLogIn(false);
+    setUserData(null);
+    LocalStorage.remove('user');
+    history.push('/login');
   };
 
   return (

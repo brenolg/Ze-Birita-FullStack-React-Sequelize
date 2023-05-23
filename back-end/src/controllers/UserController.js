@@ -1,3 +1,4 @@
+const Roles = require('../utils/rolesList');
 const StatusCodes = require('../utils/statusCode');
 const AbstractController = require('./AbstractController');
 
@@ -22,8 +23,8 @@ class UserController extends AbstractController {
       return this.res.status(StatusCodes.CREATED).json(newObj);
   }
 
-  async getAllByRole() {
-      const { role } = this.req.body;
+  async getAllSellers() {
+      const role = Roles.SELLER;
       const users = await this.service.getAllByRole(role);
       return this.res.status(StatusCodes.OK).json(users);
   }

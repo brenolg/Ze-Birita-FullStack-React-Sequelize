@@ -15,27 +15,25 @@ class OrderControler extends AbstractController {
   }
 
   async getAllByUser() {
-    const { role } = this.req.body;
-    console.log('controller role', role);
+    const { user: { id }, role } = this.req.body;
+    console.log('controller role', role, id);
     if (role === roles.CUSTOMER) {
-      this.getAllByCustomer();
+      this.getAllByCustomer(id);
     }
     if (role === roles.SELLER) {
-      this.getAllBySeller();
+      this.getAllBySeller(id);
     }
     if (role === roles.ADMIN) {
       this.getAll();
     }
   }
 
-  async getAllByCustomer() {
-    const { id } = this.req.params;
+  async getAllByCustomer(id) {
     const orders = await this.service.getAllByCustomer(id);
     return this.res.status(StatusCodes.OK).json(orders);
   }
 
-  async getAllBySeller() {
-    const { id } = this.req.params;
+  async getAllBySeller(id) {
     const orders = await this.service.getAllBySeller(id);
     return this.res.status(StatusCodes.OK).json(orders);
   }

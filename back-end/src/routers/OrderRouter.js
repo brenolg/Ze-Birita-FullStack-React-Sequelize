@@ -12,19 +12,19 @@ router.get(
   (req, res, next) => new OrderController(orderService, req, res, next).getAll(),
 );
 
+// ESSA ROTA RETORNA TODOS OS PEDIDOS DE DETERMINADO USUÁRIO, DE ACORDO COM ID/ROLE DO USUÁRIO.
+router.get(
+  '/user',
+  UserHandler.defaultAccess,
+  (req, res, next) => new OrderController(orderService, req, res, next).getAllByUser(),
+  );
+
 // ESSA ROTA RETORNA O PEDIDO DE ACORDO COM SEU ID. -> DETALHES DO PEDIDO
 router.get(
   '/:id', 
   UserHandler.defaultAccess,
   (req, res, next) => new OrderController(orderService, req, res, next).getById(),
 );
-
-// ESSA ROTA RETORNA TODOS OS PEDIDOS DE DETERMINADO USUÁRIO, DE ACORDO COM ID/ROLE DO USUÁRIO.
-router.get(
-  '/user/:id',
-  UserHandler.defaultAccess,
-  (req, res, next) => new OrderController(orderService, req, res, next).getAllByUser(),
-  );
 
 router.post(
   '/',

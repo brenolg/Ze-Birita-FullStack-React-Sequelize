@@ -9,7 +9,7 @@ const schema = require('./validations/validationInputValues');
 class UserService extends AbstractService {
   constructor() {
     super(User, 'User');
-    this.model = User;
+    this.user = User;
   }
 
   async getByEmail(email) {
@@ -61,7 +61,7 @@ class UserService extends AbstractService {
   }
 
   async getAllByRole(role) {
-    const users = await this.model.findByOne({ where: { role } });
+    const users = await this.user.findAll({ where: { role } });
     this.notFoundError(users);
     // if (!users) throw new HttpException(statusCode.NOT_FOUND, `${this.element} Not Found`);
     return users;

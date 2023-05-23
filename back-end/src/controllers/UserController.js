@@ -22,10 +22,10 @@ class UserController extends AbstractController {
       return this.res.status(StatusCodes.CREATED).json(newObj);
   }
 
-  async getByRole() {
+  async getAllByRole() {
       const { role } = this.req.body;
-      const result = await this.service.getByRole(role);
-      return this.res.status(StatusCodes.OK).json(result);
+      const users = await this.service.getAllByRole(role);
+      return this.res.status(StatusCodes.OK).json(users);
   }
 }
 

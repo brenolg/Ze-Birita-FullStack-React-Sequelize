@@ -58,7 +58,7 @@ class OrderService extends AbstractService {
     }
   }
 
-  async getOrdersByCustomer(id) {
+  async getAllByCustomer(id) {
     const userExists = await this.user.findByPk(id, { raw: true });
     OrderService.notFoundRoleError(userExists, Roles.CUSTOMER);
     const orders = await this.sale.findAll({
@@ -68,7 +68,7 @@ class OrderService extends AbstractService {
     return orders;
   }
 
-  async getOrdersBySeller(id) {
+  async getAllBySeller(id) {
     const userExists = await this.user.findByPk(id, { raw: true });
     OrderService.notFoundRoleError(userExists, Roles.SELLER);
     const orders = await this.sale.findAll({

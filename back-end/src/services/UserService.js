@@ -8,12 +8,12 @@ const schema = require('./validations/validationInputValues');
 
 class UserService extends AbstractService {
   constructor() {
-    super(User);
-    this.user = User;
+    super(User, 'User');
+    this.model = User;
   }
 
   async getByEmail(email) {
-    const result = await this.user.findOne({
+    const result = await this.model.findOne({
       where: { email }, raw: true,
     });
 
@@ -27,16 +27,16 @@ class UserService extends AbstractService {
     if (error.type) throw new HttpException(statusCode.BAD_REQUEST, error.message);
     
     const result = await this.getByEmail(email);
-    if (!result) throw new HttpException(statusCode.NOT_FOUND, 'Email not Found');
+    this.notFoundError(result);
+    // if (!result) throw new HttpException(statusCode.NOT_FOUND, 'Email not Found');
     if (md5(password) !== result.password) {
       throw new HttpException(statusCode.UNAUTHORIZED, 'Incorrect password');
     }
 
-    const { role } = result;
-    
-    const token = signToken(email, role);
+    const { id, role } = result;
+    const token = signToken(email, id, role);
     delete result.password;
-    return { ...result, token };
+    return { token };
   }
 
   async register(user) {
@@ -60,11 +60,11 @@ class UserService extends AbstractService {
     return { ...newUser, token };
   }
 
-  async getByRole(role) {
-    const item = await this.model.findByOne({ where: { role } });
-    this.notFoundError(item);
-    if (!item) throw new HttpException(statusCode.NOT_FOUND, `${this.element} Not Found`);
-    return item;
+  async getAllByRole(role) {
+    const users = await this.model.findByOne({ where: { role } });
+    this.notFoundError(users);
+    // if (!users) throw new HttpException(statusCode.NOT_FOUND, `${this.element} Not Found`);
+    return users;
   }
 }
 

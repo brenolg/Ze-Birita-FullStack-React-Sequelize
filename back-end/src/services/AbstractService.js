@@ -18,8 +18,8 @@ class AbstractService {
 
   async getById(id) {
     const item = await this.model.findByPk(id);
-    // this.notFoundError(item);
-    if (!item) throw new HttpException(statusCode.NOT_FOUND, `${this.element} Not Found`);
+    this.notFoundError(item);
+    // if (!item) throw new HttpException(statusCode.NOT_FOUND, `${this.element} Not Found`);
     return item;
   }
 
@@ -31,16 +31,16 @@ class AbstractService {
 
   async update(id, obj) {
     const [qtdUpdated] = await this.model.update(obj, { where: { id } });
-    // this.notFoundError(qtdUpdated);
-    if (!qtdUpdated) throw new HttpException(statusCode.NOT_FOUND, 'Not Found');
+    this.notFoundError(qtdUpdated);
+    // if (!qtdUpdated) throw new HttpException(statusCode.NOT_FOUND, 'Not Found');
     const updated = await this.getById(+id); // +??
     return updated;
   }
 
   async remove(id) {
     const removed = await this.model.destroy({ where: { id } });
-    // this.notFoundError(removed);
-    if (!removed) throw new HttpException(statusCode.NOT_FOUND, `${this.element} Not Found`);
+    this.notFoundError(removed);
+    // if (!removed) throw new HttpException(statusCode.NOT_FOUND, `${this.element} Not Found`);
     return removed;
   }
 }

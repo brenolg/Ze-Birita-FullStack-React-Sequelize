@@ -1,4 +1,5 @@
 // const StatusCodes = require('../utils/statusCode');
+const roles = require('../utils/rolesList');
 const StatusCodes = require('../utils/statusCode');
 const AbstractController = require('./AbstractController');
 
@@ -13,15 +14,29 @@ class OrderControler extends AbstractController {
     this.service = orderService;
   }
 
-  async getOrdersByCustomer() {
+  async getAllByUser() {
+    const { role } = this.req.body;
+    console.log('controller role', role);
+    if (role === roles.CUSTOMER) {
+      this.getAllByCustomer();
+    }
+    if (role === roles.SELLER) {
+      this.getAllBySeller();
+    }
+    if (role === roles.ADMIN) {
+      this.getAll();
+    }
+  }
+
+  async getAllByCustomer() {
     const { id } = this.req.params;
-    const orders = await this.service.getOrdersByCustomer(id);
+    const orders = await this.service.getAllByCustomer(id);
     return this.res.status(StatusCodes.OK).json(orders);
   }
 
-  async getOrdersBySeller() {
+  async getAllBySeller() {
     const { id } = this.req.params;
-    const orders = await this.service.getOrdersBySeller(id);
+    const orders = await this.service.getAllBySeller(id);
     return this.res.status(StatusCodes.OK).json(orders);
   }
 

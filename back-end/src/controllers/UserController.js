@@ -21,6 +21,12 @@ class UserController extends AbstractController {
       const newObj = await this.userService.register(this.req.body);
       return this.res.status(StatusCodes.CREATED).json(newObj);
   }
+
+  async getByRole() {
+      const { role } = this.req.body;
+      const result = await this.service.getByRole(role);
+      return this.res.status(StatusCodes.OK).json(result);
+  }
 }
 
 module.exports = UserController;

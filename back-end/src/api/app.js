@@ -3,7 +3,7 @@ require('express-async-errors');
 const cors = require('cors');
 const path = require('path');
 const ErrorHandler = require('../middlewares/ErrorMiddleware');
-const { loginRouter, registerRouter, productRouter, orderRouter } = require('../routers/index');
+const { loginRouter, registerRouter, productRouter, orderRouter, userRouter } = require('../routers/index');
 
 class App {
   constructor() {
@@ -32,10 +32,10 @@ class App {
       express.static(path.resolve(__dirname, '..', '..', 'public', 'images')),
       );
     this.app.use('/login', loginRouter);
-    this.app.use('/register', registerRouter);   
+    this.app.use('/register', registerRouter);
+    this.app.use('/users', userRouter);
     this.app.use('/products', productRouter);
-    this.app.use('/customer/orders', orderRouter);
-    // this.app.use('/saller/orders', orderRouter);
+    this.app.use('/orders', orderRouter);
     this.app.use(express.static('public'));    
     
     this.app.use(ErrorHandler.handle);

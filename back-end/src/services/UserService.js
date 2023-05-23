@@ -59,6 +59,13 @@ class UserService extends AbstractService {
     
     return { ...newUser, token };
   }
+
+  async getByRole(role) {
+    const item = await this.model.findByOne({ where: { role } });
+    this.notFoundError(item);
+    if (!item) throw new HttpException(statusCode.NOT_FOUND, `${this.element} Not Found`);
+    return item;
+  }
 }
 
 module.exports = UserService;

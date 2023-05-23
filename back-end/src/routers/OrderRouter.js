@@ -19,10 +19,28 @@ router.get(
   .getById(),
 );
 
+router.get(
+  '/customer/:id', 
+  (req, res, next) => new OrderController(orderService, req, res, next)
+  .getOrdersByCustomer(),
+);
+
+router.get(
+  '/seller/:id', 
+  (req, res, next) => new OrderController(orderService, req, res, next)
+  .getOrdersBySeller(),
+);
+
 router.post(
   '/', 
   (req, res, next) => new OrderController(orderService, req, res, next)
   .create(),
+);
+
+router.patch(
+  '/', 
+  (req, res, next) => new OrderController(orderService, req, res, next)
+  .updateStatus(),
 );
 
 router.delete(

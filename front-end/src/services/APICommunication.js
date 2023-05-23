@@ -50,3 +50,14 @@ export async function postSale(data) {
   console.log('fetch Post Sale message', message);
   return saleData;
 }
+
+export async function getUsers() {
+  const response = await fetch(`${url}/register`, {
+    method: 'GET',
+  });
+  const usersData = await response.json();
+  console.log('fetch GET users response', usersData);
+  const { message } = usersData;
+  console.log('fetch message', message);
+  return usersData;
+}

@@ -6,13 +6,42 @@ import SaleItem from './SaleItem';
 import { postSale } from '../../services/APICommunication';
 
 export default function CheckoutPage() {
-  const { cartValue, logIn } = useContext(Context);
+  const { cartValue, logIn, userData } = useContext(Context);
   const [saleList, setSaleList] = useState([]);
   const [userAddress, setUserAddress] = useState({
     address: '',
     number: '',
   });
   const [error, setError] = useState(null);
+
+  const sellerList = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'surface_water',
+    'rotation_period'];
+  const [sellerOption, setSellerOption] = useState([
+    sellerList[0],
+  ]);
+
+  // useEffect(() => {
+  //   if (selectedFilters) {
+  //     selectedFilters.forEach((selColum) => {
+  //       const newOptions = columOptions.filter((option) => (
+  //         option !== selColum.colum
+
+  //       ));
+  //       setColumOptions(newOptions);
+  //     });
+  //   } else {
+  //     setColumOptions([
+  //       'population',
+  //       'orbital_period',
+  //       'diameter',
+  //       'surface_water',
+  //       'rotarion_period']);
+  //   }
+  // }, [selectedFilters]);
 
   const handleAddressChange = ({ target: { name, value } }) => {
     const newState = { ...userAddress, [name]: value };
@@ -35,6 +64,7 @@ export default function CheckoutPage() {
       const body = {
         userId: userInfo.id,
         sellerId: 4,
+        totalPrice: cartValue,
         deliveryAddress: userAddress.address,
         deliveryNumber: userAddress.number,
         shoppingCart: [...shoppingCartValues],
@@ -49,10 +79,27 @@ export default function CheckoutPage() {
     }
   };
 
+  const handleSelectVisibility = () => {
+    let displayValue = 'none';
+
+    if (logIn && userData.role !== 'customer') {
+      displayValue = 'block';
+    }
+    return { display: displayValue };
+  };
+
   return (
 
     <CheckoutStyle>
       <main className="checkout-main">
+
+        <select
+          onChange={ (e) => setSellerOption(e.target.value) }
+          style={ handleSelectVisibility() }
+        >
+          {sellerList.map((seller) => (
+            <option key={ seller } value={ seller }>{seller}</option>))}
+        </select>
 
         <span>
           Total: R$

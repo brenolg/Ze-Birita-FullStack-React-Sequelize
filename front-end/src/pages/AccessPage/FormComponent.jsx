@@ -10,6 +10,7 @@ export default function AccessPageForm() {
   const loginRoute = useRouteMatch('/login');
 
   const history = useHistory();
+  const [error, setError] = useState([]);
   const [accessCredentials, setAccessCredentials] = useState({
     email: '',
     password: '',
@@ -27,14 +28,18 @@ export default function AccessPageForm() {
     } else {
       accessData = await fetchRegister(accessCredentials);
     }
-    // console.log('handleAccess', accessData);
-    // antes de fazer o history.push, verificar se o accessData tem o token
+
+    if (accessData.message) {
+      return setError(accessData.message);
+    }
+
     LocalStorage.set('user', accessData);
+
     setUserData(accessData);
     setLogIn(true);
     history.push('/products');
   };
-  // ps: esta redirecionando para pagina products sem efetuar login com dados corretos
+  // ps: Coloquei um try catch nos fetchs, mas não sei se é o melhor lugar pra ele
 
   return (
     <AccessFormStyle>
@@ -100,6 +105,7 @@ export default function AccessPageForm() {
               Ainda não tenho conta
             </button>)}
         </div>
+        <span className="error">{error}</span>
       </form>
     </AccessFormStyle>
   );

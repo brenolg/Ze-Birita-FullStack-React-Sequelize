@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { CheckoutStyle } from './styles';
 import Context from '../../context/Context';
 import LocalStorage from '../../services/LocalStorageHandler';
@@ -6,13 +7,18 @@ import SaleItem from './SaleItem';
 import SaleForm from './SaleForm';
 
 export default function CheckoutPage() {
-  const { cartValue } = useContext(Context);
+  const { cartValue, logIn } = useContext(Context);
   const [saleList, setSaleList] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const cartList = LocalStorage.get('shopping_cart') || [];
     setSaleList(cartList);
   }, []);
+
+  const handleCheckoutBtn = () => {
+    history.push('/login');
+  };
 
   return (
 
@@ -37,7 +43,21 @@ export default function CheckoutPage() {
             setList={ setSaleList }
           />
         ))}
+
         <SaleForm />
+
+        {!logIn
+        && (
+          <div className="login">
+            <h1>Faça o login para finalizar a compra</h1>
+            <button
+              onClick={ handleCheckoutBtn }
+              type="button"
+            >
+              Login
+            </button>
+          </div>
+        )}
 
       </main>
     </CheckoutStyle>

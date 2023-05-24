@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../../context/Context';
 import LocalStorage from '../../services/LocalStorageHandler';
 import { postSale, getUsers } from '../../services/APICommunication';
@@ -10,17 +11,26 @@ export default function SaleForm() {
     number: '',
   });
   const [error, setError] = useState(null);
-  const [sellerList, setSellerList] = useState([]);
-  const [sellerId, setSellerId] = useState();
+  const [userOptionList, setUserOptionList] = useState([]);
+  const [userOptionId, setUserOptionId] = useState();
+  const [sellerOptionList, setSellerOptionList] = useState([]);
+  const [sellerOptionId, setSellerOptionId] = useState();
+  const history = useHistory();
 
   useEffect(() => {
     getUsers().then((response) => {
-      const newOptions = response.filter((user) => (
+      const userOptions = response.filter((user) => (
+        user.role === 'customer'
+      ));
+
+      const sellerOptions = response.filter((user) => (
         user.role === 'seller'
       ));
 
-      setSellerList(newOptions);
-      setSellerId(newOptions[0].id);
+      setUserOptionList(userOptions);
+      setUserOptionId(userOptions[0].id);
+      setSellerOptionList(sellerOptions);
+      setSellerOptionId(sellerOptions[0].id);
     });
   }, []);
 
@@ -37,53 +47,99 @@ export default function SaleForm() {
       return { productId: id, quantity };
     });
 
-    if (logIn) {
-      const body = {
-        userId: userData.id,
-        sellerId,
-        totalPrice: cartValue,
-        deliveryAddress: userAddress.address,
-        deliveryNumber: userAddress.number,
-        shoppingCart: [...shoppingCartValues],
-      };
-      try {
-        await postSale(body);
-      } catch (err) {
-        setError(err.message);
-        console.log('erro', error);
-      }
-    } setError('erro');
+    const eCommerceId = 4;
+    let userId;
+    let sellerId;
+
+    if (userData.role === 'customer') {
+      userId = userData.id;
+      sellerId = eCommerceId;
+    }
+
+    if (userData.role === 'seller') {
+      userId = userOptionId;
+      sellerId = userData.id;
+    }
+
+    if (userData.role === 'administrator') {
+      userId = userOptionId;
+      sellerId = sellerOptionId;
+    }
+
+    const saleBody = {
+      userId,
+      sellerId,
+      totalPrice: cartValue,
+      deliveryAddress: userAddress.address,
+      deliveryNumber: userAddress.number,
+      shoppingCart: [...shoppingCartValues],
+    };
+
+    const newSale = await postSale(saleBody);
+
+    if (newSale.message) {
+      return setError(newSale.message);
+    }
+
+    history.push(`/orders/${newSale.id}`);
   };
 
   const handleSelectVisibility = () => {
     let displayValue = 'none';
 
-    if (!logIn && userData.role !== 'customer') {
-      displayValue = 'block';
+    if (userData.role !== 'customer') {
+      displayValue = 'flex';
+    }
+    return { display: displayValue };
+  };
+
+  const handleFormVisibility = () => {
+    let displayValue = 'none';
+
+    if (logIn) {
+      displayValue = 'flex';
     }
     return { display: displayValue };
   };
 
   return (
 
-    <section className="checkout-main">
+    <section className="checkout-main" style={ handleFormVisibility() }>
 
       <form>
 
         <select
-          onChange={ (e) => setSellerId(Number(e.target.value)) }
+          name="userSelect"
+          onChange={ (e) => setUserOptionId(e.target.value) }
           style={ handleSelectVisibility() }
         >
-          {sellerList.map((seller) => (
+          {userOptionList.map((user) => (
             <option
-              key={ seller.id }
-              name={ seller.name }
-              value={ seller.id }
+              key={ user.id }
+              name={ user.name }
+              value={ user.id }
             >
-              {seller.name}
+              {user.name}
 
             </option>))}
         </select>
+
+        {userData.role !== 'seller' && (
+          <select
+            name="sellerSelect"
+            onChange={ (e) => setSellerOptionId(e.target.value) }
+            style={ handleSelectVisibility() }
+          >
+            {sellerOptionList.map((seller) => (
+              <option
+                key={ seller.id }
+                name={ seller.name }
+                value={ seller.id }
+              >
+                {seller.name}
+
+              </option>))}
+          </select>)}
 
         <label className="label" htmlFor="name">
           <p>Endereço</p>
@@ -98,6 +154,7 @@ export default function SaleForm() {
             required
           />
         </label>
+
         <label className="label" htmlFor="name">
           <p>Numero</p>
           <input
@@ -111,9 +168,15 @@ export default function SaleForm() {
             required
           />
         </label>
-        <button type="button" onClick={ handlePostSale }>Test</button>
+
+        <button type="button" onClick={ handlePostSale }>
+          Finalizar Compra
+        </button>
+
       </form>
+
       <h1>{error}</h1>
+
     </section>
 
   );

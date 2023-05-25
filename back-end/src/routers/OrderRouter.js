@@ -8,7 +8,8 @@ const router = Router();
 const orderService = new OrderService();
 
 router.get(
-  '/', 
+  '/',
+  UserHandler.defaultAccess, 
   (req, res, next) => new OrderController(orderService, req, res, next).getAll(),
 );
 
@@ -22,7 +23,7 @@ router.get(
 // ESSA ROTA RETORNA O PEDIDO DE ACORDO COM SEU ID. -> DETALHES DO PEDIDO
 router.get(
   '/:id', 
-  UserHandler.defaultAccess,
+  // UserHandler.defaultAccess, -> Conferir porque está atrapalhando esta rota!!
   (req, res, next) => new OrderController(orderService, req, res, next).getById(),
 );
 

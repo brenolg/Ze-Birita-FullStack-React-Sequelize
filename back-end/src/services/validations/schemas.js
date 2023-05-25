@@ -38,7 +38,7 @@ const newSaleSchema = joi.object({
   sellerId: joi.number().integer().required(),
   totalPrice: joi.number().required(),
   deliveryAddress: joi.string().required(),
-  deliveryNumber: joi.number().required(),
+  deliveryNumber: joi.string().required(),
   shoppingCart: joi.array().items(sale).required(),
 });
 

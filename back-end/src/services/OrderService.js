@@ -35,10 +35,14 @@ class OrderService extends AbstractService {
         { saleId: saleCreated.id, productId, quantity }, 
         { transaction: t },
       )));
-      const saleById = this.getSaleById(saleCreated.id, t);
-      return saleById;
+      const { dataValues } = await this.getSaleById(saleCreated.id, t);
+      const user = await this.user.findByPk(saleCreated.sellerId, { raw: true });
+      console.log('user', user);
+      const result = { ...dataValues, sellerName: user.name };
+      return result;
     });
-    return newSale; // ou newSale.id ??
+    console.log('newSale', newSale);
+    return newSale;
   }
 
   async getSaleById(id, t) {
@@ -47,6 +51,7 @@ class OrderService extends AbstractService {
       {
         include: this.includeProduct,
         transaction: t,
+        // raw: true,
       },
     );
     return sale;
@@ -90,7 +95,7 @@ class OrderService extends AbstractService {
         statusCode.BAD_REQUEST, 
        `Invalid status, status should be ${orderStatus.EM_TRÂNSITO}, 
        ${orderStatus.PREPARANDO} 
-       or ${orderStatus.ENTREGUE}`,
+       or ${orderStatus.FINALIZADA}`,
       );
     }
     await this.sale.update({ status }, { where: { id } });

@@ -7,7 +7,7 @@ module.exports = {
         total_price: 10.50,
         delivery_address: 'Rua dos Devs',
         delivery_number: 'Apto. 1337',
-        status: 'finalizada'
+        status: 'Finalizada'
       },
       {
         id: 2,
@@ -16,7 +16,7 @@ module.exports = {
         total_price: 30.50,
         delivery_address: 'Rua Back End',
         delivery_number: 'Apto. 16',
-        status: 'finalizada'
+        status: 'Finalizada'
       },
       {
         id: 3,
@@ -25,7 +25,7 @@ module.exports = {
         total_price: 15.30,
         delivery_address: 'Rua dos Devs',
         delivery_number: 'Apto. 1337',
-        status: 'finalizada'
+        status: 'Finalizada'
       },
     ], {});
 

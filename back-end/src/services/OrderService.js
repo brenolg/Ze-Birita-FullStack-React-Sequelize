@@ -82,7 +82,7 @@ class OrderService extends AbstractService {
     const sale = await this.sale.findByPk(id);
     this.notFoundError(sale);
 
-    if (sale.status === orderStatus.ENTREGUE) {
+    if (sale.status === orderStatus.FINALIZADA) {
       throw new HttpException(statusCode.UNPROCESSABLE, 'Sale already delivered');
     }
     if (!Object.values(orderStatus).includes(status)) {

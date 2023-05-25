@@ -33,8 +33,9 @@ router.post(
   );
 
 router.patch(
-  '/',
+  '/:id',
   UserHandler.defaultAccess,
+  UserHandler.roleAccess(role.SELLER),
   (req, res, next) => new OrderController(orderService, req, res, next).updateStatus(),
   );
 

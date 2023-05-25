@@ -1,7 +1,9 @@
 const orderStatus = {
-      EM_TRÂNSITO: 'Em Trânsito', 
+      PENDTENTE: 'Pendente',
       PREPARANDO: 'Preparando', 
-      ENTREGUE: 'Entregue',
+      EM_TRÂNSITO: 'Em Trânsito', 
+      FINALIZADA: 'Finalizada',
+      NAO_ENTREGUE: 'Não entregue', // em caso de problemas na entrega.
     };
 
 module.exports = orderStatus;

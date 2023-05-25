@@ -44,6 +44,7 @@ export async function getProducts() {
 
 export async function postSale(data) {
   try {
+    // trocar rota para orders pos merge
     const response = await fetch(`${url}/customer/orders`, {
       method: 'POST',
       headers: {
@@ -59,8 +60,44 @@ export async function postSale(data) {
 
 export async function getUsers() {
   try {
-    // trocar rota para user pos merge
+    // deletar pos merge
     const response = await fetch(`${url}/register`, {
+      method: 'GET',
+    });
+    const usersData = await response.json();
+
+    return usersData;
+  } catch (error) { return error; }
+}
+
+export async function getCustomers() {
+  try {
+    // trocar rota register para users pos merge na pagina checkout
+    const response = await fetch(`${url}/users/customer`, {
+      method: 'GET',
+    });
+    const usersData = await response.json();
+
+    return usersData;
+  } catch (error) { return error; }
+}
+
+export async function getSellers() {
+  try {
+    // trocar rota register para users pos merge na pagina checkout
+    const response = await fetch(`${url}/users/seller`, {
+      method: 'GET',
+    });
+    const usersData = await response.json();
+
+    return usersData;
+  } catch (error) { return error; }
+}
+
+export async function getOrderDetails(id) {
+  try {
+    // trocar rota register para users pos merge na pagina checkout
+    const response = await fetch(`${url}/orders/${id}`, {
       method: 'GET',
     });
     const usersData = await response.json();

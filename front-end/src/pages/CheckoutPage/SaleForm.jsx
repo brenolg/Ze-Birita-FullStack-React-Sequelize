@@ -22,6 +22,7 @@ export default function SaleForm() {
       const userOptions = response.filter((user) => (
         user.role === 'customer'
       ));
+      // inserir fetch pos merge para buscar os usuarios
 
       const sellerOptions = response.filter((user) => (
         user.role === 'seller'
@@ -32,7 +33,7 @@ export default function SaleForm() {
       setSellerOptionList(sellerOptions);
       setSellerOptionId(sellerOptions[0].id);
     });
-  }, []);
+  }, []); // Cria as listas de usuarios e vendedores no select
 
   const handleAddressChange = ({ target: { name, value } }) => {
     const newState = { ...userAddress, [name]: value };
@@ -82,7 +83,7 @@ export default function SaleForm() {
     }
 
     history.push(`/orders/${newSale.id}`);
-  };
+  }; // Cria o objeto de venda e envia para o backend e navegador para a pagina de pedidos
 
   const handleSelectVisibility = () => {
     let displayValue = 'none';
@@ -91,7 +92,7 @@ export default function SaleForm() {
       displayValue = 'flex';
     }
     return { display: displayValue };
-  };
+  }; // Esconde o select de seller caso o usuario logado seja um cliente
 
   const handleFormVisibility = () => {
     let displayValue = 'none';
@@ -100,46 +101,51 @@ export default function SaleForm() {
       displayValue = 'flex';
     }
     return { display: displayValue };
-  };
+  }; // Esconde o formulario caso o usuario nao esteja logado e mostra um botão que direciona para a pagina de login
 
   return (
 
     <section className="checkout-main" style={ handleFormVisibility() }>
 
       <form>
-
-        <select
-          name="userSelect"
-          onChange={ (e) => setUserOptionId(e.target.value) }
-          style={ handleSelectVisibility() }
-        >
-          {userOptionList.map((user) => (
-            <option
-              key={ user.id }
-              name={ user.name }
-              value={ user.id }
-            >
-              {user.name}
-
-            </option>))}
-        </select>
-
-        {userData.role !== 'seller' && (
+        <label htmlFor="clientSelect">
+          Clientes
           <select
-            name="sellerSelect"
-            onChange={ (e) => setSellerOptionId(e.target.value) }
+            name="clientSelect"
+            onChange={ (e) => setUserOptionId(e.target.value) }
             style={ handleSelectVisibility() }
           >
-            {sellerOptionList.map((seller) => (
+            {userOptionList.map((user) => (
               <option
-                key={ seller.id }
-                name={ seller.name }
-                value={ seller.id }
+                key={ user.id }
+                name={ user.name }
+                value={ user.id }
               >
-                {seller.name}
+                {user.name}
 
               </option>))}
-          </select>)}
+          </select>
+        </label>
+
+        {userData.role !== 'seller' && (
+          <label htmlFor="sellerSelect">
+            Vendedores
+            <select
+              name="sellerSelect"
+              onChange={ (e) => setSellerOptionId(e.target.value) }
+              style={ handleSelectVisibility() }
+            >
+              {sellerOptionList.map((seller) => (
+                <option
+                  key={ seller.id }
+                  name={ seller.name }
+                  value={ seller.id }
+                >
+                  {seller.name}
+
+                </option>))}
+            </select>
+          </label>)}
 
         <label className="label" htmlFor="name">
           <p>Endereço</p>
@@ -168,6 +174,7 @@ export default function SaleForm() {
             required
           />
         </label>
+        {/* Existe alguma verificação de endereço? So aceita number ... não deveria poder colocar letras como apto 1 */}
 
         <button type="button" onClick={ handlePostSale }>
           Finalizar Compra

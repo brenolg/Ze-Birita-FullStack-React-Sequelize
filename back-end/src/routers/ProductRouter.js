@@ -22,6 +22,7 @@ router.get(
 
 router.post(
   '/register', 
+  UserHandler.defaultAccess,
   upload.single('image'), 
   (req, res, next) => new ProductController(productService, req, res, next)
   .create(),

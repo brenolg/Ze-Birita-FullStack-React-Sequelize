@@ -13,7 +13,7 @@ class UserHandler {
   try {
     const decoded = verifyToken(token);
     
-    req.body.user = decoded.data.email; 
+    req.body.user = { email: decoded.data.email, id: decoded.data.id }; 
     req.body.role = decoded.data.role;
 
     next();

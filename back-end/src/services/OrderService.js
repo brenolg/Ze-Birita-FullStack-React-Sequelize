@@ -2,15 +2,25 @@ const { literal } = require('sequelize');
 const schema = require('./validations/validationInputValues');
 
 const AbstractService = require('./AbstractService');
-const { Sale, Product, SaleProduct, sequelize } = require('../database/models');
+const { Sale, Product, SaleProduct, sequelize, User } = require('../database/models');
 const HttpException = require('../utils/HttpException');
 const statusCode = require('../utils/statusCode');
+const Roles = require('../utils/rolesList');
+const orderStatus = require('../utils/orderStatus');
 
 class OrderService extends AbstractService {
   constructor() {
-    super(Sale, 'Order');
+    super(Sale, 'Sale');
     this.sale = Sale;
     this.saleProduct = SaleProduct;
+    this.user = User;
+    this.includeProduct = {
+          model: Product,
+          as: 'products',
+          through: { attributes: [] },
+          attributes: ['id', 'name', 'price', 'urlImage',
+            [literal('`products->SaleProduct`.`quantity`'), 'quantity']],
+    };
   }
 
   async create(sale) {
@@ -25,9 +35,13 @@ class OrderService extends AbstractService {
         { saleId: saleCreated.id, productId, quantity }, 
         { transaction: t },
       )));
-      const saleById = this.getSaleById(saleCreated.id, t);
-      return saleById;
+      const { dataValues } = await this.getSaleById(saleCreated.id, t);
+      const user = await this.user.findByPk(saleCreated.sellerId, { raw: true });
+      console.log('user', user);
+      const result = { ...dataValues, sellerName: user.name };
+      return result;
     });
+    console.log('newSale', newSale);
     return newSale;
   }
 
@@ -35,17 +49,56 @@ class OrderService extends AbstractService {
     const sale = await this.sale.findByPk(
       id,
       {
-        include: {
-          model: Product,
-          as: 'products',
-          through: { attributes: [] },
-          attributes: ['id', 'name', 'price', 'urlImage',
-            [literal('`products->SaleProduct`.`quantity`'), 'quantity']],
-        },
+        include: this.includeProduct,
         transaction: t,
+        // raw: true,
       },
     );
     return sale;
+  }
+
+  static notFoundRoleError(user, role) {
+    if (!user || user.role !== role) { 
+      throw new HttpException(statusCode.NOT_FOUND, `${role} not found`);
+    }
+  }
+
+  async getAllByCustomer(id) {
+    const userExists = await this.user.findByPk(id, { raw: true });
+    OrderService.notFoundRoleError(userExists, Roles.CUSTOMER);
+    const orders = await this.sale.findAll({
+      where: { userId: id },
+      include: this.includeProduct,
+      });
+    return orders;
+  }
+
+  async getAllBySeller(id) {
+    const userExists = await this.user.findByPk(id, { raw: true });
+    OrderService.notFoundRoleError(userExists, Roles.SELLER);
+    const orders = await this.sale.findAll({
+      where: { sellerId: id },
+      include: this.includeProduct,
+      });
+    return orders;
+  }
+
+  async updateStatus(id, status) {
+    const sale = await this.sale.findByPk(id);
+    this.notFoundError(sale);
+
+    if (sale.status === orderStatus.FINALIZADA) {
+      throw new HttpException(statusCode.UNPROCESSABLE, 'Sale already delivered');
+    }
+    if (!Object.values(orderStatus).includes(status)) {
+      throw new HttpException(
+        statusCode.BAD_REQUEST, 
+       `Invalid status, status should be ${orderStatus.EM_TRÂNSITO}, 
+       ${orderStatus.PREPARANDO} 
+       or ${orderStatus.FINALIZADA}`,
+      );
+    }
+    await this.sale.update({ status }, { where: { id } });
   }
 }
 

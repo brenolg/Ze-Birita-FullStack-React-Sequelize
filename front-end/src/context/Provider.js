@@ -6,7 +6,7 @@ import Context from './Context';
 export default function Provider({ children }) {
   const [logIn, setLogIn] = useState(false);
   const [userData, setUserData] = useState({
-    name: '', email: '', role: '', token: '' });
+    id: '', name: '', email: '', role: '', token: '' });
   const [productList, setProductList] = useState([]);
   const [cartValue, setCartValue] = useState(0);
   const [totalPriceArray, setTotalPriceArray] = useState([]);
@@ -32,6 +32,7 @@ export default function Provider({ children }) {
     const userValues = await LocalStorage.get('user');
     if (userValues !== null) {
       setUserData({
+        id: userValues.id,
         name: userValues.name,
         email: userValues.email,
         role: userValues.role,

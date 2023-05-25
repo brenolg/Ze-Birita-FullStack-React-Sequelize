@@ -79,6 +79,13 @@ module.exports = {
         url_image: 'http://localhost:3001/images/stella_artois_275ml.jpg'
       },
 
+      {
+        id: 12,
+        name: 'Skol 0% álcool 269ml',
+        price: 2.59,
+        url_image: 'http://localhost:3001/images/skol_269ml.jpg'
+      },
+
     ], { timestamps: false });
   },
 

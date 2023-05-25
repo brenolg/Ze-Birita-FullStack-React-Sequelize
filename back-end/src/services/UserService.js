@@ -55,6 +55,8 @@ class UserService extends AbstractService {
       name,
       role,
     });
+    
+    // conferir se ligia lembrou de colocar id aqui no token
     const token = signToken(email, role);
     
     return { ...newUser, token };

@@ -35,26 +35,21 @@ class OrderService extends AbstractService {
         { saleId: saleCreated.id, productId, quantity }, 
         { transaction: t },
       )));
-      const { dataValues } = await this.getSaleById(saleCreated.id, t);
-      const user = await this.user.findByPk(saleCreated.sellerId, { raw: true });
-      console.log('user', user);
-      const result = { ...dataValues, sellerName: user.name };
-      return result;
+      const { dataValues } = await this.getById(saleCreated.id);
+      return dataValues;
     });
-    console.log('newSale', newSale);
     return newSale;
   }
 
-  async getSaleById(id, t) {
-    const sale = await this.sale.findByPk(
+  async getById(id) {
+    const { dataValues } = await this.sale.findByPk(
       id,
       {
         include: this.includeProduct,
-        transaction: t,
-        // raw: true,
       },
     );
-    return sale;
+    const user = await this.user.findByPk(dataValues.sellerId, { raw: true });
+    return { ...dataValues, sellerName: user.name };
   }
 
   static notFoundRoleError(user, role) {

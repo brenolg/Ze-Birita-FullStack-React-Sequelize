@@ -87,9 +87,9 @@ class OrderService extends AbstractService {
     if (!Object.values(orderStatus).includes(status)) {
       throw new HttpException(
         statusCode.BAD_REQUEST, 
-       `Invalid status, status should be ${orderStatus.EM_TRÂNSITO}, 
-       ${orderStatus.PREPARANDO} 
-       or ${orderStatus.FINALIZADA}`,
+        `Invalid status, status should be ${orderStatus.EM_TRÂNSITO}, 
+        ${orderStatus.PREPARANDO} 
+        or ${orderStatus.FINALIZADA}`,
       );
     }
     await this.sale.update({ status }, { where: { id } });

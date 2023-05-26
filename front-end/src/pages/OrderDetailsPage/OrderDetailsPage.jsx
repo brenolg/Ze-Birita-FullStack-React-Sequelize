@@ -34,9 +34,10 @@ export default function OrderDetailsPage() {
 
         <div className="order-details">
 
-          <span>{order.id}</span>
-          <span>{order.sellerId}</span>
+          <span>{`Pedido ${order.id}`}</span>
+          <span>{order.sellerName}</span>
           <span>{formattedDate}</span>
+
           <Status
             status={ status }
             setStatus={ setStatus }

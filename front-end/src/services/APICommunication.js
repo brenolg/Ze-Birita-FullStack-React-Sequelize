@@ -22,6 +22,7 @@ export async function fetchRegister(data) {
       method: 'POST',
       headers: {
         'Content-Type': appJson,
+
       },
       body: JSON.stringify(data),
     });
@@ -30,6 +31,8 @@ export async function fetchRegister(data) {
   } catch (error) { return error; }
 }
 
+// 'Authorization': `Bearer ${token}`
+// const paramString = new URLSearchParams(params).toString();
 export async function getProducts() {
   try {
     const response = await fetch(`${url}/products`, {
@@ -101,5 +104,20 @@ export async function getOrderDetails(id) {
     const usersData = await response.json();
 
     return usersData;
+  } catch (error) { return error; }
+}
+
+export async function updateStatus(id, data) {
+  try {
+    const response = await fetch(`${url}/orders/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': appJson,
+      },
+      body: JSON.stringify(data),
+    });
+    const statusData = await response.json();
+
+    return statusData;
   } catch (error) { return error; }
 }

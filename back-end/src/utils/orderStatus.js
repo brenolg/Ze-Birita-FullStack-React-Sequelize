@@ -1,5 +1,6 @@
 const orderStatus = {
-      PENDTENTE: 'Pendente',
+      ENTREGUE: 'Entregue',
+      PENDENTE: 'Pendente',
       PREPARANDO: 'Preparando', 
       EM_TRÂNSITO: 'Em Trânsito', 
       FINALIZADA: 'Finalizada',

@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../../context/Context';
 import LocalStorage from '../../services/LocalStorageHandler';
-import { postSale, getUsers } from '../../services/APICommunication';
+import { postSale, getUsers, getSellers } from '../../services/APICommunication';
 
 export default function SaleForm() {
   const { cartValue, logIn, userData } = useContext(Context);
@@ -22,6 +22,7 @@ export default function SaleForm() {
       const userOptions = response.filter((user) => (
         user.role === 'customer'
       ));
+
       // inserir fetch pos merge para buscar os usuarios
 
       const sellerOptions = response.filter((user) => (
@@ -34,6 +35,10 @@ export default function SaleForm() {
       setSellerOptionId(sellerOptions[0].id);
     });
   }, []); // Cria as listas de usuários e vendedores no select
+
+  getSellers().then((response) => {
+    console.log(response);
+  });
 
   const handleAddressChange = ({ target: { name, value } }) => {
     const newState = { ...userAddress, [name]: value };

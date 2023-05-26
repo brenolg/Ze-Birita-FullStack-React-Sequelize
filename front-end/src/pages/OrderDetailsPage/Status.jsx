@@ -1,61 +1,76 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useCallback, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 
-export default function Status({ status }) {
+export default function Status({ status, setStatus }) {
   const { userData } = useContext(Context);
-  const [orderStatus, setOrderStatus] = useState('');
-  const adminBtns = useRef();
+  const statusDom = useRef();
 
-  const handleUserVisibility = () => {
-    adminBtns.current.className = 'status hidden';
-    if (userData.role !== 'customer') {
-      adminBtns.current.className = 'status visible';
-    }
-  };
-
-  const buildSatusText = (role) => {
-    const setRole = {
-      administrator: 'PREPARANDO',
-      customer: 'PENDENTE',
-      seller: 'ENTREGUE',
+  const buildStatusText = (statusBtn) => {
+    const statusList = {
+      preparando: 'Preparando',
+      transito: 'Em Trânsito',
+      entregue: 'Entregue',
     };
-    setRoleText(setRole[role]);
+    console.log(statusDom.current.className);
+    setStatus(statusList[statusBtn]);
   };
 
-  const handleSelectVisibility = () => {
-    let displayValue = 'none';
+  const handleStatusColor = useCallback(() => {
+    const buildColor = () => {
+      if (status === 'Em Trânsito') return 'orange';
+      const statusColor = {
+        Preparando: 'orange',
+        Pendente: 'yellow',
+        Entregue: 'green',
+      };
+      const color = statusColor[status];
+      return color;
+    };
 
-    if (userData.role !== 'customer') {
-      displayValue = 'flex';
-    }
-    return { display: displayValue };
-  };
-
-  const hadleStatusColor = () => {
-    if (status === 'PREPARANDO') {
-      return 'status preparing';
-    }
-    if (status === 'PENDENTE') {
-      return 'status transit';
-    }
-    if (status === 'ENTREGUE') {
-      return 'status delivered';
-    }
-  };
+    const color = buildColor();
+    statusDom.current.className = `order-status ${color}`;
+  }, [status]);
 
   useEffect(() => {
-    setOrderStatus(status);
-    handleUserVisibility();
-  }, [adminBtns.current]);
+    handleStatusColor();
+  }, [status, handleStatusColor]);
 
   return (
     <div className="order-products-container">
 
-      <span>{orderStatus}</span>
-      <button name="ENTREGUE" type="button">Marcar Como Entregue</button>
-      <button ref={ adminBtns } type="button">Saiu para Entrega</button>
-      <button name="PREPARANDO" ref={ adminBtns } type="button">Preparar Pedido</button>
+      <span
+        ref={ statusDom }
+        className="order-status"
+        onLoad={ handleStatusColor }
+      >
+        {status }
+
+      </span>
+      <button
+        onClick={ () => buildStatusText('entregue') }
+        type="button"
+      >
+        Marcar Como Entregue
+
+      </button>
+      {userData.role !== 'customer' && (
+        <>
+          <button
+            onClick={ () => buildStatusText('transito') }
+            type="button"
+          >
+            Saiu para Entrega
+          </button>
+
+          <button
+            onClick={ () => buildStatusText('preparando') }
+            type="button"
+          >
+            Preparar Pedido
+          </button>
+        </>
+      )}
 
     </div>
 
@@ -64,4 +79,5 @@ export default function Status({ status }) {
 
 Status.propTypes = ({
   status: PropTypes.string.isRequired,
+  setStatus: PropTypes.func.isRequired,
 });

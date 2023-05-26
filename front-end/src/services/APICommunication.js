@@ -3,7 +3,6 @@ const appJson = 'application/json';
 
 export async function fetchLogin(data) {
   try {
-    // console.log('fetch login inicio', data, url);
     const response = await fetch(`${url}/login`, {
       method: 'POST',
       headers: {
@@ -12,7 +11,7 @@ export async function fetchLogin(data) {
       body: JSON.stringify(data),
     });
     const loginData = await response.json();
-    // console.log('fetch login response', loginData);
+
     return loginData;
   } catch (error) { return error; }
 }
@@ -44,8 +43,7 @@ export async function getProducts() {
 
 export async function postSale(data) {
   try {
-    // trocar rota para orders pos merge
-    const response = await fetch(`${url}/customer/orders`, {
+    const response = await fetch(`${url}/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': appJson,

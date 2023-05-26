@@ -36,7 +36,7 @@ class UserService extends AbstractService {
     const { id, role } = result;
     const token = signToken(email, id, role);
     delete result.password;
-    return { token };
+    return { ...result, token };
   }
 
   async register(user) {

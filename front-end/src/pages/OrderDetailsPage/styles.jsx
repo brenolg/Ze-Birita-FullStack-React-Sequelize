@@ -19,12 +19,17 @@ export const OrderDetailStyle = styled.div`
   background-color:green;
   margin:50px;
 }
-.hidden {
-  display: none;
+
+.green {
+  background-color: green;
 }
 
-.visible {
-  display: flex;
+.orange{
+  background-color: orange
+}
+
+.yellow {
+  background-color: yellow;
 }
 
 `;

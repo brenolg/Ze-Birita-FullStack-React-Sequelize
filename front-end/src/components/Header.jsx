@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../context/Context';
 import LocalStorage from '../services/LocalStorageHandler';
 import './Header.css';
@@ -10,6 +10,7 @@ export default function AccessPage() {
   const [userName, setUserName] = useState('');
   const [roleTextDetails, setRoleTextDetails] = useState('');
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     if (userData) {
@@ -40,6 +41,15 @@ export default function AccessPage() {
       buildRoleDetails(userData.role);
     }
   }, [logIn, setLogIn, userData, setUserData]);
+
+  useEffect(() => {
+    const user = LocalStorage.get('user');
+
+    if (user) {
+      setLogIn(true);
+      setUserData(user);
+    }
+  }, [location.pathname, setUserData, setLogIn]);
 
   const handleAccessBtn = () => {
     setLogIn(false);

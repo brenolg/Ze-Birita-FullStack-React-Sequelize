@@ -33,7 +33,7 @@ export default function SaleForm() {
       setSellerOptionList(sellerOptions);
       setSellerOptionId(sellerOptions[0].id);
     });
-  }, []); // Cria as listas de usuarios e vendedores no select
+  }, []); // Cria as listas de usuários e vendedores no select
 
   const handleAddressChange = ({ target: { name, value } }) => {
     const newState = { ...userAddress, [name]: value };
@@ -75,7 +75,7 @@ export default function SaleForm() {
       deliveryNumber: userAddress.number,
       shoppingCart: [...shoppingCartValues],
     };
-
+    console.log(saleBody);
     const newSale = await postSale(saleBody);
 
     if (newSale.message) {
@@ -92,7 +92,7 @@ export default function SaleForm() {
       displayValue = 'flex';
     }
     return { display: displayValue };
-  }; // Esconde o select de seller caso o usuario logado seja um cliente
+  }; // Esconde o select de seller caso o usuário logado seja um cliente
 
   const handleFormVisibility = () => {
     let displayValue = 'none';
@@ -101,19 +101,22 @@ export default function SaleForm() {
       displayValue = 'flex';
     }
     return { display: displayValue };
-  }; // Esconde o formulario caso o usuario nao esteja logado e mostra um botão que direciona para a pagina de login
+  }; // Esconde o formulário caso o usuário nao esteja logado e mostra um botão que direciona para a pagina de login
 
   return (
 
     <section className="checkout-main" style={ handleFormVisibility() }>
 
       <form>
-        <label htmlFor="clientSelect">
+        <label
+          htmlFor="clientSelect"
+          style={ handleSelectVisibility() }
+        >
           Clientes
           <select
             name="clientSelect"
             onChange={ (e) => setUserOptionId(e.target.value) }
-            style={ handleSelectVisibility() }
+
           >
             {userOptionList.map((user) => (
               <option
@@ -128,12 +131,15 @@ export default function SaleForm() {
         </label>
 
         {userData.role !== 'seller' && (
-          <label htmlFor="sellerSelect">
+          <label
+            htmlFor="sellerSelect"
+            style={ handleSelectVisibility() }
+          >
             Vendedores
             <select
               name="sellerSelect"
               onChange={ (e) => setSellerOptionId(e.target.value) }
-              style={ handleSelectVisibility() }
+
             >
               {sellerOptionList.map((seller) => (
                 <option
@@ -165,7 +171,7 @@ export default function SaleForm() {
           <p>Numero</p>
           <input
             className="input field-address"
-            type="number"
+            type="text"
             name="number"
             placeholder="xxx"
             value={ handleAddressChange.number }
@@ -174,7 +180,6 @@ export default function SaleForm() {
             required
           />
         </label>
-        {/* Existe alguma verificação de endereço? So aceita number ... não deveria poder colocar letras como apto 1 */}
 
         <button type="button" onClick={ handlePostSale }>
           Finalizar Compra

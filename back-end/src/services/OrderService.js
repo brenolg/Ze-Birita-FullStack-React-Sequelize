@@ -35,8 +35,7 @@ class OrderService extends AbstractService {
         { saleId: saleCreated.id, productId, quantity }, 
         { transaction: t },
       )));
-      const { dataValues } = await this.getById(saleCreated.id);
-      return dataValues;
+      return saleCreated;
     });
     return newSale;
   }

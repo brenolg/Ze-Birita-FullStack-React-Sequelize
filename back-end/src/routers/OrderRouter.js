@@ -29,7 +29,7 @@ router.get(
 
 router.post(
   '/',
-  UserHandler.defaultAccess,
+  // UserHandler.defaultAccess,
   (req, res, next) => new OrderController(orderService, req, res, next).create(),
   );
 

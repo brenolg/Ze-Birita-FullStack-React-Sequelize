@@ -136,6 +136,10 @@ export const CheckoutStyle = styled.div`
   align-items: center;
 }
 
+.label-title {
+  margin-bottom: 3rem;
+  margin-top: 5rem;
+}
 .label {
   display: flex;
   align-items: center;

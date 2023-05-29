@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { BiUserCircle, BiSearchAlt } from 'react-icons/bi';
+import { BiUserCircle } from 'react-icons/bi';
 import { IoBeerSharp } from 'react-icons/io5';
 import { FiShoppingBag, FiLogIn } from 'react-icons/fi';
 import Context from '../context/Context';
 import LocalStorage from '../services/LocalStorageHandler';
 import './Header.css';
+import SearchBar from './SearchBar';
 
 export default function AccessPage() {
-  const [productText, setProductsText] = useState('');
-  const [checkoutText, setCheckoutText] = useState('');
   const {
     logIn,
     setLogIn,
@@ -41,37 +40,6 @@ export default function AccessPage() {
     }
   }, [logIn, setLogIn, setUserData, userData]);
 
-  const buildProductsText = (role) => {
-    const setRole = {
-      administrator: 'Pedidos',
-      customer: 'Produtos',
-      seller: 'Pedidos',
-    };
-    setProductsText(setRole[role]);
-    if (!role) {
-      setProductsText('Produtos');
-    }
-  };
-
-  const buildCheckoutText = (role) => {
-    const setRole = {
-      administrator: 'Histórico ',
-      customer: 'Carrinho',
-      seller: 'Histórico ',
-    };
-    setCheckoutText(setRole[role]);
-    if (!role) {
-      setCheckoutText('Carrinho');
-    }
-  };
-
-  useEffect(() => {
-    if (userData) {
-      buildProductsText(userData.role);
-      buildCheckoutText(userData.role);
-    }
-  }, [logIn, setLogIn, userData, setUserData]);
-
   const handleAccessBtn = () => {
     setLogIn(false);
     setUserData([]);
@@ -91,15 +59,24 @@ export default function AccessPage() {
             onClick={ () => history.push('/products') }
             type="button"
           >
-            {productText }
+            Produtos
           </button>
           <button
             className="nav-buttons medium-text"
             onClick={ () => history.push('/checkout') }
             type="button"
           >
-            {checkoutText}
+            {userData && userData.role === 'customer' ? 'Carrinho' : 'Histórico' }
           </button>
+          {logIn && (
+            <button
+              className="nav-buttons medium-text"
+              onClick={ () => history.push('/orders') }
+              type="button"
+            >
+              {userData && userData.role === 'customer' ? 'Compras' : 'Vendas' }
+            </button>
+          )}
 
           {userData && userData.role === 'administrator' && (
             <button className="medium-text nav-buttons" type="button">
@@ -109,18 +86,7 @@ export default function AccessPage() {
         </nav>
       </div>
 
-      <div className="center-header">
-
-        <button className="search-btn" type="button">
-          <BiSearchAlt className="search-icon" />
-        </button>
-
-        <input
-          className="search-input default-input"
-          type="text"
-          placeholder="Pesquise sua bebida predileta"
-        />
-      </div>
+      <SearchBar />
 
       <div className="right-container">
 

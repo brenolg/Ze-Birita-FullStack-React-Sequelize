@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import OrderItem from './OrderItem';
 import Status from './Status';
 import { getOrderDetails } from '../../services/APICommunication';
 import { OrderDetailStyle } from './styles';
+import Context from '../../context/Context';
 
-export default function OrderDetailsPage() {
+export default function OrderDetailsPage({ match }) {
+  const { id } = match.params;
+  const { userData } = useContext(Context);
   const [order, setOrder] = useState([]);
   const [products, setProducts] = useState([]);
   const [formattedDate, setFormattedDate] = useState('');
@@ -13,19 +17,19 @@ export default function OrderDetailsPage() {
   const location = useLocation();
 
   useEffect(() => {
-    const pathName = location.pathname.split('/');
-    const idUrl = pathName[2];
-
-    getOrderDetails(idUrl).then((response) => {
+    getOrderDetails(id, userData.token).then((response) => {
+      if (response.message) {
+        return alert(response.message);
+      }
       setOrder(response);
       const data = new Date(response.saleDate);
       const dataFormatada = data.toLocaleDateString('pt-BR');
-      console.log(response);
+
       setFormattedDate(dataFormatada);
       setProducts(response.products);
       setStatus(response.status);
     });
-  }, [location.pathname]);
+  }, [location.pathname, id]);
 
   return (
 
@@ -69,3 +73,11 @@ export default function OrderDetailsPage() {
     </OrderDetailStyle>
   );
 }
+
+OrderDetailsPage.propTypes = ({
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+});

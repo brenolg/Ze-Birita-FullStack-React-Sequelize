@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import PropTypes from 'prop-types';
 import { useState, useContext, useEffect } from 'react';
 import LocalStorage from '../../services/LocalStorageHandler';
@@ -123,9 +124,9 @@ export default function SaleItem({ id, name, price, quantity, index, list,
             </button>
 
             <div className="quantity">
-
-              <div id={ cardQuantity } className="medium-text">{cardQuantity}</div>
-
+              <div className="medium-text">
+                {cardQuantity}
+              </div>
             </div>
 
             <button

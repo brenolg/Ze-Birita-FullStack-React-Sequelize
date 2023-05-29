@@ -26,8 +26,14 @@ export default function CheckoutPage() {
       <CheckoutStyle>
         <main className="checkout-main">
           <div>
-            <h1>Não há produtos no carrinho</h1>
-            <button type="button">Products Page</button>
+            <h1 className="label label-title large-text">Não há produtos no carrinho</h1>
+            <button
+              onClick={ () => history.push('/products') }
+              className="redirect-login large-text"
+              type="button"
+            >
+              Products Page
+            </button>
           </div>
         </main>
       </CheckoutStyle>

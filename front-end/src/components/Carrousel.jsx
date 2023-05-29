@@ -42,10 +42,10 @@ export default function Carrousel() {
 
               <div className="carrousel-values">
                 <span className="carrousel-price medium-text">
-                  { `R$ ${product.price.toFixed(1)}` }
+                  { `R$ ${product.price.toFixed(2)}` }
                 </span>
                 <span className="fake-price carrousel-price medium-text">
-                  {`R$ ${fakeValue(product.price).toFixed(1)}` }
+                  {`R$ ${fakeValue(product.price).toFixed(2)}` }
                 </span>
 
               </div>

@@ -16,18 +16,24 @@ export default function SaleForm() {
   });
   const [error, setError] = useState(null);
   const [userOptionList, setUserOptionList] = useState([]);
-  const [userOptionId, setUserOptionId] = useState();
+  const [userOptionId, setUserOptionId] = useState([]);
   const [sellerOptionList, setSellerOptionList] = useState([]);
-  const [sellerOptionId, setSellerOptionId] = useState();
+  const [sellerOptionId, setSellerOptionId] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
-    getCustomers().then((response) => {
+    getCustomers(userData.token).then((response) => {
+      if (response.message) {
+        return alert(response.message);
+      }
       setUserOptionList(response);
       setUserOptionId(response[0].id);
     });
 
-    getSellers().then((response) => {
+    getSellers(userData.token).then((response) => {
+      if (response.message) {
+        return alert(response.message);
+      }
       setSellerOptionList(response);
       setSellerOptionId(response[0].id);
     });
@@ -74,7 +80,7 @@ export default function SaleForm() {
       shoppingCart: [...shoppingCartValues],
     };
 
-    const newSale = await postSale(saleBody);
+    const newSale = await postSale(saleBody, userData.token);
 
     if (newSale.message) {
       return setError(newSale.message);
@@ -121,7 +127,7 @@ export default function SaleForm() {
                 onChange={ (e) => setUserOptionId(e.target.value) }
 
               >
-                {userOptionList.map((user) => (
+                {userOptionList && userOptionList.map((user) => (
                   <option
                     key={ user.id }
                     name={ user.name }
@@ -147,7 +153,7 @@ export default function SaleForm() {
                 onChange={ (e) => setSellerOptionId(e.target.value) }
 
               >
-                {sellerOptionList.map((seller) => (
+                {sellerOptionList && sellerOptionList.map((seller) => (
                   <option
                     key={ seller.id }
                     name={ seller.name }

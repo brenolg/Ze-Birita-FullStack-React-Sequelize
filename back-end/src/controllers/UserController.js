@@ -28,6 +28,12 @@ class UserController extends AbstractController {
       const users = await this.service.getAllByRole(role);
       return this.res.status(StatusCodes.OK).json(users);
   }
+
+  async getAllCustomers() {
+    const role = Roles.CUSTOMER;
+    const users = await this.service.getAllByRole(role);
+    return this.res.status(StatusCodes.OK).json(users);
+}
 }
 
 module.exports = UserController;

@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const OrderController = require('../controllers/OrderController');
-// const UserHandler = require('../middlewares/UserMiddlewares');
-// const role = require('../utils/rolesList');
+const UserHandler = require('../middlewares/UserMiddlewares');
+const role = require('../utils/rolesList');
 const OrderService = require('../services/OrderService');
 
 const router = Router();
@@ -9,14 +9,14 @@ const orderService = new OrderService();
 
 router.get(
   '/',
-  // UserHandler.defaultAccess, 
+  UserHandler.defaultAccess, 
   (req, res, next) => new OrderController(orderService, req, res, next).getAll(),
 );
 
 // ESSA ROTA RETORNA TODOS OS PEDIDOS DE DETERMINADO USUÁRIO, DE ACORDO COM ID/ROLE DO USUÁRIO.
 router.get(
   '/user',
-  // UserHandler.defaultAccess,
+  UserHandler.defaultAccess,
   (req, res, next) => new OrderController(orderService, req, res, next).getAllByUser(),
   );
 
@@ -35,16 +35,16 @@ router.post(
 
 router.patch(
   '/:id',
-  // UserHandler.defaultAccess,
-  // UserHandler.roleAccess(role.SELLER, role.ADMIN),
+  UserHandler.defaultAccess,
+  UserHandler.roleAccess(role.SELLER, role.ADMIN),
   // pelo readme e figma o usuario pode alterar o status do pedido / discutir sobre isso
   (req, res, next) => new OrderController(orderService, req, res, next).updateStatus(),
   );
 
 router.delete(
 '/:id', 
-// UserHandler.defaultAccess,
-// UserHandler.roleAccess(role.ADMIN),
+UserHandler.defaultAccess,
+UserHandler.roleAccess(role.ADMIN),
 (req, res, next) => new OrderController(orderService, req, res, next).remove(),
 );
 

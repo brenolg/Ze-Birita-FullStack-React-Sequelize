@@ -2,7 +2,11 @@ import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../../context/Context';
 import LocalStorage from '../../services/LocalStorageHandler';
-import { postSale, getUsers, getSellers } from '../../services/APICommunication';
+import {
+  postSale,
+  getSellers,
+  getCustomers,
+} from '../../services/APICommunication';
 
 export default function SaleForm() {
   const { cartValue, logIn, userData } = useContext(Context);
@@ -18,27 +22,16 @@ export default function SaleForm() {
   const history = useHistory();
 
   useEffect(() => {
-    getUsers().then((response) => {
-      const userOptions = response.filter((user) => (
-        user.role === 'customer'
-      ));
+    getCustomers().then((response) => {
+      setUserOptionList(response);
+      setUserOptionId(response[0].id);
+    });
 
-      // inserir fetch pos merge para buscar os usuarios
-
-      const sellerOptions = response.filter((user) => (
-        user.role === 'seller'
-      ));
-
-      setUserOptionList(userOptions);
-      setUserOptionId(userOptions[0].id);
-      setSellerOptionList(sellerOptions);
-      setSellerOptionId(sellerOptions[0].id);
+    getSellers().then((response) => {
+      setSellerOptionList(response);
+      setSellerOptionId(response[0].id);
     });
   }, []); // Cria as listas de usuários e vendedores no select
-
-  getSellers().then((response) => {
-    console.log(response);
-  });
 
   const handleAddressChange = ({ target: { name, value } }) => {
     const newState = { ...userAddress, [name]: value };
@@ -80,7 +73,7 @@ export default function SaleForm() {
       deliveryNumber: userAddress.number,
       shoppingCart: [...shoppingCartValues],
     };
-    console.log(saleBody);
+
     const newSale = await postSale(saleBody);
 
     if (newSale.message) {
@@ -96,6 +89,7 @@ export default function SaleForm() {
     if (userData.role !== 'customer') {
       displayValue = 'flex';
     }
+
     return { display: displayValue };
   }; // Esconde o select de seller caso o usuário logado seja um cliente
 
@@ -110,89 +104,98 @@ export default function SaleForm() {
 
   return (
 
-    <section className="checkout-main" style={ handleFormVisibility() }>
+    <section className="checkout-form-section" style={ handleFormVisibility() }>
 
-      <form>
-        <label
-          htmlFor="clientSelect"
-          style={ handleSelectVisibility() }
-        >
-          Clientes
-          <select
-            name="clientSelect"
-            onChange={ (e) => setUserOptionId(e.target.value) }
-
-          >
-            {userOptionList.map((user) => (
-              <option
-                key={ user.id }
-                name={ user.name }
-                value={ user.id }
-              >
-                {user.name}
-
-              </option>))}
-          </select>
-        </label>
-
-        {userData.role !== 'seller' && (
-          <label
-            htmlFor="sellerSelect"
-            style={ handleSelectVisibility() }
-          >
-            Vendedores
-            <select
-              name="sellerSelect"
-              onChange={ (e) => setSellerOptionId(e.target.value) }
-
+      <form className="checkout-form">
+        <div className="option-container">
+          {userData.role && (
+            <label
+              className="user-label medium-text"
+              htmlFor="clientSelect"
+              style={ handleSelectVisibility() }
             >
-              {sellerOptionList.map((seller) => (
-                <option
-                  key={ seller.id }
-                  name={ seller.name }
-                  value={ seller.id }
-                >
-                  {seller.name}
+              Clientes
+              <select
+                className="checkout-fields medium-text default-input"
+                name="clientSelect "
+                onChange={ (e) => setUserOptionId(e.target.value) }
 
-                </option>))}
-            </select>
-          </label>)}
+              >
+                {userOptionList.map((user) => (
+                  <option
+                    key={ user.id }
+                    name={ user.name }
+                    value={ user.id }
+                  >
+                    {user.name}
 
-        <label className="label" htmlFor="name">
-          <p>Endereço</p>
-          <input
-            className="input field-address"
-            type="text"
-            name="address"
-            placeholder="xxx"
-            value={ handleAddressChange.address }
-            onChange={ handleAddressChange }
-            minLength="12"
-            required
-          />
-        </label>
+                  </option>))}
+              </select>
+            </label>
+          )}
 
-        <label className="label" htmlFor="name">
-          <p>Numero</p>
-          <input
-            className="input field-address"
-            type="text"
-            name="number"
-            placeholder="xxx"
-            value={ handleAddressChange.number }
-            onChange={ handleAddressChange }
-            minLength="12"
-            required
-          />
-        </label>
+          {userData.role && userData.role !== 'seller' && (
+            <label
+              className="user-label medium-text"
+              htmlFor="sellerSelect"
+              style={ handleSelectVisibility() }
+            >
+              Vendedores
+              <select
+                className="checkout-fields medium-text default-input"
+                name="sellerSelect"
+                onChange={ (e) => setSellerOptionId(e.target.value) }
 
-        <button type="button" onClick={ handlePostSale }>
+              >
+                {sellerOptionList.map((seller) => (
+                  <option
+                    key={ seller.id }
+                    name={ seller.name }
+                    value={ seller.id }
+                  >
+                    {seller.name}
+
+                  </option>))}
+              </select>
+            </label>)}
+        </div>
+
+        <div className="option-container">
+          <label className="user-label medium-text" htmlFor="name">
+            <p>Endereço</p>
+            <input
+              className="checkout-fields medium-text default-input"
+              type="text"
+              name="address"
+              placeholder="Rua/Av xxx"
+              value={ handleAddressChange.address }
+              onChange={ handleAddressChange }
+              minLength="12"
+              required
+            />
+          </label>
+
+          <label className="user-label medium-text" htmlFor="name">
+            <p>Complemento</p>
+            <input
+              className="checkout-fields medium-text default-input"
+              type="text"
+              name="number"
+              placeholder="Nº xxx"
+              value={ handleAddressChange.number }
+              onChange={ handleAddressChange }
+              minLength="12"
+              required
+            />
+          </label>
+        </div>
+
+        <h1 className="erro-message medium-text">{error}</h1>
+        <button className="large-text post-btn" type="button" onClick={ handlePostSale }>
           Finalizar Compra
         </button>
 
       </form>
-
-      <h1>{error}</h1>
 
     </section>
 

@@ -5,13 +5,15 @@ export default function OrderItem({ index, name, price, quantity }) {
   const totalPrice = price * quantity;
 
   return (
-    <div className="order-products-container" key={ index }>
+    <div className="order-itens-container medium-text" key={ index }>
 
-      <span>{index + 1}</span>
-      <span>{ name }</span>
-      <span>{ quantity}</span>
-      <span>{price.toFixed(2)}</span>
-      <span>{totalPrice.toFixed(2)}</span>
+      <span className="order-id">
+        {index + 1}
+      </span>
+      <span className="item-name">{ name }</span>
+      <span className="quantity-div">{ quantity}</span>
+      <span className="quantity-div">{`R$ ${price.toFixed(2)}`}</span>
+      <span className="quantity-div">{`R$ ${totalPrice.toFixed(2)}` }</span>
 
     </div>
 

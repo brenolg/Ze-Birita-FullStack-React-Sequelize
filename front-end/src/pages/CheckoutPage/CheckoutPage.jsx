@@ -7,29 +7,45 @@ import SaleItem from './SaleItem';
 import SaleForm from './SaleForm';
 
 export default function CheckoutPage() {
-  const { cartValue, logIn } = useContext(Context);
+  const { cartValue, setCartValue, logIn } = useContext(Context);
   const [saleList, setSaleList] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
     const cartList = LocalStorage.get('shopping_cart') || [];
     setSaleList(cartList);
-  }, []);
+  }, [cartValue, setCartValue]);
 
   const handleCheckoutBtn = () => {
     history.push('/login');
   };
 
-  return (
+  if (saleList.length === 0) {
+    return (
+
+      <CheckoutStyle>
+        <main className="checkout-main">
+          <div>
+            <h1>Não há produtos no carrinho</h1>
+            <button type="button">Products Page</button>
+          </div>
+        </main>
+      </CheckoutStyle>
+    );
+  } return (
 
     <CheckoutStyle>
       <main className="checkout-main">
+        <div className="label-div-container small-text">
 
-        <span>
-          Total: R$
-          {cartValue.toFixed(2) }
-        </span>
-        <div className="description">Description</div>
+          <div className="label label-index">Item</div>
+          <div className="label label-name">Descrição</div>
+          <div className="label label-price label-numbers">Valor Unitário</div>
+          <div className="label label-sub-total label-numbers">Sub-total</div>
+          <div className="label label-quantity label-numbers">Quantidade</div>
+          <div className="label label-delete">Remover Item</div>
+
+        </div>
 
         {saleList.length && saleList.map((product, index) => (
           <SaleItem
@@ -38,28 +54,32 @@ export default function CheckoutPage() {
             id={ product.id }
             name={ product.name }
             price={ product.price }
-            quantity={ product.quantity || 0 }
+            quantity={ product.quantity }
             list={ saleList }
             setList={ setSaleList }
           />
         ))}
 
+        <span className="total-price title-text">
+          {`Total: R$ ${cartValue.toFixed(2)}`}
+        </span>
+
         <SaleForm />
 
-        {!logIn
-        && (
-          <div className="login">
-            <h1>Faça o login para finalizar a compra</h1>
+        {!logIn && saleList.length && (
+          <div className="login-redirect">
+            <h1 className="large-text">Faça o login para finalizar a compra</h1>
             <button
+              className="redirect-login large-text"
               onClick={ handleCheckoutBtn }
               type="button"
             >
-              Login
+              ENTRAR
             </button>
           </div>
         )}
-
       </main>
+
     </CheckoutStyle>
   );
 }

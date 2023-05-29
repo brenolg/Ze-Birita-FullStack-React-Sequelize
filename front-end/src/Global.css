@@ -1,28 +1,34 @@
 :root {
 
-  --color-primary: #036b52;
+  --color-primary: #163937;
 
-  --color-secondary: #2fc18c;
+  --color-secondary: #11484de5;
 
-  --color-tertiary: #421981;
+  --color-tertiary: #b45f2b;
 
-  --color-quaternary: #056cf9;
+  --color-status-delivered: #0c7a58;
 
-  --color-status-delivered: #00cc9b;
+  --color-status-preparing: rgb(165, 86, 17);
 
-  --color-status-preparing: #6c0;
+  --color-status-pending: #7a7c13;
 
-  --color-status-pending: #ccb800;
+  --color-default-grey: #d3d2d2;
 
-  --color-text-dark: #001813;
+  --color-text-dark: rgb(80, 80, 80);
 
-  --color-text-light: #f2fffc;
+  --color-input: rgb(224, 228, 233);
 
-  --color-input-valid: #42a948;
+  --color-text-light: rgb(224, 228, 233);
 
-  --color-input-invalid: #a94442;
+  --color-input-valid: #175e62;
+
+  --color-input-invalid: #a95a42;
+
+  /* a partir daqui não usei */
 
   --color-border-gray-light: #b1c2be;
+
+  --color-quaternary: #056cf9;
 
   --color-bg-blue-light: #eaf1ef;
 
@@ -66,18 +72,23 @@
 }
 
 html {
-
-  --blue: 5 , 46 , 66;
   font-size: 62.5%;
 }
 
 body {
+  background-color: #e4e3e3;
   font-family: Roboto , sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: auto;
   min-height: 100vh;
+  overflow-x: hidden;
   width: 100%;
+}
+
+
+button {
+  cursor: pointer;
 }
 
 p {
@@ -89,6 +100,68 @@ a {
   text-decoration: none;
 }
 
+.default-input {
+  background-color: var(--color-input);
+  border: none;
+  color: var(--color-text-dark);
+  font-size: 1.7rem;
+  font-weight: 900;
+  height: 40%;
+  outline: none;
+  padding-left: 3%;
+}
+
+.default-input::placeholder {
+  opacity: 1;
+  transition: all 0.5s ease-in-out;
+}
+
+.default-input:focus::placeholder {
+  opacity: 0;
+}
+
+.small-text {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.medium-text {
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+
+.large-text {
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.title-text {
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.decrease {
+  border-bottom-left-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+}
+
+.increase {
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+::-webkit-scrollbar {
+  background: inherit;
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 50%;
+}
+
+
+/* A partir daqui não usei */
 .conteiner {
   align-content: center;
   align-items: center;

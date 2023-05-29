@@ -14,7 +14,7 @@ export default function Router() {
       <Route path="/checkout" component={ CheckoutPage } />
       <Route path="/orders/:id" component={ OrderDetailsPage } />
       <Route path="/">
-        <Redirect to="/login" />
+        <Redirect to="/products" />
       </Route>
     </Switch>
 

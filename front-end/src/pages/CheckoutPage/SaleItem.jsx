@@ -94,53 +94,62 @@ export default function SaleItem({ id, name, price, quantity, index, list,
 
   return (
 
-    <div key={ id } className="cart_content">
-      <span>{index + 1}</span>
+    <div key={ id } className="cart_content medium-text">
+      <div className="index-div">
+        <span className="index-span">{index + 1}</span>
+      </div>
 
       <span className="product_name">{ name }</span>
 
-      <span className="product_price">
-        R$
-        { price}
-      </span>
+      <div className="price-div">
+        <span className="product_price price-item">
+          {`R$ ${price}`}
+        </span>
 
-      <span className="product_total_price">
-        R$
-        {totalByItem()}
-      </span>
+        <span className="product_total_price price-item">
+          {`R$ ${totalByItem()}`}
+        </span>
 
-      <div className="counter_container">
+        <div className="counter_container price-item">
 
-        <div className="counter">
-          <button
-            className="button_counter decrease"
-            type="button"
-            name="decrease"
-            onClick={ removeQuantity }
-          >
-            -
-          </button>
-          <span className="quantity">{cardQuantity}</span>
-          <button
-            className="button_counter increase"
-            type="button"
-            name="increase"
-            onClick={ addQuantity }
-          >
-            +
-          </button>
+          <div className="counter ">
+            <button
+              className="button_counter decrease medium-text"
+              type="button"
+              name="decrease"
+              onClick={ removeQuantity }
+            >
+              -
+            </button>
 
-          <button
-            className="rmv_button"
-            id={ id }
-            type="button"
-            onClick={ handleDelete }
-          >
-            Remover
+            <div className="quantity">
 
-          </button>
+              <div id={ cardQuantity } className="medium-text">{cardQuantity}</div>
+
+            </div>
+
+            <button
+              className="button_counter increase medium-text"
+              type="button"
+              name="increase"
+              onClick={ addQuantity }
+            >
+              +
+            </button>
+          </div>
         </div>
+
       </div>
+
+      <button
+        className="rmv_button large-text"
+        id={ id }
+        type="button"
+        onClick={ handleDelete }
+      >
+        Remover
+
+      </button>
     </div>
 
   );

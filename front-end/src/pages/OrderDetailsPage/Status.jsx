@@ -25,12 +25,12 @@ export default function Status({ status, setStatus }) {
   const handleStatusColor = ((statusBtn) => {
     const buildColor = () => {
       if (statusBtn === 'Em Trânsito') {
-        return 'orange';
+        return 'yellow';
       }
       const statusColor = {
         Preparando: 'orange',
-        Transito: 'orange',
-        Pendente: 'yellow',
+        Transito: 'yellow',
+        Pendente: 'red',
         Entregue: 'green',
       };
       const color = statusColor[status];
@@ -68,6 +68,7 @@ export default function Status({ status, setStatus }) {
       {userData.role !== 'customer' && (
         <>
           <button
+            className="status-btn medium-text"
             name="Entregue"
             onClick={ (e) => handleStatusBtn(e.target.name) }
             type="button"
@@ -76,6 +77,7 @@ export default function Status({ status, setStatus }) {
           </button>
 
           <button
+            className="status-btn medium-text"
             name="Em Trânsito"
             onClick={ (e) => handleStatusBtn(e.target.name) }
             type="button"
@@ -84,6 +86,7 @@ export default function Status({ status, setStatus }) {
           </button>
 
           <button
+            className="status-btn medium-text"
             name="Preparando"
             onClick={ (e) => handleStatusBtn(e.target.name) }
             type="button"

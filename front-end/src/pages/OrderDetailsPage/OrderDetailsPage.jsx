@@ -32,9 +32,9 @@ export default function OrderDetailsPage() {
     <OrderDetailStyle>
       <main className="order-main">
 
-        <div className="order-details">
+        <div className="order-details medium-text">
 
-          <span>{`Pedido ${order.id}`}</span>
+          <span className="order-id">{`Pedido ${order.id}`}</span>
           <span>{order.sellerName}</span>
           <span>{formattedDate}</span>
 
@@ -42,7 +42,6 @@ export default function OrderDetailsPage() {
             status={ status }
             setStatus={ setStatus }
           />
-
         </div>
 
         {products && products.map((product, index) => (
@@ -55,7 +54,16 @@ export default function OrderDetailsPage() {
           />
         ))}
 
-        <span className="total-price">{order.totalPrice}</span>
+        <div className="total-order-container">
+          <button
+            className="total-order order-btn large-text"
+            type="button"
+          >
+            Order Page
+
+          </button>
+          <span className="total-order large-text">{`R$ ${order.totalPrice}`}</span>
+        </div>
 
       </main>
     </OrderDetailStyle>

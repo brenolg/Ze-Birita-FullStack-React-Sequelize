@@ -1,16 +1,37 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
+import { BiUserCircle, BiSearchAlt } from 'react-icons/bi';
+import { IoBeerSharp } from 'react-icons/io5';
+import { FiShoppingBag, FiLogIn } from 'react-icons/fi';
 import Context from '../context/Context';
 import LocalStorage from '../services/LocalStorageHandler';
 import './Header.css';
 
 export default function AccessPage() {
-  const [roleText, setRoleText] = useState('');
-  const { logIn, setLogIn, userData, setUserData } = useContext(Context);
+  const [productText, setProductsText] = useState('');
+  const [checkoutText, setCheckoutText] = useState('');
+  const {
+    logIn,
+    setLogIn,
+    userData,
+    setUserData,
+    cartValue,
+    setCartValue,
+    setProductList,
+  } = useContext(Context);
   const [userName, setUserName] = useState('');
-  const [roleTextDetails, setRoleTextDetails] = useState('');
+  const [cartLength, setCartLength] = useState(0);
   const history = useHistory();
-  const location = useLocation();
+
+  useEffect(() => {
+    const cartList = LocalStorage.get('shopping_cart') || [];
+    if (cartList.length === 1 && cartList[0].quantity === 0) {
+      setCartLength(0);
+      return;
+    }
+
+    setCartLength(cartList.length);
+  }, [setCartLength, cartValue, setCartValue, setProductList]);
 
   useEffect(() => {
     if (userData) {
@@ -20,40 +41,40 @@ export default function AccessPage() {
     }
   }, [logIn, setLogIn, setUserData, userData]);
 
-  const buildRoleText = (role) => {
+  const buildProductsText = (role) => {
     const setRole = {
-      administrator: 'Gerenciar Usuários',
+      administrator: 'Pedidos',
       customer: 'Produtos',
       seller: 'Pedidos',
     };
-    setRoleText(setRole[role]);
+    setProductsText(setRole[role]);
+    if (!role) {
+      setProductsText('Produtos');
+    }
   };
 
-  const buildRoleDetails = (role) => {
-    if (role === 'customer') {
-      setRoleTextDetails('Meus Pedidos');
+  const buildCheckoutText = (role) => {
+    const setRole = {
+      administrator: 'Histórico ',
+      customer: 'Carrinho',
+      seller: 'Histórico ',
+    };
+    setCheckoutText(setRole[role]);
+    if (!role) {
+      setCheckoutText('Carrinho');
     }
   };
 
   useEffect(() => {
     if (userData) {
-      buildRoleText(userData.role);
-      buildRoleDetails(userData.role);
+      buildProductsText(userData.role);
+      buildCheckoutText(userData.role);
     }
   }, [logIn, setLogIn, userData, setUserData]);
 
-  useEffect(() => {
-    const user = LocalStorage.get('user');
-
-    if (user) {
-      setLogIn(true);
-      setUserData(user);
-    }
-  }, [location.pathname, setUserData, setLogIn]);
-
   const handleAccessBtn = () => {
     setLogIn(false);
-    setUserData(null);
+    setUserData([]);
     LocalStorage.remove('user');
     history.push('/login');
   };
@@ -61,47 +82,105 @@ export default function AccessPage() {
   return (
     <header className="main-header">
 
-      <div className="role-container">
-        <div className="role-description">
-          <span className="title-description">
-            {roleText }
-          </span>
-        </div>
-        <div className="details-container">
-          <span className="details-info">
-            {roleTextDetails}
+      <div className="left-header">
+        <IoBeerSharp className="logo-icon" />
 
-          </span>
-        </div>
+        <nav className="nav-links-header">
+          <button
+            className="nav-buttons medium-text"
+            onClick={ () => history.push('/products') }
+            type="button"
+          >
+            {productText }
+          </button>
+          <button
+            className="nav-buttons medium-text"
+            onClick={ () => history.push('/checkout') }
+            type="button"
+          >
+            {checkoutText}
+          </button>
+
+          {userData && userData.role === 'administrator' && (
+            <button className="medium-text nav-buttons" type="button">
+              Gerenciar usuário
+            </button>
+          )}
+        </nav>
       </div>
 
-      <div
-        className="user-container"
-        style={ logIn
-          ? { justifyContent: 'space-between' }
-          : { justifyContent: 'flex-end' } }
-      >
-        {logIn && (
+      <div className="center-header">
+
+        <button className="search-btn" type="button">
+          <BiSearchAlt className="search-icon" />
+        </button>
+
+        <input
+          className="search-input default-input"
+          type="text"
+          placeholder="Pesquise sua bebida predileta"
+        />
+      </div>
+
+      <div className="right-container">
+
+        {logIn ? (
+
           <div className="username-info">
-            <span className="user-title">
-              {userName}
-            </span>
+
+            <BiUserCircle className="header-icon" />
+
+            <div className="name-div">
+              <span className="small-text">
+                Olá,
+              </span>
+              <span className="small-text">
+                {userName}
+              </span>
+            </div>
+          </div>
+        )
+          : (
+            <button
+              type="button"
+              className="header-login-btn"
+              onClick={ () => {
+                handleAccessBtn();
+              } }
+            >
+              ENTRAR
+            </button>)}
+
+        {userData.role !== 'administrator' && (
+          <div className="cart-container">
+            <button
+              className="bag-btn"
+              type="button"
+              onClick={ () => history.push('/checkout') }
+            >
+              <FiShoppingBag className="header-icon" />
+            </button>
+
+            <div className="cart-values-container">
+              <span className="small-text">
+                {`R$ ${Math.abs(cartValue).toFixed(1)}`}
+              </span>
+              <span className="small-text">
+                {`${cartLength} itens`}
+              </span>
+            </div>
           </div>
         )}
-        <nav className="nav-header">
-          <button
-            type="button"
-            className="header-btns"
-            onClick={ () => {
-              handleAccessBtn();
-            } }
 
-          >
-            <span className="header-btns-content">
-              {logIn ? 'Sair' : 'Log-In'}
-            </span>
-          </button>
-        </nav>
+        <button
+          className="login-header-btn"
+          onClick={ () => {
+            handleAccessBtn();
+          } }
+          type="button"
+        >
+          <FiLogIn className="header-icon" />
+        </button>
 
       </div>
     </header>

@@ -7,7 +7,6 @@ export default function ProductCard({ id, name, price, url, priceArray }) {
   const {
     cartValue,
     setCartValue,
-
   } = useContext(Context);
 
   const [cardQuantity, setCardQuantity] = useState(0);
@@ -32,17 +31,9 @@ export default function ProductCard({ id, name, price, url, priceArray }) {
 
     if (findProduct) {
       setCardQuantity(findProduct.quantity);
-      if (cartValue === 0) {
-        const itemTotal = findProduct.price * findProduct.quantity;
-        priceArray.push(itemTotal);
-
-        const totalValue = priceArray.reduce((acc, curr) => acc + curr, 0);
-
-        setCartValue(totalValue);
-      }
     }
   }, [id, priceArray, setCartValue, cartValue]);
-  // Retorna os valores do localStorage e seta o valor do cartValue e cardQuantity
+  // Retorna os valores do localStorage e seta cardQuantity
 
   const addQuantity = () => {
     const newQuantity = cardQuantity + 1;
@@ -103,18 +94,17 @@ export default function ProductCard({ id, name, price, url, priceArray }) {
 
   return (
 
-    <div key={ id } className="card_content">
-      <figure>
-        <figcaption className="product_detail">
-          R$
-          { price.toFixed(2)}
+    <div key={ id } className="card_content animate-shadow">
+      <figure className="figure-product">
+        <figcaption className="product-price">
+          {`R$ ${price.toFixed(2)}` }
         </figcaption>
 
         <img className="product_img" src={ url } alt={ name } />
       </figure>
 
       <div className="counter_container">
-        <p className="product_name">{ name }</p>
+        <p className="product_name large-text">{ name }</p>
 
         <div className="counter">
           <button
@@ -125,7 +115,7 @@ export default function ProductCard({ id, name, price, url, priceArray }) {
           >
             -
           </button>
-          <span className="quantity">{cardQuantity}</span>
+          <span className="quantity large-text">{cardQuantity}</span>
           <button
             className="button_counter increase"
             type="button"

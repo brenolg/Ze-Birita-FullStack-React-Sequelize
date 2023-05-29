@@ -5,6 +5,7 @@ import { AccessPageStyle } from './styles';
 
 export default function AccessPage() {
   const loginRoute = useRouteMatch('/login');
+
   return (
     <AccessPageStyle>
       <div className="conteiner access__conteiner">

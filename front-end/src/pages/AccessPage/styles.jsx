@@ -45,10 +45,6 @@ export const AccessFormStyle = styled.div`
 `;
 
 export const AccessPageStyle = styled.div`
-.access__conteiner {
-  background: var(--color-bg-blue-light);
-}
-
 .access__content {
   min-height: 400px;
   width: 330px;
@@ -56,6 +52,5 @@ export const AccessPageStyle = styled.div`
 
 .access__title {
   height: 100px;
-  margin: 15px 0 24px;
 }
 `;

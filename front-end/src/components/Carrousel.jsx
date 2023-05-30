@@ -14,6 +14,7 @@ const discount = (valorOriginal, valorComDesconto) => {
 
 export default function Carrousel() {
   const [productList, setProductList] = useState([]);
+  // productList é setado com todos produtos o q limita o carrousel é o css com transform 100vh
 
   useEffect(() => {
     getProducts().then((response) => {
@@ -35,7 +36,11 @@ export default function Carrousel() {
                 <span className="carrousel-discount medium-text">
                   { `${discount(product.price, fakeValue(product.price)).toFixed()}%` }
                 </span>
-                <img className="carrousel-img" src={ product.urlImage } alt="Produto 1" />
+                <img
+                  className="carrousel-img"
+                  src={ product.urlImage }
+                  alt="Produto img"
+                />
               </div>
 
               <span className="carrousel-name small-text">{ product.name }</span>

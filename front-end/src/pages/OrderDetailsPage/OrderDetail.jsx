@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function OrderItem({ index, name, price, quantity }) {
+export default function OrderDetail({ index, name, price, quantity }) {
   const totalPrice = price * quantity;
 
   return (
@@ -20,7 +20,7 @@ export default function OrderItem({ index, name, price, quantity }) {
   );
 }
 
-OrderItem.propTypes = ({
+OrderDetail.propTypes = ({
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,

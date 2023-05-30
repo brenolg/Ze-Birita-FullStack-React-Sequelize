@@ -125,6 +125,7 @@ const ProductsStyle = styled.div`
     padding: 0.5rem;
     margin-right: 2rem;
   }
+
 `;
 
 export default ProductsStyle;

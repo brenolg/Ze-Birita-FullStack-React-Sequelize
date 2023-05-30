@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import OrderItem from './OrderItem';
+import OrderDetail from './OrderDetail';
 import Status from './Status';
 import { getOrderDetails } from '../../services/APICommunication';
 import { OrderDetailStyle } from './styles';
@@ -49,7 +49,7 @@ export default function OrderDetailsPage({ match }) {
         </div>
 
         {products && products.map((product, index) => (
-          <OrderItem
+          <OrderDetail
             index={ index }
             key={ product.id }
             name={ product.name }

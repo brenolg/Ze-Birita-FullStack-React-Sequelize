@@ -111,7 +111,7 @@ export const OrderDetailStyle = styled.div`
 
 .total-order-container{
   width: 100%;
-  margin-top: 5rem;
+  margin-top: 12rem;
   display: flex;
   justify-content: flex-end;
   position: relative;
@@ -142,9 +142,6 @@ export const OrderDetailStyle = styled.div`
 .order-btn:hover {
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 2px;
 }
-
-
-
 `;
 
 export default OrderDetailStyle;

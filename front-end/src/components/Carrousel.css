@@ -37,9 +37,11 @@
 
 .carousel-item {
   align-items: center;
+  border: none;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  outline: none;
 }
 
 .carrousel-img {
@@ -75,13 +77,16 @@
 }
 
 .carrousel-values {
+  align-items: center;
   color: var(--color-text-dark);
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   justify-content: space-between;
-  padding: 1em 0;
-  width: 12rem;
+  padding: 1em 0.5em;
 }
 
 .fake-price {
+  font-size: 1.5rem;
   text-decoration: line-through;
 }

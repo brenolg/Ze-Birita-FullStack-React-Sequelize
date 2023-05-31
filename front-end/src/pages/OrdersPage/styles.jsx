@@ -40,6 +40,7 @@ export const OrdersPageStyle = styled.main`
 }
 
 .order-status {
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 0px;
   height: 100%;
   background-color: var(--color-secondary);
   justify-content: center;
@@ -50,10 +51,25 @@ export const OrdersPageStyle = styled.main`
 }
 
 .order-number-values {
-    justify-content: space-around;
-    padding: 0.3em;
-  }
+  justify-content: space-around;
+  padding: 0 0.3em;
+}
 
+.green {
+  background-color: var(--color-status-delivered);
+}
+
+.orange{
+  background-color: var(--color-status-preparing)
+}
+
+.red{
+  background-color: var(--color-input-invalid);
+}
+
+.yellow {
+  background-color: var(--color-status-pending);
+}
 
 `;
 

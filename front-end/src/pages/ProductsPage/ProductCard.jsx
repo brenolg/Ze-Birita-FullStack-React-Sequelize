@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import LocalStorage from '../../services/LocalStorageHandler';
 import Context from '../../context/Context';
 
@@ -10,6 +11,7 @@ export default function ProductCard({ id, name, price, url, priceArray }) {
   } = useContext(Context);
 
   const [cardQuantity, setCardQuantity] = useState(0);
+  const history = useHistory();
 
   const writeNewQuantity = (oldCart, newQuantity) => {
     const values = oldCart.map((cartProduct) => {
@@ -95,13 +97,19 @@ export default function ProductCard({ id, name, price, url, priceArray }) {
   return (
 
     <div key={ id } className="card_content animate-shadow">
-      <figure className="figure-product">
-        <figcaption className="product-price">
-          {`R$ ${price.toFixed(2)}` }
-        </figcaption>
+      <button
+        className="product-details-btn"
+        onClick={ () => history.push(`/products/${Number(id)}`) }
+        type="button"
+      >
+        <figure className="figure-product">
+          <figcaption className="product-price">
+            {`R$ ${price.toFixed(2)}` }
+          </figcaption>
 
-        <img className="product_img" src={ url } alt={ name } />
-      </figure>
+          <img className="product_img" src={ url } alt={ name } />
+        </figure>
+      </button>
 
       <div className="counter_container">
         <p className="product_name large-text">{ name }</p>

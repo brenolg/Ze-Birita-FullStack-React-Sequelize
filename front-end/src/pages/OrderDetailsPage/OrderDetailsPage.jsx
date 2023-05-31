@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import OrderDetail from './OrderDetail';
 import Status from './Status';
@@ -15,6 +15,7 @@ export default function OrderDetailsPage({ match }) {
   const [formattedDate, setFormattedDate] = useState('');
   const [status, setStatus] = useState('');
   const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     getOrderDetails(id, userData.token).then((response) => {
@@ -29,7 +30,8 @@ export default function OrderDetailsPage({ match }) {
       setProducts(response.products);
       setStatus(response.status);
     });
-  }, [location.pathname, id]);
+    console.log(id);
+  }, [location.pathname, id, userData.token]);
 
   return (
 
@@ -61,6 +63,7 @@ export default function OrderDetailsPage({ match }) {
         <div className="total-order-container">
           <button
             className="total-order order-btn large-text"
+            onClick={ () => history.push('/orders') }
             type="button"
           >
             Order Page

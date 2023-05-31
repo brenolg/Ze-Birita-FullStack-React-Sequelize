@@ -42,6 +42,17 @@ export async function getProducts() {
   } catch (error) { return error; }
 }
 
+export async function getProductDetails(id) {
+  try {
+    const response = await fetch(`${url}/products/${id}`, {
+      method: 'GET',
+    });
+    const productsData = await response.json();
+
+    return productsData;
+  } catch (error) { return error; }
+}
+
 export async function postSale(data) {
   try {
     const response = await fetch(`${url}/orders`, {
@@ -88,6 +99,20 @@ export async function getSellers(token) {
 export async function getOrderDetails(id, token) {
   try {
     const response = await fetch(`${url}/orders/${id}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    const usersData = await response.json();
+
+    return usersData;
+  } catch (error) { return error; }
+}
+
+export async function getOrders(token) {
+  try {
+    const response = await fetch(`${url}/orders/user`, {
       method: 'GET',
       headers: {
         Authorization: `${token}`,

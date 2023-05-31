@@ -6,7 +6,7 @@
 
   --color-tertiary: #b45f2b;
 
-  --color-status-delivered: #0c7a58;
+  --color-status-delivered: #075c38;
 
   --color-status-preparing: rgb(165, 86, 17);
 
@@ -61,7 +61,6 @@
   --input-required-valid: 5px solid var(--color-input-valid);
 
   --input-required-invalid: 5px solid var(--color-input-invalid);
-
 }
 
 * {

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useRouteMatch } from 'react-router-dom';
 import { getProducts } from '../services/APICommunication';
 import sale from '../images/bfsale.png';
 import './Carrousel.css';
@@ -15,6 +17,8 @@ const discount = (valorOriginal, valorComDesconto) => {
 export default function Carrousel() {
   const [productList, setProductList] = useState([]);
   // productList é setado com todos produtos o q limita o carrousel é o css com transform 100vh
+  const history = useHistory();
+  const productsPath = useRouteMatch('/products');
 
   useEffect(() => {
     getProducts().then((response) => {
@@ -23,19 +27,29 @@ export default function Carrousel() {
   }, [setProductList]);
   return (
     <>
+      {productsPath.isExact && (
+        <img src={ sale } alt="sale" className="black-friday" />
+      )}
 
-      <img src={ sale } alt="sale" className="black-friday" />
       <section className="carousel">
 
         <div className="carousel-inner">
 
           {productList.length && productList.map((product) => (
-            <div key={ product.id } className="carousel-item">
+            <button
+              onClick={ () => history.push(`/products/${product.id}`) }
+              className="carousel-item"
+              type="button"
+              key={ product.id }
+            >
 
               <div className="carrousel-img-div">
-                <span className="carrousel-discount medium-text">
-                  { `${discount(product.price, fakeValue(product.price)).toFixed()}%` }
-                </span>
+                {productsPath.isExact && (
+                  <span className="carrousel-discount medium-text">
+                    { `${discount(product.price, fakeValue(product.price)).toFixed()}%` }
+                  </span>
+                )}
+
                 <img
                   className="carrousel-img"
                   src={ product.urlImage }
@@ -46,15 +60,17 @@ export default function Carrousel() {
               <span className="carrousel-name small-text">{ product.name }</span>
 
               <div className="carrousel-values">
-                <span className="carrousel-price medium-text">
-                  { `R$ ${product.price.toFixed(2)}` }
-                </span>
-                <span className="fake-price carrousel-price medium-text">
-                  {`R$ ${fakeValue(product.price).toFixed(2)}` }
-                </span>
+                {productsPath.isExact && (
+                  <span className="fake-price carrousel-price">
+                    {`R$ ${fakeValue(product.price).toFixed(2)}`}
+                  </span>
+                )}
 
+                <span className="carrousel-price medium-text">
+                  {`R$ ${product.price.toFixed(2)}`}
+                </span>
               </div>
-            </div>
+            </button>
 
           ))}
         </div>

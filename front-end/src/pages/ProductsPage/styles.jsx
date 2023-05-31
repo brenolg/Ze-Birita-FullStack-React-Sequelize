@@ -126,6 +126,11 @@ const ProductsStyle = styled.div`
     margin-right: 2rem;
   }
 
+  .product-details-btn {
+    border: none;
+    outline: none;
+  }
+
 `;
 
 export default ProductsStyle;

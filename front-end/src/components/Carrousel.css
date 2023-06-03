@@ -1,6 +1,8 @@
 .carousel {
+  background-color: #efefef;
   border-radius: 1rem;
   box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25);
+  height: auto;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -27,27 +29,19 @@
   z-index: 1;
 }
 
-.carousel-inner-2 {
-  display: flex;
-  left: 0;
-  position: absolute;
-  top: 0;
-  transition: transform 0.5s ease;
-  z-index: 1;
-}
-
 .carousel-item {
   align-items: center;
   border: none;
   display: flex;
   flex-direction: column;
+  height: 100%;
   justify-content: space-between;
   outline: none;
 }
 
 .carrousel-name {
   color: var(--color-text-dark);
-  margin: 0.5rem 0;
+  margin: 0.8rem 0;
 }
 
 .carrousel-img-div {

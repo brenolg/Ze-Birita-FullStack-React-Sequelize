@@ -5,6 +5,7 @@ import CheckoutPage from '../pages/CheckoutPage/CheckoutPage';
 import OrderDetailsPage from '../pages/OrderDetailsPage/OrderDetailsPage';
 import OrdersPage from '../pages/OrdersPage/OrdersPage';
 import ProductDetails from '../pages/ProductDetails/ProductDetails';
+import ManagerPage from '../pages/ManagerPage/ManagerPage';
 
 export default function Router() {
   return (
@@ -17,6 +18,7 @@ export default function Router() {
       <Route path="/checkout" component={ CheckoutPage } />
       <Route path="/orders" component={ OrdersPage } exact />
       <Route path="/orders/:id" component={ OrderDetailsPage } exact />
+      <Route path="/manager" component={ ManagerPage } exact />
       <Route path="/">
         <Redirect to="/products" />
       </Route>

@@ -82,6 +82,7 @@ export default function SaleForm() {
       shoppingCart: [...shoppingCartValues],
     };
 
+    console.log(saleBody);
     const newSale = await postSale(saleBody, userData.token);
 
     if (newSale.message) {

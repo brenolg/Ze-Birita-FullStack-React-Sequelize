@@ -79,7 +79,11 @@ export default function AccessPage() {
           )}
 
           {userData && userData.role === 'administrator' && (
-            <button className="medium-text nav-buttons" type="button">
+            <button
+              className="medium-text nav-buttons"
+              onClick={ () => history.push('/manager') }
+              type="button"
+            >
               Gerenciar usuário
             </button>
           )}

@@ -45,7 +45,7 @@ export default function ProductsPage() {
 
         <div>
           <main className="container_products">
-            <Carrousel />
+            <Carrousel category="all" />
 
             {productList.length && productList.map((product) => (
               <ProductCard

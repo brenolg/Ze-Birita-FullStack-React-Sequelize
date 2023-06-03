@@ -50,6 +50,7 @@ export const OrderDetailStyle = styled.div`
   color: var(--color-text-light);
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 0px;
   text-shadow: 0px 0px 1px rgba(0, 0, 0);
+  transition: 0.2s;
 }
 
 .status-btn {

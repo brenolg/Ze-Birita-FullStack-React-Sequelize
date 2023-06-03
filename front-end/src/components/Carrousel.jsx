@@ -1,25 +1,33 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useRouteMatch } from 'react-router-dom';
-import { getProducts } from '../services/APICommunication';
+import PropTypes from 'prop-types';
+import { getProducts, getProductsByCategory } from '../services/APICommunication';
 import sale from '../images/bfsale.png';
 import './Carrousel.css';
 import '../Global.css';
 
-export default function Carrousel() {
+export default function Carrousel({ category }) {
   const [productList, setProductList] = useState([]);
-  // productList é setado com todos produtos o q limita o carrousel é o css com transform 100vh
-  const carrosselRef = useRef(null);
-  const carrosselRef2 = useRef(null);
+  const firstCarrossel = useRef(null);
+  const secondCarrossel = useRef(null);
   const history = useHistory();
   const productsPath = useRouteMatch('/products');
 
   useEffect(() => {
-    const arraySlice = 18;
-    getProducts().then((response) => {
-      setProductList(response.slice(0, arraySlice));
-    });
-  }, [setProductList]);
+    if (category === 'all') {
+      const arraySlice = 18;
+      getProducts().then((response) => {
+        setProductList(response.slice(0, arraySlice));
+      });
+    }
+
+    if (category !== 'all' && category !== undefined) {
+      getProductsByCategory(category).then((response) => {
+        setProductList(response);
+      });
+    }
+  }, [setProductList, productsPath.isExact, category]);
 
   const buildHeight = () => {
     if (productsPath.isExact) {
@@ -74,7 +82,7 @@ export default function Carrousel() {
   );
 
   useEffect(() => {
-    const carouselAnimation = carrosselRef.current.animate(
+    const carouselAnimation = firstCarrossel.current.animate(
       [
         { transform: 'translateX(0)' },
         { transform: 'translateX(calc(100%)' },
@@ -92,7 +100,7 @@ export default function Carrousel() {
   }, []);
 
   useEffect(() => {
-    const carouselAnimation = carrosselRef2.current.animate(
+    const carouselAnimation = secondCarrossel.current.animate(
       [
         { transform: 'translateX(-100%)' },
         { transform: 'translateX(calc(0%)' },
@@ -117,18 +125,20 @@ export default function Carrousel() {
 
       <section className="carousel">
 
-        <div ref={ carrosselRef } className="carousel-inner">
-          {productList
+        <div ref={ firstCarrossel } className="carousel-inner">
+          {category && productList
             .map((product) => renderCarouselItem(product, productsPath.isExact))}
         </div>
 
-        <div ref={ carrosselRef2 } className="carousel-inner-2">
+        <div ref={ secondCarrossel } className="carousel-inner">
 
-          {productList
+          {category && productList
             .map((product) => renderCarouselItem(product, productsPath.isExact))}
         </div>
       </section>
     </>
-
   );
 }
+Carrousel.propTypes = ({
+  category: PropTypes.string.isRequired,
+});

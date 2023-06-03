@@ -165,16 +165,16 @@ a {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   margin: auto;
+  margin-top: 30vh;
 }
 
 .content {
   align-items: center;
-  background: var(--color-bg-blue-light);
-  border: 1px solid var(--color-border-gray-light);
-  border-radius: 8px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background: var(--color-default-grey);
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.8) 0 0 4px 0;
+  color : var(--color-text-dark);
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -184,7 +184,7 @@ a {
 .button {
   align-items: center;
   border: var(--border-button);
-  border-radius: 8px;
+  border-radius: 1rem;
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -223,7 +223,7 @@ a {
 
 .input {
   border: var(--border-input);
-  border-radius: 4px;
+  border-radius: 1rem;
   font: var(--font-label);
   height: 44px;
   margin: 1px 0 8px;
@@ -234,7 +234,7 @@ a {
 
 .product_detail {
   background-color: var(--color-bg-opacity);
-  border-radius: 8px;
+  border-radius: 1rem;
   font: var(--font-details);
   width: auto;
 }

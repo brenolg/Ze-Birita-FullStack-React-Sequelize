@@ -64,12 +64,12 @@ export async function getProductDetails(id) {
   } catch (error) { return error; }
 }
 
-export async function postSale(data) {
+export async function postSale(data, token) {
   try {
     const response = await fetch(`${url}/orders`, {
       method: 'POST',
       headers: {
-        'Content-Type': appJson,
+        Authorization: `${token}`,
       },
       body: JSON.stringify(data),
     });

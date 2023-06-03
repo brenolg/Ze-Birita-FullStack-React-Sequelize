@@ -23,13 +23,13 @@ router.get(
 // ESSA ROTA RETORNA O PEDIDO DE ACORDO COM SEU ID. -> DETALHES DO PEDIDO
 router.get(
   '/:id', 
-  // UserHandler.defaultAccess, -> Conferir porque está atrapalhando esta rota!!
+  UserHandler.defaultAccess, 
   (req, res, next) => new OrderController(orderService, req, res, next).getById(),
 );
 
 router.post(
   '/',
-  // UserHandler.defaultAccess,
+  UserHandler.defaultAccess,
   (req, res, next) => new OrderController(orderService, req, res, next).create(),
   );
 
@@ -37,7 +37,6 @@ router.patch(
   '/:id',
   UserHandler.defaultAccess,
   UserHandler.roleAccess(role.SELLER, role.ADMIN),
-  // pelo readme e figma o usuario pode alterar o status do pedido / discutir sobre isso
   (req, res, next) => new OrderController(orderService, req, res, next).updateStatus(),
   );
 

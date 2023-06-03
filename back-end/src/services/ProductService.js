@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const AbstractService = require('./AbstractService');
 const { Product } = require('../database/models');
 const HttpException = require('../utils/HttpException');
@@ -16,6 +17,55 @@ class ProductService extends AbstractService {
     });
 
     return product;
+  }
+
+  async searchAll(categorySearched, nameSearched) {
+    let nameQuery = { [Op.like]: `%${nameSearched}%` };
+    if (nameSearched.length === 1) nameQuery = { [Op.startsWith]: `${nameSearched}` };
+    if (categorySearched === 'all') return this.searchByName(nameSearched);
+
+    const products = await this.product.findAll({
+      where: {
+        category: `${categorySearched}`,
+        name: { ...nameQuery }, 
+      },
+    });
+  
+    return products;
+  }
+
+  async searchByCategory(categorySearched) {
+    const products = await this.product.findAll({
+      where: {
+        category: `${categorySearched}`,
+      },
+    });
+  
+    return products;
+  }
+
+  async searchByName(nameSearched) {
+    let nameQuery = { [Op.like]: `%${nameSearched}%` };
+    if (nameSearched.length === 1) nameQuery = { [Op.startsWith]: `${nameSearched}` };
+    
+    const products = await this.product.findAll({
+      where: {
+        name: { ...nameQuery }, 
+      },
+    });
+  
+    return products;
+  }
+
+  async searchByNameFirstLetter(name) {
+      const products = await this.product.findAll({
+        where: {
+          name: {
+            [Op.startsWith]: `${name}`,
+          },
+        },
+      });
+      return products;
   }
 
   async create(product) {

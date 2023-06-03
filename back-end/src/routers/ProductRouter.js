@@ -9,10 +9,22 @@ const router = Router();
 const productService = new ProductService();
 
 router.get(
+  '/category', 
+  (req, res, next) => new ProductController(productService, req, res, next)
+  .getByCategory(),
+  );
+  
+router.get(
   '/', 
   (req, res, next) => new ProductController(productService, req, res, next)
   .getAll(),
 );
+
+router.get(
+  '/search', 
+  (req, res, next) => new ProductController(productService, req, res, next)
+  .searchAll(),
+  );
 
 router.get(
   '/:id', 

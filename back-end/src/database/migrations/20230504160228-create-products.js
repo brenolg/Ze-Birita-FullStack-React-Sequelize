@@ -17,6 +17,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL(5, 2),
       },
+
+      category: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       
       urlImage: {
         allowNull: false,

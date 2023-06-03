@@ -3,7 +3,7 @@ const roles = require('../utils/rolesList');
 const StatusCodes = require('../utils/statusCode');
 const AbstractController = require('./AbstractController');
 
-class OrderControler extends AbstractController {
+class OrderController extends AbstractController {
   constructor(orderService, req, res, next) {
     super(
       orderService,
@@ -16,7 +16,7 @@ class OrderControler extends AbstractController {
 
   async getAllByUser() {
     const { user: { id }, role } = this.req.body;
-    console.log('controller role', role, id);
+
     if (role === roles.CUSTOMER) {
       this.getAllByCustomer(id);
     }
@@ -46,4 +46,4 @@ class OrderControler extends AbstractController {
   }
 }
 
-module.exports = OrderControler;
+module.exports = OrderController;

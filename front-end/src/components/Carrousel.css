@@ -19,20 +19,21 @@
 }
 
 .carousel-inner {
-  animation: scrollAnimation 12s alternate-reverse infinite;
   display: flex;
+  left: 0;
+  position: absolute;
+  top: 0;
   transition: transform 0.5s ease;
+  z-index: 1;
 }
 
-@keyframes scrollAnimation {
-
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(calc(100% - 100vw));
-  }
+.carousel-inner-2 {
+  display: flex;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: transform 0.5s ease;
+  z-index: 1;
 }
 
 .carousel-item {
@@ -42,10 +43,6 @@
   flex-direction: column;
   justify-content: space-between;
   outline: none;
-}
-
-.carrousel-img {
-  height: 22rem;
 }
 
 .carrousel-name {

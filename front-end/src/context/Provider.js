@@ -26,7 +26,7 @@ export default function Provider({ children }) {
     const bool = userHasLogin();
     setLogIn(bool);
   }, [setUserData]);
-  // verificação ao carregar a página se usuario está logado
+  // verificação ao carregar a página se usuário está logado
 
   const userDataValue = async () => {
     const userValues = await LocalStorage.get('user');

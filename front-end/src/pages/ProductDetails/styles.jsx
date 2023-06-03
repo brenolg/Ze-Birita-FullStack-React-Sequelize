@@ -93,7 +93,7 @@ export const ProductDetailsStyle = styled.main`
 }
 
 .quantity {
-  padding: 1.2rem;
+  padding: 1.1rem;
   color: var(--color-text-dark);
   outline: none;
   border: none;
@@ -128,6 +128,12 @@ export const ProductDetailsStyle = styled.main`
   display: flex;
   flex-direction: column;
   margin: 0 6vw;
+  height: 30rem;
+  margin-bottom: 4rem;
+}
+
+.comment-length{
+  padding-right: 1rem;
 }
 
 .carrousel-title{
@@ -135,6 +141,33 @@ export const ProductDetailsStyle = styled.main`
   font-weight: 900;
   margin-bottom: 0.5em;
 }
+
+.comment-star-stars-outer {
+  position: relative;
+  display: inline-block;
+}
+
+.comment-star-stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0%;
+  content: "★★★★★";
+}
+
+.comment-star-stars-outer::before {
+  content: "★★★★★";
+  color: #a8a8a8;
+}
+
+.comment-star-stars-inner::before {
+  content: "★★★★★";
+  color: #be9d0a;
+}
+
+
 `;
 
 export default ProductDetailsStyle;

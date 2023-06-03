@@ -7,18 +7,47 @@ import Context from '../../context/Context';
 import { ProductDetailsStyle } from './styles';
 import LocalStorage from '../../services/LocalStorageHandler';
 import Carrousel from '../../components/Carrousel';
+/* eslint-disable react/jsx-max-depth */
 
 export default function ProductDetails({ match }) {
   const { cartValue, setCartValue } = useContext(Context);
+  const [comments, setComments] = useState([]);
   const [product, setProduct] = useState({});
   const [cardQuantity, setCardQuantity] = useState(0);
   const { id } = match.params;
   const history = useHistory();
 
+  const buildStars = (ratings) => {
+    const max = 5;
+    const sum = ratings.reduce((total, valor) => total + valor, 0);
+
+    const average = sum / ratings.length;
+    const porcentagemMedia = (average / max) * 100;
+
+    return porcentagemMedia;
+  };
+
+  const createComments = () => {
+    const ten = 10;
+    const min = 2.5;
+    const lengthOfComments = Math.floor(Math.random() * ten) + 1; // Gera um comprimento aleatório entre 1 e 10
+    const commentsArray = [];
+
+    for (let i = 0; i < lengthOfComments; i += 1) {
+      const rating = Math.floor(Math.random() * min) + min;
+      commentsArray.push(rating);
+    }
+
+    return commentsArray;
+  };
+
   useEffect(() => {
     getProductDetails(id).then((response) => {
       setProduct(response);
     });
+    const allComments = createComments();
+
+    setComments(allComments);
   }, [id]);
 
   const writeNewQuantity = (oldCart, newQuantity) => {
@@ -130,7 +159,21 @@ export default function ProductDetails({ match }) {
 
             <h1 className="product-name title-text">{ product.name }</h1>
             <span className="product-price large-text">{`R$ ${product.price}`}</span>
+            <div className="product-price medium-text">
 
+              <div className="comment-rating">
+                <span className="comment-length">{`${comments.length} avaliações`}</span>
+
+                <div className="comment-star-stars-outer large-text">
+                  <div
+                    className="comment-star-stars-inner large-text"
+                    style={ { width: `${buildStars(comments)}%` } }
+                  />
+                </div>
+
+              </div>
+
+            </div>
             <div className="counter_container">
               <div className="counter">
                 <button
@@ -170,7 +213,7 @@ export default function ProductDetails({ match }) {
         <h2 className="carrousel-title large-text">
           Você também pode gostar
         </h2>
-        <Carrousel />
+        <Carrousel category={ product.category } />
       </div>
 
     </ProductDetailsStyle>
@@ -180,7 +223,7 @@ export default function ProductDetails({ match }) {
 ProductDetails.propTypes = ({
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 });

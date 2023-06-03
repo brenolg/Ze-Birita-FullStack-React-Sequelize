@@ -42,6 +42,17 @@ export async function getProducts() {
   } catch (error) { return error; }
 }
 
+export async function getProductsByCategory(category) {
+  try {
+    const response = await fetch(`${url}/products/category/?category=${category}`, {
+      method: 'GET',
+    });
+    const productsData = await response.json();
+
+    return productsData;
+  } catch (error) { return error; }
+}
+
 export async function getProductDetails(id) {
   try {
     const response = await fetch(`${url}/products/${id}`, {

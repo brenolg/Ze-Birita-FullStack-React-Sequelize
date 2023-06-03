@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 import { CheckoutStyle } from './styles';
 import Context from '../../context/Context';
 import LocalStorage from '../../services/LocalStorageHandler';

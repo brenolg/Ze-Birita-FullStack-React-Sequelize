@@ -131,6 +131,9 @@ const ProductsStyle = styled.div`
     outline: none;
   }
 
+  .carousel{
+    height: 33rem;
+  }
 `;
 
 export default ProductsStyle;

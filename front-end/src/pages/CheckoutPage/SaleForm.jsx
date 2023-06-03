@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
 import LocalStorage from '../../services/LocalStorageHandler';
 import {
@@ -22,22 +22,24 @@ export default function SaleForm() {
   const history = useHistory();
 
   useEffect(() => {
-    getCustomers(userData.token).then((response) => {
-      if (response.message) {
-        return alert(response.message);
-      }
-      setUserOptionList(response);
-      setUserOptionId(response[0].id);
-    });
+    if (userData.token) {
+      getCustomers(userData.token).then((response) => {
+        if (response.message) {
+          return alert(response.message);
+        }
+        setUserOptionList(response);
+        setUserOptionId(response[0].id);
+      });
 
-    getSellers(userData.token).then((response) => {
-      if (response.message) {
-        return alert(response.message);
-      }
-      setSellerOptionList(response);
-      setSellerOptionId(response[0].id);
-    });
-  }, []); // Cria as listas de usuários e vendedores no select
+      getSellers(userData.token).then((response) => {
+        if (response.message) {
+          return alert(response.message);
+        }
+        setSellerOptionList(response);
+        setSellerOptionId(response[0].id);
+      });
+    }
+  }, [userData]); // Cria as listas de usuários e vendedores no select
 
   const handleAddressChange = ({ target: { name, value } }) => {
     const newState = { ...userAddress, [name]: value };

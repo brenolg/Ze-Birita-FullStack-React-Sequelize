@@ -76,6 +76,10 @@
   padding-left: 1em;
 }
 
+.carousel {
+  height: 32rem;
+}
+
 .username-info {
   display: flex;
 }

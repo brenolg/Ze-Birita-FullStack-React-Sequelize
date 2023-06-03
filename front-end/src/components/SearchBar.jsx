@@ -17,8 +17,22 @@ export default function SearchBar() {
   };
 
   const searchProducts = () => {
-    console.log(searchTerm);
-    console.log(category);
+    // Construindo a URL com os parâmetros de pesquisa
+    const url = new URL('https://exemplo.com/api');
+    url.searchParams.append('name', searchTerm);
+    url.searchParams.append('category', selectedCategory);
+
+    // Enviando a requisição ao back-end usando fetch
+    getProductsByCategory(url)
+      .then((response) => response.json())
+      .then((data) => {
+        // Atualizando os resultados da pesquisa
+        setSearchResults(data.results);
+      })
+      .catch((error) => {
+        // Tratar erros aqui
+        console.error(error);
+      });
   };
 
   return (

@@ -79,6 +79,6 @@ OrderItem.propTypes = ({
   id: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
-  date: PropTypes.number.isRequired,
+  date: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
 });

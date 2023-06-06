@@ -12,7 +12,6 @@ export default function OrdersPage() {
   useEffect(() => {
     getOrders(userData.token).then((response) => {
       setOrder(response);
-      console.log(response);
     });
   }, []);
 

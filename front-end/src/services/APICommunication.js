@@ -22,7 +22,6 @@ export async function fetchRegister(data) {
       method: 'POST',
       headers: {
         'Content-Type': appJson,
-
       },
       body: JSON.stringify(data),
     });
@@ -53,6 +52,18 @@ export async function getProductsByCategory(category) {
   } catch (error) { return error; }
 }
 
+export async function searchProducts(category, name) {
+  try {
+    const response = await
+    fetch(`${url}/products/search/?category=${category}&name=${name}`, {
+      method: 'GET',
+    });
+    const productsData = await response.json();
+
+    return productsData;
+  } catch (error) { return error; }
+}
+
 export async function getProductDetails(id) {
   try {
     const response = await fetch(`${url}/products/${id}`, {
@@ -70,6 +81,7 @@ export async function postSale(data, token) {
       method: 'POST',
       headers: {
         Authorization: `${token}`,
+        'Content-Type': appJson,
       },
       body: JSON.stringify(data),
     });
@@ -135,11 +147,12 @@ export async function getOrders(token) {
   } catch (error) { return error; }
 }
 
-export async function updateStatus(id, data) {
+export async function updateStatus(id, data, token) {
   try {
     const response = await fetch(`${url}/orders/${id}`, {
       method: 'PATCH',
       headers: {
+        Authorization: `${token}`,
         'Content-Type': appJson,
       },
       body: JSON.stringify(data),

@@ -20,7 +20,6 @@ export default function UsersList() {
           return alert(response.message);
         }
         setUserList((prevUserList) => [...prevUserList, ...response]);
-        console.log(response);
       });
     }
   }, [userData]);

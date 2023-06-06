@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
 import Context from '../../context/Context';
 import { updateStatus } from '../../services/APICommunication';
 
-export default function Status({ status, setStatus }) {
+export default function Status({ status, setStatus, id }) {
   const { userData } = useContext(Context);
   const statusDom = useRef();
-  const location = useLocation();
 
   const buildStatusText = (statusBtn) => {
     if (statusBtn === 'Em Trânsito') {
@@ -42,12 +40,9 @@ export default function Status({ status, setStatus }) {
   });
 
   const handleStatusBtn = ((statusBtn) => {
-    const pathName = location.pathname.split('/');
-    const idUrl = pathName[2];
-
     buildStatusText(statusBtn);
     handleStatusColor(statusBtn);
-    updateStatus(idUrl, { status: statusBtn });
+    updateStatus(id, { status: statusBtn }, userData.token);
   });
 
   useEffect(() => {
@@ -102,4 +97,5 @@ export default function Status({ status, setStatus }) {
 Status.propTypes = ({
   status: PropTypes.string.isRequired,
   setStatus: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 });

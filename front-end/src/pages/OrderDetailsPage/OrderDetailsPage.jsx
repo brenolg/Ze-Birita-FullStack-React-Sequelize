@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import OrderDetail from './OrderDetail';
 import Status from './Status';
@@ -14,7 +14,6 @@ export default function OrderDetailsPage({ match }) {
   const [products, setProducts] = useState([]);
   const [formattedDate, setFormattedDate] = useState('');
   const [status, setStatus] = useState('');
-  const location = useLocation();
   const history = useHistory();
 
   useEffect(() => {
@@ -30,8 +29,7 @@ export default function OrderDetailsPage({ match }) {
       setProducts(response.products);
       setStatus(response.status);
     });
-    console.log(id);
-  }, [location.pathname, id, userData.token]);
+  }, [id, userData.token]);
 
   return (
 
@@ -47,6 +45,7 @@ export default function OrderDetailsPage({ match }) {
           <Status
             status={ status }
             setStatus={ setStatus }
+            id={ id }
           />
         </div>
 

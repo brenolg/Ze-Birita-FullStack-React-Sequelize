@@ -164,7 +164,15 @@ export const ManagerStyle = styled.main`
   color: var(--color-text-light);
   font-weight: 900;
   padding: 0.6em 1em;
+  text-shadow: 0 0 2px black;
   font-size: 1.8rem;
+  box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.user-button:hover {
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 8px 0px;
+  background-color: var(--color-status-preparing);
 }
 
 `;

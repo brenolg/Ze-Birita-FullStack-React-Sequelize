@@ -53,4 +53,27 @@ export const AccessPageStyle = styled.div`
 .access__title {
   height: 100px;
 }
+
+.logo-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  color: var(--color-text-dark);
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.logo-img {
+  height: 12rem;
+  width: 12rem;
+}
+
+.text-logo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 900;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+}
 `;

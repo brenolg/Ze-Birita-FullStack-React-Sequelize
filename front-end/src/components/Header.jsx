@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BiUserCircle } from 'react-icons/bi';
-import { IoBeerSharp } from 'react-icons/io5';
 import { FiShoppingBag, FiLogIn } from 'react-icons/fi';
 import Context from '../context/Context';
 import LocalStorage from '../services/LocalStorageHandler';
 import './Header.css';
 import SearchBar from './SearchBar';
+import logo from '../images/logo.png';
 
 export default function AccessPage() {
   const {
@@ -51,7 +51,7 @@ export default function AccessPage() {
     <header className="main-header">
 
       <div className="left-header">
-        <IoBeerSharp className="logo-icon" />
+        <img src={ logo } alt="logo" className="logo-icon" />
 
         <nav className="nav-links-header">
           <button

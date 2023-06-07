@@ -197,6 +197,7 @@ export default function ProductDetails({ match }) {
               <button
                 className="cart-btn medium-text"
                 type="button"
+                onClick={ () => history.push('/checkout') }
               >
                 <span>{`Adicionar (${cardQuantity})`}</span>
                 <span>{`R$ ${totalByItem()}`}</span>

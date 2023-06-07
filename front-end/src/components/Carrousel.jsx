@@ -12,7 +12,7 @@ export default function Carrousel({ category }) {
   const firstCarrossel = useRef(null);
   const secondCarrossel = useRef(null);
   const history = useHistory();
-  const productsPath = useRouteMatch('/products');
+  const blackFridayPath = useRouteMatch(['/products', '/search']);
 
   useEffect(() => {
     if (category === 'all') {
@@ -27,10 +27,10 @@ export default function Carrousel({ category }) {
         setProductList(response);
       });
     }
-  }, [setProductList, productsPath.isExact, category]);
+  }, [setProductList, blackFridayPath.isExact, category]);
 
   const buildHeight = () => {
-    if (productsPath.isExact) {
+    if (blackFridayPath.isExact) {
       return '22rem';
     } return '16rem';
   };
@@ -119,7 +119,7 @@ export default function Carrousel({ category }) {
 
   return (
     <>
-      {productsPath.isExact && (
+      {blackFridayPath.isExact && (
         <img src={ sale } alt="sale" className="black-friday" />
       )}
 
@@ -127,13 +127,13 @@ export default function Carrousel({ category }) {
 
         <div ref={ firstCarrossel } className="carousel-inner">
           {category && productList
-            .map((product) => renderCarouselItem(product, productsPath.isExact))}
+            .map((product) => renderCarouselItem(product, blackFridayPath.isExact))}
         </div>
 
         <div ref={ secondCarrossel } className="carousel-inner">
 
           {category && productList
-            .map((product) => renderCarouselItem(product, productsPath.isExact))}
+            .map((product) => renderCarouselItem(product, blackFridayPath.isExact))}
         </div>
       </section>
     </>

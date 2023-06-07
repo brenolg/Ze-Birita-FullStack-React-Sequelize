@@ -120,7 +120,7 @@ export const ManagerStyle = styled.main`
   justify-content: space-between;
   align-items: center;
   color: var(--color-text-dark);
-  height: 100%;
+  height: 5rem;
   margin-bottom: 2rem;
 }
 
@@ -131,7 +131,9 @@ export const ManagerStyle = styled.main`
 .user-id{
   background-color: var(--color-primary);
   color: var(--color-text-light);
-  padding: 1rem;
+  padding: 0 0.8em;
+  display: flex;
+  align-items: center;
   height: 100%;
   border-radius: 1rem 0 0 1rem;
 }
@@ -141,6 +143,10 @@ export const ManagerStyle = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.label-del-button{
+  padding: 0.6em 1.2em;
 }
 
 .user-content{
@@ -160,9 +166,6 @@ export const ManagerStyle = styled.main`
   padding: 0.6em 1em;
   font-size: 1.8rem;
 }
-
-
-
 
 `;
 

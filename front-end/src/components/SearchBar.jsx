@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { BiSearchAlt } from 'react-icons/bi';
 import { ToastContainer, toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import Context from '../context/Context';
 import './SearchBar.css';
 import { searchProducts } from '../services/APICommunication';
@@ -9,6 +10,7 @@ export default function SearchBar() {
   const { setProductList } = useContext(Context);
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('all');
+  const history = useHistory();
 
   const handleOptionChange = (event) => {
     setCategory(event.target.value);
@@ -36,6 +38,12 @@ export default function SearchBar() {
       if (response.message) {
         return notifyNoProducts();
       }
+      const queryString = new URLSearchParams({
+        category,
+        name: searchTerm,
+      }).toString();
+
+      history.push(`/search?${queryString}`);
       setProductList(response);
     });
   };

@@ -15,6 +15,7 @@ export default function Router() {
       <Route path="/login" component={ AccessPage } />
       <Route path="/products" component={ ProductsPage } exact />
       <Route path="/products/:id" component={ ProductDetails } exact />
+      <Route path="/search" component={ ProductsPage } exact />
       <Route path="/checkout" component={ CheckoutPage } />
       <Route path="/orders" component={ OrdersPage } exact />
       <Route path="/orders/:id" component={ OrderDetailsPage } exact />
@@ -23,8 +24,5 @@ export default function Router() {
         <Redirect to="/products" />
       </Route>
     </Switch>
-
-  // acredito que seria mais interessante começar com products não ? ai fazemos uma condicional se tiver dados de usuarios no localstorage vai pra producst se não vai pra login
-
   );
 }

@@ -32,7 +32,7 @@ export default function UsersList() {
         <span className="user-label">Nome</span>
         <span className="user-label">Email</span>
         <span className="user-label">Tipo</span>
-        <span className="label-id-button">Excluir</span>
+        <span className="label-del-button">Excluir</span>
       </div>
 
       {userList.length && userList.map((user) => (

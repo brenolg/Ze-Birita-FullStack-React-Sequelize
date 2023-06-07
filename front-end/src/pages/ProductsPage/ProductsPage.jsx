@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { MdShoppingCartCheckout } from 'react-icons/md';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../../context/Context';
-import { getProducts } from '../../services/APICommunication';
+import { getProducts, searchProducts } from '../../services/APICommunication';
 import ProductCard from './ProductCard';
 import ProductsStyle from './styles';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,12 +14,28 @@ export default function ProductsPage() {
   const history = useHistory();
   const { cartValue, productList, setProductList } = useContext(Context);
   const [priceArray] = useState([]);
+  const location = useLocation();
 
-  useEffect(() => {
+  const fetchProducts = useCallback(() => {
+    if (location.search) {
+      const searchParams = new URLSearchParams(location.search);
+      const category = searchParams.get('category');
+      const name = searchParams.get('name');
+
+      searchProducts(category, name).then((response) => {
+        setProductList(response);
+      });
+
+      return;
+    }
     getProducts().then((response) => {
       setProductList(response);
     });
-  }, [setProductList]);
+  }, [setProductList, location.search]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const notify = () => toast('Adicione produtos ao carrinho para finalizar a compra!', {
     position: 'bottom-center',

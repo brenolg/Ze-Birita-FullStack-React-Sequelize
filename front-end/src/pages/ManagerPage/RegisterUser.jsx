@@ -29,7 +29,7 @@ export default function RegisterUser() {
           <option value="administrator">
             Administrator
           </option>
-          <option value="customer">customer</option>
+          <option value="customer">Customer</option>
 
         </select>
       </label>

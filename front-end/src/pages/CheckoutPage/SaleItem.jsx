@@ -85,6 +85,13 @@ export default function SaleItem({ id, name, price, quantity, index, list,
   const handleDelete = () => {
     const newList = list.filter((item) => item.id !== id);
     setList(newList);
+
+    let totalValue = 0;
+    newList.forEach((product) => {
+      totalValue += product.price * product.quantity;
+    });
+
+    setCartValue(totalValue);
     LocalStorage.set('shopping_cart', newList);
   };
 

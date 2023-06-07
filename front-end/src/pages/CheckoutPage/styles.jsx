@@ -12,10 +12,6 @@ export const CheckoutStyle = styled.div`
   padding: 0 6vw;
 }
 
-.label-div-container{
-
-}
-
 .description{
   font-size: 3rem;
   margin-bottom: 2rem;
@@ -85,8 +81,13 @@ export const CheckoutStyle = styled.div`
   color: var(--color-text-light);
   transition: 0.2s;
   outline: none;
+  border: none;
   border-radius: 0rem 1rem 1rem 0rem;
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 0px;
+}
+.rmv_button:hover{
+  background-color: #0f3f44e4;
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 1px;
 }
 
 .counter{
@@ -220,10 +221,10 @@ export const CheckoutStyle = styled.div`
   border: none;
   text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 1px;
-  transition: 0.2s;
+  transition: all 0.3s;
 }
 .redirect-login:hover {
-  background-color: var(--color-primary);
+  background-color: #0c3236e3;
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 2px;
 }
 .post-btn {

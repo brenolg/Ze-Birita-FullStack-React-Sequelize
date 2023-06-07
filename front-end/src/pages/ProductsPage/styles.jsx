@@ -28,10 +28,10 @@ const ProductsStyle = styled.div`
   }
 
   .animate-shadow:hover {
-    box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 8px 2px;
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 6px 2px;
   }
   .card_content:hover{
-    transform: scale(1.02);
+    transform: scale(1.008);
   }
 
   .figure-product {
@@ -85,7 +85,7 @@ const ProductsStyle = styled.div`
     outline: none;
     border: none;
     font-weight : 900;
-    box-shadow: rgba(0, 0, 0, 0.8) 0px 0 4px 0px;
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 0px;
     transition: 0.2s;
   }
 

@@ -24,6 +24,14 @@ export default function UsersList() {
     }
   }, [userData]);
 
+  const handleDeleteBtn = (id) => {
+    // const confirmDelete = window.confirm('Tem certeza que deseja excluir?');
+    // fetch aqui de delete| se o fetch retornar um erro, ele vai cair no catch e vai retornar um alert com o erro
+    const newUsersList = userList.filter((user) => user.id !== Number(id));
+
+    setUserList(newUsersList);
+  };
+
   return (
     <div className="users-list">
 
@@ -41,7 +49,15 @@ export default function UsersList() {
           <span className="user-content">{ user.name }</span>
           <span className="user-content">{ user.email}</span>
           <span className="user-content">{ user.role}</span>
-          <button className="user-button" type="button">Excluir</button>
+          <button
+            className="user-button"
+            value={ user.id }
+            onClick={ (e) => handleDeleteBtn(e.target.value) }
+            type="button"
+          >
+            Excluir
+
+          </button>
         </div>
 
       ))}

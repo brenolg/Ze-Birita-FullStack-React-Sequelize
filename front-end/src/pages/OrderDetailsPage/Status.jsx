@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
 import { updateStatus } from '../../services/APICommunication';
+import { notify } from '../../services/notifications/notifications';
 
 export default function Status({ status, setStatus, id }) {
   const { userData } = useContext(Context);
   const statusDom = useRef();
+  const history = useHistory();
 
   const buildStatusText = (statusBtn) => {
     if (statusBtn === 'Em Trânsito') {
@@ -39,10 +42,26 @@ export default function Status({ status, setStatus, id }) {
     statusDom.current.className = `order-status ${color}`;
   });
 
+  const timer = 2500;
+  const forbidden = 401;
+  const unauthorized = 403;
+  const handleError = (response) => {
+    notify(response.status);
+    if (response.status === forbidden || response.status === unauthorized) {
+      setTimeout(() => {
+        history.push('/login');
+      }, timer);
+    }
+  };
+
   const handleStatusBtn = ((statusBtn) => {
-    buildStatusText(statusBtn);
-    handleStatusColor(statusBtn);
-    updateStatus(id, { status: statusBtn }, userData.token);
+    updateStatus(id, { status: statusBtn }, userData.token).then((response) => {
+      if (response.error) {
+        handleError(response);
+      }
+      buildStatusText(statusBtn);
+      handleStatusColor(statusBtn);
+    });
   });
 
   useEffect(() => {

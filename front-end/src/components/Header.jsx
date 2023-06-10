@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BiUserCircle } from 'react-icons/bi';
 import { FiShoppingBag, FiLogIn } from 'react-icons/fi';
+import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../context/Context';
 import LocalStorage from '../services/LocalStorageHandler';
 import './Header.css';
@@ -21,6 +22,7 @@ export default function AccessPage() {
   const [userName, setUserName] = useState('');
   const [cartLength, setCartLength] = useState(0);
   const history = useHistory();
+  const accessPath = useRouteMatch(['/login', '/register']);
 
   useEffect(() => {
     const cartList = LocalStorage.get('shopping_cart') || [];
@@ -47,11 +49,29 @@ export default function AccessPage() {
     history.push('/login');
   };
 
+  const buildCartText = (status) => {
+    const notificationMessages = {
+      administrator: 'Histórico',
+      seller: 'Histórico',
+    };
+
+    const defaultText = 'Carrinho';
+
+    const text = notificationMessages[status] || defaultText;
+    return text;
+  };
+
   return (
     <header className="main-header">
 
       <div className="left-header">
-        <img src={ logo } alt="logo" className="logo-icon" />
+        <button
+          className="login-header-btn"
+          onClick={ () => history.push('/products') }
+          type="button"
+        >
+          <img src={ logo } alt="logo" className="logo-icon" />
+        </button>
 
         <nav className="nav-links-header">
           <button
@@ -66,7 +86,7 @@ export default function AccessPage() {
             onClick={ () => history.push('/checkout') }
             type="button"
           >
-            {userData && userData.role === 'customer' ? 'Carrinho' : 'Histórico' }
+            {buildCartText(userData && userData.role)}
           </button>
           {logIn && (
             <button
@@ -95,31 +115,23 @@ export default function AccessPage() {
       <div className="right-container">
 
         {logIn ? (
-
           <div className="username-info">
-
             <BiUserCircle className="header-icon" />
-
             <div className="name-div">
-              <span className="small-text">
-                Olá,
-              </span>
-              <span className="small-text">
-                {userName}
-              </span>
+              <span className="small-text">Olá,</span>
+              <span className="small-text">{userName}</span>
             </div>
           </div>
-        )
-          : (
-            <button
-              type="button"
-              className="header-login-btn"
-              onClick={ () => {
-                handleAccessBtn();
-              } }
-            >
-              ENTRAR
-            </button>)}
+        ) : (
+          <button
+            type="button"
+            className="header-login-btn"
+            onClick={ handleAccessBtn }
+            style={ accessPath && accessPath.isExact && { display: 'none' } }
+          >
+            ENTRAR
+          </button>
+        )}
 
         {userData.role !== 'administrator' && (
           <div className="cart-container">

@@ -64,6 +64,14 @@ export default function OrderDetailsPage({ match }) {
           />
         </div>
 
+        <div className="labels-details-container">
+          <span className="label-id medium-text">Item</span>
+          <span className="label-name  medium-text">Descrição</span>
+          <span className="label-quantities medium-text">Quantidade</span>
+          <span className="label-quantities medium-text">Valor Unitário</span>
+          <span className="label-quantities medium-text">Sub-total</span>
+        </div>
+
         {products && products.map((product, index) => (
           <OrderDetail
             index={ index }
@@ -75,14 +83,19 @@ export default function OrderDetailsPage({ match }) {
         ))}
 
         <div className="total-order-container">
+
+          <span className="total-order large-text">
+            {`Total  R$ ${order.totalPrice}`}
+          </span>
+
           <button
             className="total-order order-btn large-text"
             onClick={ () => history.push('/orders') }
             type="button"
           >
-            Order Page
+            {userData
+            && userData.role === 'customer' ? 'Pagina Compras' : 'Pagina Vendas' }
           </button>
-          <span className="total-order large-text">{`R$ ${order.totalPrice}`}</span>
         </div>
 
       </main>

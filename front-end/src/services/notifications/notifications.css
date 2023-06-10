@@ -13,6 +13,7 @@
   gap: 2rem;
   outline: none;
   padding: 1rem;
+
 }
 
 .column-container {
@@ -34,4 +35,8 @@
 .timer-icon {
   color: var(--color-secondary);
   font-size: 12rem;
+}
+
+.error-span {
+  text-decoration: justify;
 }

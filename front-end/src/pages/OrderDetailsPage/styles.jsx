@@ -5,6 +5,30 @@ export const OrderDetailStyle = styled.div`
   padding: 0 6vw;
 }
 
+.labels-details-container {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 900;
+  color: var(--color-text-dark);
+  margin-bottom: 1rem;
+}
+
+.label-id {
+  width: 5.2rem;
+  text-align: center;
+}
+
+.label-name {
+  width: 50%;
+  margin-left: 4rem;
+}
+
+.label-quantities{
+  width: 16%;
+  display: flex;
+  justify-content: center;
+}
+
 .order-details{
   width: 100%;
   display: flex;
@@ -106,14 +130,14 @@ export const OrderDetailStyle = styled.div`
 .quantity-div{
   width: 16%;
   display: flex;
-  justify-content: end;
-  padding-right: 4rem;
+  justify-content: center;
 }
 
 .total-order-container{
   width: 100%;
-  margin-top: 12rem;
+  margin-top: 8rem;
   display: flex;
+  margin-bottom: 6rem;
   justify-content: flex-end;
   position: relative;
 }
@@ -143,6 +167,8 @@ export const OrderDetailStyle = styled.div`
 .order-btn:hover {
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 2px;
 }
+
+
 `;
 
 export default OrderDetailStyle;

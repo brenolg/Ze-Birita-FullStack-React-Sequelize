@@ -8,7 +8,7 @@ export default function OrderItem({ index, id, date, status, price }) {
 
   const formattedIndex = (i) => {
     const four = 4;
-    const numeroFormatado = String(i).padStart(four, '0');
+    const numeroFormatado = String(i + 1).padStart(four, '0');
     return numeroFormatado;
   };
 

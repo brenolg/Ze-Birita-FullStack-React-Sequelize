@@ -153,17 +153,24 @@ export async function getOrders(token) {
 }
 
 export async function updateStatus(id, data, token) {
-  try {
-    const response = await fetch(`${url}/orders/${id}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: `${token}`,
-        'Content-Type': appJson,
-      },
-      body: JSON.stringify(data),
-    });
-    const statusData = await response.json();
+  let error = false;
+  const response = await fetch(`${url}/orders/${id}`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `${token}`,
+      'Content-Type': appJson,
+    },
+    body: JSON.stringify(data),
+  });
 
-    return statusData;
-  } catch (error) { return error; }
+  if (!response.ok) error = true;
+  const statusData = await response.json();
+
+  return {
+    error,
+    message: statusData.message,
+    status: response.status,
+    data:
+    statusData,
+  };
 }

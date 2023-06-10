@@ -13,7 +13,7 @@ export default function UsersList() {
   const forbidden = 401;
   const unauthorized = 403;
   const handleError = (response) => {
-    notify(response.status, response.message);
+    notify(response.status);
     if (response.status === forbidden || response.status === unauthorized) {
       setTimeout(() => {
         history.push('/login');

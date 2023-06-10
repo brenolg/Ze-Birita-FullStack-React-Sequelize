@@ -26,7 +26,7 @@ export default function SaleForm() {
   const forbidden = 401;
   const unauthorized = 403;
   const handleError = (response) => {
-    notify(response.status, response.message);
+    notify(response.status);
     if (response.status === forbidden || response.status === unauthorized) {
       setTimeout(() => {
         history.push('/login');
@@ -211,7 +211,8 @@ export default function SaleForm() {
         </div>
 
         <button className="large-text post-btn" type="button" onClick={ handlePostSale }>
-          Finalizar Compra
+          {userData
+          && userData.role === 'customer' ? 'Finalizar Compra' : 'Finalizar Vendas' }
         </button>
 
       </form>

@@ -1,0 +1,37 @@
+.notification-cart {
+  color: var(--color-input-invalid);
+  font-size: 6rem;
+}
+
+.default-notification-container {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--color-text-dark);
+  display: flex;
+  font-size: 1.8rem;
+  gap: 2rem;
+  outline: none;
+  padding: 1rem;
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.default-text {
+  font-weight: 900;
+}
+
+.default-icon {
+  color: var(--color-input-invalid);
+  font-size: 6rem;
+}
+
+.timer-icon {
+  color: var(--color-secondary);
+  font-size: 12rem;
+}

@@ -41,7 +41,7 @@
 
 .carrousel-name {
   color: var(--color-text-dark);
-  margin: 0.8rem 0;
+  margin: 0.8rem 0.3rem;
 }
 
 .carrousel-img-div {

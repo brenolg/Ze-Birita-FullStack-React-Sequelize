@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
 import LocalStorage from '../../services/LocalStorageHandler';
+import { notify } from '../../services/notifications/notifications';
 import {
   postSale,
   getSellers,
@@ -14,27 +15,37 @@ export default function SaleForm() {
     address: '',
     number: '',
   });
-  const [error, setError] = useState(null);
+
   const [userOptionList, setUserOptionList] = useState([]);
   const [userOptionId, setUserOptionId] = useState([]);
   const [sellerOptionList, setSellerOptionList] = useState([]);
   const [sellerOptionId, setSellerOptionId] = useState([]);
   const history = useHistory();
 
+  const timer = 2500;
+  const forbidden = 401;
+  const unauthorized = 403;
+  const handleError = (response) => {
+    notify(response.status, response.message);
+    if (response.status === forbidden || response.status === unauthorized) {
+      setTimeout(() => {
+        history.push('/login');
+      }, timer);
+    }
+  };
+
   useEffect(() => {
     if (userData.token) {
       getCustomers(userData.token).then((response) => {
-        if (response.message) {
-          return alert(response.message);
+        if (response.error) {
+          handleError(response);
+          return;
         }
-        setUserOptionList(response);
-        setUserOptionId(response[0].id);
+        setUserOptionList(response.data);
+        setUserOptionId(response.data[0].id);
       });
 
       getSellers(userData.token).then((response) => {
-        if (response.message) {
-          return alert(response.message);
-        }
         setSellerOptionList(response);
         setSellerOptionId(response[0].id);
       });
@@ -84,11 +95,12 @@ export default function SaleForm() {
 
     const newSale = await postSale(saleBody, userData.token);
 
-    if (newSale.message) {
-      return setError(newSale.message);
+    if (newSale.error) {
+      handleError(newSale);
+      return;
     }
 
-    history.push(`/orders/${newSale.id}`);
+    history.push(`/orders/${newSale.data.id}`);
   }; // Cria o objeto de venda e envia para o backend e navegador para a pagina de pedidos
 
   const handleSelectVisibility = () => {
@@ -198,7 +210,6 @@ export default function SaleForm() {
           </label>
         </div>
 
-        <h1 className="erro-message medium-text">{error}</h1>
         <button className="large-text post-btn" type="button" onClick={ handlePostSale }>
           Finalizar Compra
         </button>

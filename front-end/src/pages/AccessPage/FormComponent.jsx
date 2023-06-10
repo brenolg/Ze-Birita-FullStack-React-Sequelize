@@ -28,9 +28,11 @@ export default function AccessPageForm() {
     } else {
       accessData = await fetchRegister(accessCredentials);
     }
-
+    const errorTimer = 3000;
     if (accessData.message) {
-      return setError(accessData.message);
+      setTimeout(() => setError(''), errorTimer);
+      setError(accessData.message);
+      return;
     }
 
     LocalStorage.set('user', accessData);
@@ -39,7 +41,6 @@ export default function AccessPageForm() {
     setLogIn(true);
     history.push('/products');
   };
-  // ps: Coloquei um try catch nos fetchs, mas não sei se é o melhor lugar pra ele
 
   return (
     <AccessFormStyle>

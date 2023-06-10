@@ -6,6 +6,7 @@ import Status from './Status';
 import { getOrderDetails } from '../../services/APICommunication';
 import { OrderDetailStyle } from './styles';
 import Context from '../../context/Context';
+import { notify } from '../../services/notifications/notifications';
 
 export default function OrderDetailsPage({ match }) {
   const { id } = match.params;
@@ -16,23 +17,37 @@ export default function OrderDetailsPage({ match }) {
   const [status, setStatus] = useState('');
   const history = useHistory();
 
+  const timer = 2500;
+  const forbidden = 401;
+  const unauthorized = 403;
+  const handleError = (response) => {
+    notify(response.status, response.message);
+    if (response.status === forbidden || response.status === unauthorized) {
+      setTimeout(() => {
+        history.push('/login');
+      }, timer);
+    }
+  };
+
   useEffect(() => {
     getOrderDetails(id, userData.token).then((response) => {
-      if (response.message) {
-        return alert(response.message);
-      }
-      setOrder(response);
-      const data = new Date(response.saleDate);
-      const dataFormatada = data.toLocaleDateString('pt-BR');
+      if (userData.token) {
+        if (response.error) {
+          handleError(response);
+          return;
+        }
+        setOrder(response.data);
+        const data = new Date(response.data.saleDate);
+        const dataFormatada = data.toLocaleDateString('pt-BR');
 
-      setFormattedDate(dataFormatada);
-      setProducts(response.products);
-      setStatus(response.status);
+        setFormattedDate(dataFormatada);
+        setProducts(response.data.products);
+        setStatus(response.data.status);
+      }
     });
   }, [id, userData.token]);
 
   return (
-
     <OrderDetailStyle>
       <main className="order-main">
 
@@ -66,7 +81,6 @@ export default function OrderDetailsPage({ match }) {
             type="button"
           >
             Order Page
-
           </button>
           <span className="total-order large-text">{`R$ ${order.totalPrice}`}</span>
         </div>

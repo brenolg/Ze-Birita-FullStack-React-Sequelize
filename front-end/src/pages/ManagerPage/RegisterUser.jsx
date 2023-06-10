@@ -17,7 +17,7 @@ export default function RegisterUser() {
         <input className="default-input register-input" />
       </label>
 
-      <label className="register-select-label medium-text">
+      <label htmlFor="x" className="register-select-label medium-text">
         Role
         <select
           className=" register-select default-input"

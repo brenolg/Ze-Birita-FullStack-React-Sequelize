@@ -166,8 +166,6 @@ export const ProductDetailsStyle = styled.main`
   content: "★★★★★";
   color: #be9d0a;
 }
-
-
 `;
 
 export default ProductDetailsStyle;

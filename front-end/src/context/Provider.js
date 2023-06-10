@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { toast, useToasterStore } from 'react-hot-toast';
 import LocalStorage from '../services/LocalStorageHandler';
 import Context from './Context';
 
@@ -39,6 +40,17 @@ export default function Provider({ children }) {
         token: userValues.token });
     }
   };
+
+  const { toasts } = useToasterStore();
+
+  const TOAST_LIMIT = 1;
+
+  useEffect(() => {
+    toasts
+      .filter((t) => t.visible) // Only consider visible toasts
+      .filter((_, i) => i >= TOAST_LIMIT) // Is toast index over limit?
+      .forEach((t) => toast.dismiss(t.id)); // Dismiss – Use toast.remove(t.id) for no exit animation
+  }, [toasts]);
 
   useEffect(() => {
     userDataValue();

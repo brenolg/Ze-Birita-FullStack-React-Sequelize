@@ -1,24 +1,37 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { getCustomers, getSellers } from '../../services/APICommunication';
 import Context from '../../context/Context';
+import { notify } from '../../services/notifications/notifications';
 
 export default function UsersList() {
   const { userData } = useContext(Context);
   const [userList, setUserList] = useState([]);
+  const history = useHistory();
+
+  const timer = 2500;
+  const forbidden = 401;
+  const unauthorized = 403;
+  const handleError = (response) => {
+    notify(response.status, response.message);
+    if (response.status === forbidden || response.status === unauthorized) {
+      setTimeout(() => {
+        history.push('/login');
+      }, timer);
+    }
+  };
 
   useEffect(() => {
     if (userData.token) {
       getCustomers(userData.token).then((response) => {
-        if (response.message) {
-          return alert(response.message);
+        if (response.error) {
+          handleError(response);
+          return;
         }
-        setUserList(response);
+        setUserList(response.data);
       });
 
       getSellers(userData.token).then((response) => {
-        if (response.message) {
-          return alert(response.message);
-        }
         setUserList((prevUserList) => [...prevUserList, ...response]);
       });
     }

@@ -76,33 +76,36 @@ export async function getProductDetails(id) {
 }
 
 export async function postSale(data, token) {
-  try {
-    const response = await fetch(`${url}/orders`, {
-      method: 'POST',
-      headers: {
-        Authorization: `${token}`,
-        'Content-Type': appJson,
-      },
-      body: JSON.stringify(data),
-    });
-    const saleData = await response.json();
+  let error = false;
+  const response = await fetch(`${url}/orders`, {
+    method: 'POST',
+    headers: {
+      Authorization: `${token}`,
+      'Content-Type': appJson,
+    },
+    body: JSON.stringify(data),
+  });
 
-    return saleData;
-  } catch (error) { return error; }
+  if (!response.ok) error = true;
+
+  const saleData = await response.json();
+
+  return { error, message: saleData.message, status: response.status, data: saleData };
 }
 
 export async function getCustomers(token) {
-  try {
-    const response = await fetch(`${url}/users/customer`, {
-      method: 'GET',
-      headers: {
-        Authorization: `${token}`,
-      },
-    });
-    const usersData = await response.json();
+  let error = false;
+  const response = await fetch(`${url}/users/customer`, {
+    method: 'GET',
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
+  if (!response.ok) error = true;
 
-    return usersData;
-  } catch (error) { return error; }
+  const usersData = await response.json();
+
+  return { error, message: usersData.message, status: response.status, data: usersData };
 }
 
 export async function getSellers(token) {
@@ -120,31 +123,33 @@ export async function getSellers(token) {
 }
 
 export async function getOrderDetails(id, token) {
-  try {
-    const response = await fetch(`${url}/orders/${id}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `${token}`,
-      },
-    });
-    const usersData = await response.json();
+  let error = false;
+  const response = await fetch(`${url}/orders/${id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
 
-    return usersData;
-  } catch (error) { return error; }
+  if (!response.ok) error = true;
+  const orderData = await response.json();
+
+  return { error, message: orderData.message, status: response.status, data: orderData };
 }
 
 export async function getOrders(token) {
-  try {
-    const response = await fetch(`${url}/orders/user`, {
-      method: 'GET',
-      headers: {
-        Authorization: `${token}`,
-      },
-    });
-    const usersData = await response.json();
+  let error = false;
+  const response = await fetch(`${url}/orders/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
 
-    return usersData;
-  } catch (error) { return error; }
+  if (!response.ok) error = true;
+  const usersData = await response.json();
+
+  return { error, message: usersData.message, status: response.status, data: usersData };
 }
 
 export async function updateStatus(id, data, token) {

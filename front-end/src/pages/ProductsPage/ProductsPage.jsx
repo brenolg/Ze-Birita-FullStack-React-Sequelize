@@ -23,15 +23,18 @@ export default function ProductsPage() {
       const name = searchParams.get('name');
 
       searchProducts(category, name).then((response) => {
+        if (response.message) {
+          history.push('/products');
+        }
+
         setProductList(response);
       });
-
       return;
     }
     getProducts().then((response) => {
       setProductList(response);
     });
-  }, [setProductList, location.search]);
+  }, [setProductList, location.search, history]);
 
   useEffect(() => {
     fetchProducts();

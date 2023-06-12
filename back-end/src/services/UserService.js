@@ -28,7 +28,7 @@ class UserService extends AbstractService {
     
     const result = await this.getByEmail(email);
     this.notFoundError(result);
-    // if (!result) throw new HttpException(statusCode.NOT_FOUND, 'Email not Found');
+
     if (md5(password) !== result.password) {
       throw new HttpException(statusCode.UNAUTHORIZED, 'Incorrect password');
     }
@@ -64,7 +64,7 @@ class UserService extends AbstractService {
   async getAllByRole(role) {
     const users = await this.user.findAll({ where: { role } });
     this.notFoundError(users);
-    // if (!users) throw new HttpException(statusCode.NOT_FOUND, `${this.element} Not Found`);
+
     return users;
   }
 }

@@ -13,7 +13,7 @@ class AbstractService {
   }
 
   notFoundError(item) {
-    if (!item) throw new HttpException(statusCode.NOT_FOUND, `${this.element} Not Found`);
+    if (!item) throw new HttpException(statusCode.NOT_FOUND, `${this.element} not found`);
   }
 
   async getById(id) {

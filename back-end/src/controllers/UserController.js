@@ -25,7 +25,7 @@ class UserController extends AbstractController {
 
   async getAllSellers() {
       const role = Roles.SELLER;
-      console.log('ROLE', this.req.body);
+
       const users = await this.service.getAllByRole(role);
       return this.res.status(StatusCodes.OK).json(users);
   }

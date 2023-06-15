@@ -219,6 +219,7 @@ export const CheckoutStyle = styled.div`
   border-radius: 1rem;
   font-weight: 900;
   border: none;
+  margin-bottom: 3em;
   text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 1px;
   transition: all 0.3s;

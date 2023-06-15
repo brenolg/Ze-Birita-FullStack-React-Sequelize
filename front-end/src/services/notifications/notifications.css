@@ -40,3 +40,7 @@
 .error-span {
   text-decoration: justify;
 }
+
+.color-green {
+  color: var(--color-input-valid);
+}

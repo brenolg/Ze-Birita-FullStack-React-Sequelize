@@ -30,6 +30,23 @@ export async function fetchRegister(data) {
   } catch (error) { return error; }
 }
 
+export async function adminRegister(data) {
+  let error = false;
+  const response = await fetch(`${url}/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': appJson,
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) error = true;
+
+  const newUser = await response.json();
+
+  return { error, message: newUser.message, status: response.status, data: newUser };
+}
+
 export async function getProducts() {
   try {
     const response = await fetch(`${url}/products`, {
@@ -120,6 +137,39 @@ export async function getSellers(token) {
 
     return usersData;
   } catch (error) { return error; }
+}
+
+export async function getUsers(token) {
+  let error = false;
+  const response = await fetch(`${url}/users`, {
+    method: 'GET',
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
+  if (!response.ok) error = true;
+
+  const usersData = await response.json();
+
+  return { error, message: usersData.message, status: response.status, data: usersData };
+}
+
+export async function deleteUser(id, token) {
+  let error = false;
+  let message = '';
+  const response = await fetch(`${url}/users/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
+  if (!response.ok) {
+    const resMessage = await response.json();
+    message = resMessage.message;
+    error = true;
+  }
+
+  return { error, message, status: response.status };
 }
 
 export async function getOrderDetails(id, token) {

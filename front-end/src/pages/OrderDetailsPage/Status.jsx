@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
 import { updateStatus } from '../../services/APICommunication';
@@ -10,8 +10,9 @@ export default function Status({ status, setStatus, id }) {
   const statusDom = useRef();
   const history = useHistory();
 
+  const transitValue = 'Em Trânsito';
   const buildStatusText = (statusBtn) => {
-    if (statusBtn === 'Em Trânsito') {
+    if (statusBtn === transitValue) {
       return setStatus(statusBtn);
     }
 
@@ -25,7 +26,7 @@ export default function Status({ status, setStatus, id }) {
 
   const handleStatusColor = ((statusBtn) => {
     const buildColor = () => {
-      if (statusBtn === 'Em Trânsito') {
+      if (statusBtn === transitValue) {
         return 'yellow';
       }
       const statusColor = {
@@ -86,6 +87,7 @@ export default function Status({ status, setStatus, id }) {
             name="Entregue"
             onClick={ (e) => handleStatusBtn(e.target.name) }
             type="button"
+            disabled={ status === 'Entregue' }
           >
             Marcar Como Entregue
           </button>
@@ -95,6 +97,7 @@ export default function Status({ status, setStatus, id }) {
             name="Em Trânsito"
             onClick={ (e) => handleStatusBtn(e.target.name) }
             type="button"
+            disabled={ status === 'Em Trânsito' }
           >
             Saiu para Entrega
           </button>
@@ -104,6 +107,7 @@ export default function Status({ status, setStatus, id }) {
             name="Preparando"
             onClick={ (e) => handleStatusBtn(e.target.name) }
             type="button"
+            disabled={ status === 'Preparando' }
           >
             Preparar Pedido
           </button>

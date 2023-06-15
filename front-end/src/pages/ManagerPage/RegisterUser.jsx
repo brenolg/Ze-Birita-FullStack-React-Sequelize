@@ -1,27 +1,79 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { adminRegister } from '../../services/APICommunication';
+import { notifyAdmin } from '../../services/notifications/notifications';
 
-export default function RegisterUser() {
+export default function RegisterUser({ userList, setUserList }) {
+  const [userValues, setUserValues] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'seller',
+  });
+
+  const handleUserValues = ({ target: { name, value } }) => {
+    const newState = { ...userValues, [name]: value };
+    setUserValues(newState);
+  };
+
+  const createUser = async () => {
+    const registerData = await adminRegister(userValues);
+    notifyAdmin(registerData);
+
+    if (!registerData.error) {
+      setUserValues({
+        name: '',
+        email: '',
+        password: '',
+        role: '',
+      });
+      setUserList([...userList, registerData.data]);
+    }
+  };
+
   return (
-
     <form className="form-register">
       <label className="register-label medium-text" htmlFor="name">
         Nome
-        <input className="default-input register-input" />
+        <input
+          className="default-input register-input"
+          name="name"
+          value={ userValues.name }
+          onChange={ handleUserValues }
+          required
+        />
+
       </label>
-      <label className="register-label medium-text" htmlFor="name">
+      <label className="register-label medium-text" htmlFor="email">
         Email
-        <input className="default-input register-input" />
-      </label>
-      <label className="register-label medium-text" htmlFor="name">
-        Senha
-        <input className="default-input register-input" />
+        <input
+          className="default-input register-input"
+          name="email"
+          value={ userValues.email }
+          onChange={ handleUserValues }
+          required
+        />
       </label>
 
-      <label htmlFor="x" className="register-select-label medium-text">
+      <label className="register-label medium-text" htmlFor="password">
+        Senha
+        <input
+          type="password"
+          className="default-input register-input"
+          name="password"
+          value={ userValues.password }
+          onChange={ handleUserValues }
+          required
+        />
+      </label>
+
+      <label htmlFor="role" className="register-select-label medium-text">
         Role
         <select
           className=" register-select default-input"
-          name="clientSelect "
+          name="role"
+          value={ userValues.role }
+          onChange={ handleUserValues }
         >
           <option value="seller">
             Seller
@@ -30,11 +82,29 @@ export default function RegisterUser() {
             Administrator
           </option>
           <option value="customer">Customer</option>
-
         </select>
       </label>
-      <button className="register-button" type="button">Cadastrar</button>
-    </form>
 
+      <button
+        className="register-button"
+        type="button"
+        onClick={ createUser }
+      >
+        Cadastrar
+      </button>
+    </form>
   );
 }
+
+RegisterUser.propTypes = ({
+  userList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      password: PropTypes.string.isRequired,
+      role: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  setUserList: PropTypes.func.isRequired,
+});

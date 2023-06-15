@@ -9,6 +9,7 @@ export const OrdersPageStyle = styled.main`
   flex-flow: row wrap;
   gap: 3rem;
   margin-top: 18vh;
+  margin-bottom: 3rem;
 }
 
 .order-button{

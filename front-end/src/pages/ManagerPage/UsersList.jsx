@@ -1,48 +1,37 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { getCustomers, getSellers } from '../../services/APICommunication';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../../context/Context';
-import { notify } from '../../services/notifications/notifications';
+import { deleteUser } from '../../services/APICommunication';
+import { notify, notifyAdmin } from '../../services/notifications/notifications';
 
-export default function UsersList() {
-  const { userData } = useContext(Context);
-  const [userList, setUserList] = useState([]);
+export default function UsersList({ userList, setUserList }) {
   const history = useHistory();
+  const { userData } = useContext(Context);
 
   const timer = 2500;
   const forbidden = 401;
   const unauthorized = 403;
   const handleError = (response) => {
-    notify(response.status);
     if (response.status === forbidden || response.status === unauthorized) {
+      notify(response.status, response.message);
       setTimeout(() => {
         history.push('/login');
       }, timer);
+    } else {
+      notifyAdmin(response);
     }
   };
 
-  useEffect(() => {
-    if (userData.token) {
-      getCustomers(userData.token).then((response) => {
-        if (response.error) {
-          handleError(response);
-          return;
-        }
-        setUserList(response.data);
-      });
+  const handleDeleteBtn = async (id) => {
+    const fetchDeleteUser = await deleteUser(id, userData.token);
+    handleError(fetchDeleteUser);
 
-      getSellers(userData.token).then((response) => {
-        setUserList((prevUserList) => [...prevUserList, ...response]);
-      });
+    if (!fetchDeleteUser.error) {
+      console.log('deletado');
+      const newUsersList = userList.filter((user) => user.id !== Number(id));
+      setUserList(newUsersList);
     }
-  }, [userData]);
-
-  const handleDeleteBtn = (id) => {
-    // const confirmDelete = window.confirm('Tem certeza que deseja excluir?');
-    // fetch aqui de delete| se o fetch retornar um erro, ele vai cair no catch e vai retornar um alert com o erro
-    const newUsersList = userList.filter((user) => user.id !== Number(id));
-
-    setUserList(newUsersList);
   };
 
   return (
@@ -77,3 +66,16 @@ export default function UsersList() {
     </div>
   );
 }
+
+UsersList.propTypes = ({
+  userList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      password: PropTypes.string.isRequired,
+      role: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  setUserList: PropTypes.func.isRequired,
+});

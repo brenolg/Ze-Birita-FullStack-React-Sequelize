@@ -20,6 +20,7 @@ class AbstractController {
   }
 
   async create() {
+    this.req.body.userId = this.req.body.user.id;
     const newObj = await this.service.create(this.req.body);
     return this.res.status(StatusCodes.CREATED).json(newObj);
   }

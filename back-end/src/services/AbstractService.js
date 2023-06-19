@@ -28,13 +28,6 @@ class AbstractService {
     return created;
   }
 
-  async update(id, obj) {
-    const [qtdUpdated] = await this.model.update(obj, { where: { id } });
-    this.notFoundError(qtdUpdated);
-    const updated = await this.getById(+id); // +??
-    return updated;
-  }
-
   async remove(id) {
     const removed = await this.model.destroy({ where: { id } });
     this.notFoundError(removed);

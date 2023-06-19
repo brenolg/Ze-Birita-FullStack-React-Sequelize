@@ -157,9 +157,7 @@ export const ManagerStyle = styled.main`
 }
 
 .user-button {
-  background-color: var(--color-tertiary);
   border: none;
-  border-radius: 1rem;
   height: 100%;
   color: var(--color-text-light);
   font-weight: 900;
@@ -172,9 +170,15 @@ export const ManagerStyle = styled.main`
 
 .user-button:hover {
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 8px 0px;
-  background-color: var(--color-status-preparing);
 }
 
+.del-button {
+  background-color: var(--color-tertiary);
+  border-radius: 0 1rem 1rem 0;
+}
+.edit-button {
+  background-color: var(--color-secondary);
+}
 `;
 
 export default ManagerStyle;

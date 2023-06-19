@@ -15,7 +15,7 @@ class OrderController extends AbstractController {
   }
 
   async getAllByUser() {
-    const { user: { id }, role } = this.req.body;
+    const { id, role } = this.req.body.user;
 
     if (role === roles.CUSTOMER) {
       this.getAllByCustomer(id);

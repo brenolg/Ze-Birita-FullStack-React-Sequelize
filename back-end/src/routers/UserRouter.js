@@ -38,4 +38,20 @@ router.get(
   .getAll(),
 );
 
+router.get(
+  '/:id',
+  UserHandler.defaultAccess,
+  UserHandler.roleAccess(role.ADMIN),
+  (req, res, next) => new UserController(userService, req, res, next)
+  .getById(),
+);
+
+router.patch(
+  '/:id', 
+  UserHandler.defaultAccess,
+  UserHandler.roleAccess(role.ADMIN),
+  (req, res, next) => new UserController(userService, req, res, next)
+  .update(),
+);
+
 module.exports = router;

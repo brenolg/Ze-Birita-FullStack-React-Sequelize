@@ -5,6 +5,24 @@ export const OrderDetailStyle = styled.div`
   padding: 0 6vw;
 }
 
+.return-btn {
+  display: flex;
+  align-items: center;
+  font-weight: 900;
+  color: var(--color-text-dark);
+  gap: 1.2em;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  transition: 0.3s;
+  margin-bottom: 2rem;
+}
+
+.return-btn:hover {
+  color: var(--color-secondary);
+  scale: 1.05;
+}
+
 .labels-details-container {
   display: flex;
   justify-content: space-between;

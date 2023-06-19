@@ -172,6 +172,23 @@ export async function deleteUser(id, token) {
   return { error, message, status: response.status };
 }
 
+export async function getUserDetails(id, token) {
+  let error = false;
+
+  const response = await fetch(`${url}/users/${id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
+
+  if (!response.ok) error = true;
+
+  const usersData = await response.json();
+
+  return { error, message: usersData.message, status: response.status, data: usersData };
+}
+
 export async function getOrderDetails(id, token) {
   let error = false;
   const response = await fetch(`${url}/orders/${id}`, {

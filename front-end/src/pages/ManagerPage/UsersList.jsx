@@ -28,10 +28,13 @@ export default function UsersList({ userList, setUserList }) {
     handleError(fetchDeleteUser);
 
     if (!fetchDeleteUser.error) {
-      console.log('deletado');
       const newUsersList = userList.filter((user) => user.id !== Number(id));
       setUserList(newUsersList);
     }
+  };
+
+  const handleUpdateBtn = (id) => {
+    history.push(`/manager/${id}`);
   };
 
   return (
@@ -42,6 +45,7 @@ export default function UsersList({ userList, setUserList }) {
         <span className="user-label">Nome</span>
         <span className="user-label">Email</span>
         <span className="user-label">Tipo</span>
+        <span className="label-del-button">Editar</span>
         <span className="label-del-button">Excluir</span>
       </div>
 
@@ -52,7 +56,16 @@ export default function UsersList({ userList, setUserList }) {
           <span className="user-content">{ user.email}</span>
           <span className="user-content">{ user.role}</span>
           <button
-            className="user-button"
+            className="user-button edit-button"
+            value={ user.id }
+            onClick={ (e) => handleUpdateBtn(e.target.value) }
+            type="button"
+          >
+            Editar
+
+          </button>
+          <button
+            className="user-button del-button"
             value={ user.id }
             onClick={ (e) => handleDeleteBtn(e.target.value) }
             type="button"

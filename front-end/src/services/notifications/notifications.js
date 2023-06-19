@@ -76,22 +76,26 @@ const defaultNotification = (status) => {
         padding: 0,
         marginTop: '30rem',
         width: '100%',
-
       },
     },
   );
 };
-const noContent = 204;
-export const notifyAdmin = (response) => {
-  let responseMessage = 'Usuário criado com sucesso!';
-  console.log(response);
-  if (response.status === noContent) {
-    responseMessage = 'Usuário deletado com sucesso!';
-  }
-  if (response.error) {
-    responseMessage = `Erro (${response.status}) - ${response.message}`;
-  }
 
+export const notifyAdmin = (response) => {
+  const notificationMessages = {
+    200: 'Usuário editado com sucesso!',
+    201: 'Usuário criado com sucesso!',
+    204: 'Usuário deletado com sucesso!',
+    409: 'Houve um conflito com o estado atual do recurso.',
+    422: 'A solicitação não pôde ser processada devido a erros de validação.',
+    500: 'Error - Ocorreu um erro interno no servidor.',
+  };
+
+  const defaultMessage = `Erro (${response.status})
+  - Ocorreu um erro durante a solicitação.`;
+
+  const notificationMessage = notificationMessages[response.status]
+  || defaultMessage;
   toast(
     <button
       className="default-notification-container"
@@ -104,7 +108,7 @@ export const notifyAdmin = (response) => {
         : <BsCheck2Circle className="default-icon color-green" />}
 
       <div className="column-container large-text">
-        <span className="error-span">{responseMessage }</span>
+        <span className="error-span">{notificationMessage }</span>
 
       </div>
     </button>,

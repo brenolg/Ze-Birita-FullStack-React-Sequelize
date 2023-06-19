@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
 import { getUsers } from '../../services/APICommunication';
+import handleError from '../../services/HandleError';
 import RegisterUser from './RegisterUser';
 import UsersList from './UsersList';
 import { ManagerStyle } from './styles';
@@ -11,23 +12,11 @@ export default function ManagerPage() {
   const [userList, setUserList] = useState([]);
   const history = useHistory();
 
-  const timer = 2500;
-  const forbidden = 401;
-  const unauthorized = 403;
-  const handleError = (response) => {
-    notify(response.status);
-    if (response.status === forbidden || response.status === unauthorized) {
-      setTimeout(() => {
-        history.push('/login');
-      }, timer);
-    }
-  };
-
   useEffect(() => {
     if (userData.token) {
       getUsers(userData.token).then((response) => {
         if (response.error) {
-          handleError(response);
+          handleError(response, history);
           return;
         }
         setUserList(response.data);

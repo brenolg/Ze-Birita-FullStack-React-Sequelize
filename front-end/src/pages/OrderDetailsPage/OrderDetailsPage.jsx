@@ -1,12 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
+import { HiArrowNarrowLeft } from 'react-icons/hi';
+import { useHistory } from 'react-router-dom';
+import Context from '../../context/Context';
+import { getOrderDetails } from '../../services/APICommunication';
+import { notify } from '../../services/notifications/notifications';
 import OrderDetail from './OrderDetail';
 import Status from './Status';
-import { getOrderDetails } from '../../services/APICommunication';
 import { OrderDetailStyle } from './styles';
-import Context from '../../context/Context';
-import { notify } from '../../services/notifications/notifications';
 
 export default function OrderDetailsPage({ match }) {
   const { id } = match.params;
@@ -50,6 +51,14 @@ export default function OrderDetailsPage({ match }) {
   return (
     <OrderDetailStyle>
       <main className="order-main">
+        <button
+          className="return-btn large-text"
+          type="button"
+          onClick={ () => history.push('/products') }
+        >
+          <HiArrowNarrowLeft className="arrow-icon" />
+          VOLTAR
+        </button>
 
         <div className="order-details medium-text">
 

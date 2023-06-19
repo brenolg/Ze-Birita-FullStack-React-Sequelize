@@ -1,5 +1,5 @@
 const { literal } = require('sequelize');
-// const schema = require('./validations/validationInputValues');
+const schema = require('./validations/validationInputValues');
 
 const AbstractService = require('./AbstractService');
 const { Sale, Product, SaleProduct, sequelize, User } = require('../database/models');
@@ -24,8 +24,8 @@ class OrderService extends AbstractService {
   }
 
   async create(sale) {
-    // const error = schema.validateNewSale(sale);
-    // if (error.type) throw new HttpException(statusCode.BAD_REQUEST, error.message);
+    const error = schema.validateNewSale(sale);
+    if (error.type) throw new HttpException(statusCode.BAD_REQUEST, error.message);
 
     // O joi impede o middleware userHandle;
   

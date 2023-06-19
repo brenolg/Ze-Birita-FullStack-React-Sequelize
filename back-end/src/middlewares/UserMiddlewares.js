@@ -13,8 +13,7 @@ class UserHandler {
   try {
     const decoded = verifyToken(token);
     
-    req.body.user = { email: decoded.data.email, id: decoded.data.id }; 
-    req.body.role = decoded.data.role;
+    req.body.user = { email: decoded.data.email, id: decoded.data.id, role: decoded.data.role }; 
 
     next();
   } catch (error) {
@@ -24,9 +23,9 @@ class UserHandler {
 
 static roleAccess(...RouteRoles) {
   return (req, _res, next) => {
-    const { role } = req.body;
+    const { role } = req.body.user;
     
-    if (!req.body.role) throw new HttpException(StatusCodes.FORBIDDEN, 'Invalid Authorization ');
+    if (!role) throw new HttpException(StatusCodes.FORBIDDEN, 'Invalid Authorization ');
 
     const rolesList = [...RouteRoles];
     

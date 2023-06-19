@@ -10,7 +10,7 @@ const newLoginSchema = joi.object().keys({
   .min(6)
   .minOfSpecialCharacters(1)
   .minOfLowercase(1)
-  // .minOfUppercase(1)
+  .minOfUppercase(1)
   .minOfNumeric(1)
   .noWhiteSpaces()
   .onlyLatinCharacters()
@@ -20,6 +20,22 @@ const newLoginSchema = joi.object().keys({
 const newUserSchema = newLoginSchema.keys({
   name: joi.string().min(12).required(),
   role: joi.string().valid('administrator', 'customer', 'seller'),
+});
+
+const newUpdateUserSchema = joi.object().keys({
+  name: joi.string().min(12),
+  role: joi.string().valid('administrator', 'customer', 'seller'),
+  email: joi.string().email(),
+  password: joiPassword
+  .string()
+  .min(6)
+  .minOfSpecialCharacters(1)
+  .minOfLowercase(1)
+  .minOfUppercase(1)
+  .minOfNumeric(1)
+  .noWhiteSpaces()
+  .onlyLatinCharacters(),
+  user: joi.object(),
 });
 
 const newProductSchema = joi.object().keys({
@@ -40,6 +56,13 @@ const newSaleSchema = joi.object({
   deliveryAddress: joi.string().required(),
   deliveryNumber: joi.string().required(),
   shoppingCart: joi.array().items(sale).required(),
+  user: joi.object(),
 });
 
-module.exports = { newUserSchema, newLoginSchema, newProductSchema, newSaleSchema };
+module.exports = { 
+  newUserSchema,
+  newLoginSchema,
+  newProductSchema,
+  newSaleSchema,
+  newUpdateUserSchema, 
+};

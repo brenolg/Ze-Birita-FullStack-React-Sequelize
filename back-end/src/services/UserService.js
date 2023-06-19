@@ -6,6 +6,11 @@ const statusCode = require('../utils/statusCode');
 const { signToken } = require('../utils/jwtConfig');
 const schema = require('./validations/validationInputValues');
 
+const validateUpdate = (data) => {
+  const error = schema.validateUpdateUser(data);
+  if (error.type) throw new HttpException(statusCode.BAD_REQUEST, error.message);
+};
+
 class UserService extends AbstractService {
   constructor() {
     super(User, 'User');
@@ -63,9 +68,28 @@ class UserService extends AbstractService {
 
   async getAllByRole(role) {
     const users = await this.user.findAll({ where: { role } });
-    this.notFoundError(users);
+    delete users.password;
 
     return users;
+  }
+
+  async update(id, data) {
+    validateUpdate(data);
+
+    const updates = data;
+    const user = await this.getById(id);
+    this.notFoundError(user);
+
+    Object.keys(updates).forEach((key) => {
+      if (key in user) {
+        if (key === 'password') {
+          updates[key] = md5(updates[key]);
+        }
+        user[key] = updates[key];
+      }
+    });
+
+    await user.save();
   }
 }
 

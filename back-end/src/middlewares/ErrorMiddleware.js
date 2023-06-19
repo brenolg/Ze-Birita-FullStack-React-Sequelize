@@ -5,8 +5,8 @@ class ErrorHandler {
     res,
     _next,
   ) {
-    console.log('ERROR', error);
     const { status, message } = error;
+    console.log(error);
     return res.status(status || 500).json({ message });
   }
 }

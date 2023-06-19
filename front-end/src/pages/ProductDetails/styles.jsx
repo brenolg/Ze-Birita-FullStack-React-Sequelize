@@ -128,7 +128,7 @@ export const ProductDetailsStyle = styled.main`
   display: flex;
   flex-direction: column;
   margin: 0 6vw;
-  height: 30rem;
+  height: 29rem;
   margin-bottom: 4rem;
 }
 

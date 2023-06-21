@@ -110,7 +110,6 @@
 }
 
 .header-login-btn:hover {
-  background-color: var(--color-status-preparing);
   box-shadow: rgba(0, 0, 0, 0.8) 0 2px 6px 2px;
 }
 

@@ -1,58 +1,86 @@
 import styled from 'styled-components';
 
 export const AccessFormStyle = styled.div`
-  .form_fields {
-  align-items: center;
+.form-register {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  }
+  gap: 3rem;
+  padding-bottom: 3rem;
+}
 
-  .label {
-    text-indent: 10px;
-    width: 300px;
-  }
+.register-label {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: flex-start;
+  color: var(--color-text-dark);
+  font-weight: 900;
+  width: 80%;
+  font-size : 1.8rem;
+  margin: auto;
+}
 
-  .label:focus-within {
-    color: var(--color-quaternary);
-  }
+.register-input {
+  padding: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 0px;
+  border-radius: 1rem;
+  height: 3rem;
+  transition: all 0.3s;
+}
 
-  .input:focus {
-    border: var(--border-input-focus);
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-  }
+.register-input:hover {
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 8px 0px;
+}
 
-  .input::placeholder {
-    color: var(--color-border-gray-light);
-    font: var(--font-label);
-  }
+.register-input:focus {
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 8px 0px;
+}
 
-  .ng-pristine:not( form ) {
-    border-left: var(--input-pristine);
-  }
+.register-input.input-error {
+  box-shadow: var(--color-input-invalid) 0px 0px 8px 0px;
+}
 
-  .ng-valid[ required ], .ng-valid.required {
-    border-left: var(--input-required-valid);
-  }
+.error{
+  color: var(--color-input-invalid);
+  font-size: 1.6rem;
+  font-weight: 600;
+  height: 1.6rem;
+  text-align: center;
+}
 
-  .ng-dirty .ng-invalid:not( form ) {
-    border-left: var(--input-required-invalid);
-  }
+.form-button {
+  border: none;
+  border-radius: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 2px 4px 0;
+  color: var(--color-text-light);
+  font-size: 1.8rem;
+  font-weight: 900;
+  padding: 0.5em 0em;
+  width: 80%;
+  margin: auto;
+  text-shadow: 0 0 2px black;
+  transition: all 0.3s ease-in-out;
+  border: none;
+  outline: none;
+}
 
-  .alert {
-    color: var(--color-input-invalid);
-    font-size: 12px;
-  }
+.form-button:hover {
+  box-shadow: rgba(0, 0, 0, 0.5) 0 2px 6px 2px;
+}
+
+.login-button {
+  background-color: var(--color-secondary);
+}
+
+.register-button {
+  background-color: var(--color-tertiary);
+}
+
 `;
 
 export const AccessPageStyle = styled.div`
-.access__content {
-  min-height: 400px;
-  width: 330px;
-}
-
-.access__title {
-  height: 100px;
-}
+padding: 0 6vw 3rem;
 
 .logo-section {
   display: flex;
@@ -61,7 +89,11 @@ export const AccessPageStyle = styled.div`
   font-weight: 900;
   color: var(--color-text-dark);
   gap: 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 8rem;
+}
+
+.logo-subtitle {
+  font-weight: 600;
 }
 
 .logo-img {
@@ -75,5 +107,23 @@ export const AccessPageStyle = styled.div`
   gap: 0.5rem;
   font-weight: 900;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 0px;
+  width: 50rem;
+  margin: auto;
+  padding: 2rem;
+}
+
+.form-title  {
+  font-weight: 900;
+  color: var(--color-text-dark);
+  text-align: center;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
 }
 `;

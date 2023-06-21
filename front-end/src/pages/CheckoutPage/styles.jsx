@@ -85,8 +85,8 @@ export const CheckoutStyle = styled.div`
   border-radius: 0rem 1rem 1rem 0rem;
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 0px;
 }
+
 .rmv_button:hover{
-  background-color: #0f3f44e4;
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 1px;
 }
 
@@ -224,10 +224,11 @@ export const CheckoutStyle = styled.div`
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 1px;
   transition: all 0.3s;
 }
+
 .redirect-login:hover {
-  background-color: #0c3236e3;
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 2px;
 }
+
 .post-btn {
   color: var(--color-text-light);
   background-color: var(--color-secondary);

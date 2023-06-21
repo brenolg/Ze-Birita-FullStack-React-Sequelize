@@ -22,45 +22,7 @@
 
   --color-input-valid: #175e62;
 
-  --color-input-invalid: #a95a42;
-
-  /* a partir daqui não usei */
-
-  --color-border-gray-light: #b1c2be;
-
-  --color-quaternary: #056cf9;
-
-  --color-bg-blue-light: #eaf1ef;
-
-  --color-bg-light: #f2fffc;
-
-  --color-bg-opacity: rgba(242, 255, 252, 0.75);
-
-  --color-white: white;
-
-  --font-title: normal 400 28px roboto , sans-serif;
-
-  --font-button: normal 400 20px roboto , sans-serif;
-
-  --font-label: normal 400 16px roboto , sans-serif;
-
-  --font-details: normal 700 16px roboto , sans-serif;
-
-  --font-product-name: normal 400 10px roboto , sans-serif;
-
-  --border-button-tertiary: 2px solid var(--color-primary);
-
-  --border-button: 2px solid transparent;
-
-  --border-input: 1px solid var(--color-text-dark);
-
-  --border-input-focus: 1px solid var(--color-quaternary);
-
-  --input-pristine: 5px solid var(--color-border-gray-light);
-
-  --input-required-valid: 5px solid var(--color-input-valid);
-
-  --input-required-invalid: 5px solid var(--color-input-invalid);
+  --color-input-invalid: #a95a42d1;
 }
 
 * {
@@ -88,6 +50,15 @@ body {
 button {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  opacity: 0.96;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
 }
 
 button:active {
@@ -163,91 +134,3 @@ a {
   background-color: grey;
   border-radius: 50%;
 }
-
-/* A partir daqui não usei */
-.conteiner {
-  align-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  margin-top: 30vh;
-}
-
-.content {
-  align-items: center;
-  background: var(--color-default-grey);
-  border-radius: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.8) 0 0 4px 0;
-  color : var(--color-text-dark);
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  padding: 8px;
-}
-
-.button {
-  align-items: center;
-  border: var(--border-button);
-  border-radius: 1rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  font: var(--font-button);
-  height: 44px;
-  justify-content: center;
-  margin: 0 0 8px;
-  width: 300px;
-}
-
-.button:disabled {
-  cursor: not-allowed;
-  opacity: 0.35;
-}
-
-.button_primary {
-  background: var(--color-primary);
-  color: var(--color-text-light);
-  margin: 28px 0 16px;
-}
-
-.button_secondary {
-  background: var(--color-secondary);
-  color: var(--color-text-light);
-}
-
-.button_tertiary {
-  border: var(--border-button-tertiary);
-  color: var(--color-primary);
-}
-
-.label {
-  color: var(--color-text-dark);
-  font: var(--font-label);
-}
-
-.input {
-  border: var(--border-input);
-  border-radius: 1rem;
-  font: var(--font-label);
-  height: 44px;
-  margin: 1px 0 8px;
-  outline: none;
-  padding: 12px;
-  width: 300px;
-}
-
-.product_detail {
-  background-color: var(--color-bg-opacity);
-  border-radius: 1rem;
-  font: var(--font-details);
-  width: auto;
-}
-
-.button_loading {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-

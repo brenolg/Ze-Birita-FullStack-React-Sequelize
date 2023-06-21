@@ -13,7 +13,6 @@
   gap: 2rem;
   outline: none;
   padding: 1rem;
-
 }
 
 .column-container {
@@ -23,12 +22,13 @@
   width: 100%;
 }
 
-.default-text {
-  font-weight: 900;
-}
-
 .default-icon {
   color: var(--color-input-invalid);
+  font-size: 6rem;
+}
+
+.exclamation-icon {
+  color: var(--color-tertiary);
   font-size: 6rem;
 }
 

@@ -14,7 +14,6 @@ const ProductsStyle = styled.div`
   .card_content{
     width:20%;
     display: flex;
-    box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px 0px;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
@@ -23,24 +22,26 @@ const ProductsStyle = styled.div`
   }
 
   .animate-shadow {
-    box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 4px 0px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 3px;
     transition: 0.5s ease-in-out;
   }
 
   .animate-shadow:hover {
-    box-shadow: rgba(0, 0, 0, 0.6) 0px 2px 6px 2px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 8px 4px;
   }
+
   .card_content:hover{
-    transform: scale(1.008);
+    transform: scale(1.009);
   }
 
   .figure-product {
     position: relative;
+    padding-top:1rem;
   }
 
   .product-price{
     position: absolute;
-    top: 0;
+    top: 1rem;
     left: 0;
     background-color: #0e58609b;
     border-radius: 0.5rem;
@@ -53,9 +54,9 @@ const ProductsStyle = styled.div`
 
   .product_img{
     width: 100%;
-    height: 180px;
+    height: 18rem;
     border-radius: 0.5rem;
-    box-shadow: rgba(0, 0, 0, 0.8) 0px 2px 4px 0px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 6px 0px;
   }
 
   .counter_container{
@@ -132,7 +133,7 @@ const ProductsStyle = styled.div`
   }
 
   .carousel{
-    height: 33rem;
+    height: 30.5rem;
   }
 `;
 

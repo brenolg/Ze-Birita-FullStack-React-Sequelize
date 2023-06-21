@@ -1,15 +1,20 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import Router from './routes/router';
+import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header';
+import Router from './routes/router';
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Router />
-      <Toaster />
+      <Toaster
+        containerStyle={ {
+          top: 200,
+          left: 20,
+        } }
+      />
     </BrowserRouter>
   );
 }

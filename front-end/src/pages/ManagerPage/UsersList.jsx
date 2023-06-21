@@ -3,34 +3,22 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../../context/Context';
 import { deleteUser } from '../../services/APICommunication';
-import { notify, notifyAdmin } from '../../services/notifications/notifications';
+import handleError from '../../services/HandleError';
 
 export default function UsersList({ userList, setUserList }) {
   const history = useHistory();
-  const { userData } = useContext(Context);
-
-  const timer = 2500;
-  const forbidden = 401;
-  const unauthorized = 403;
-  const handleError = (response) => {
-    if (response.status === forbidden || response.status === unauthorized) {
-      notify(response.status, response.message);
-      setTimeout(() => {
-        history.push('/login');
-      }, timer);
-    } else {
-      notifyAdmin(response);
-    }
-  };
+  const { userData, setLogIn } = useContext(Context);
 
   const handleDeleteBtn = async (id) => {
-    const fetchDeleteUser = await deleteUser(id, userData.token);
-    handleError(fetchDeleteUser);
+    const response = await deleteUser(id, userData.token);
 
-    if (!fetchDeleteUser.error) {
-      const newUsersList = userList.filter((user) => user.id !== Number(id));
-      setUserList(newUsersList);
+    handleError.admin(response, history, setLogIn);
+    if (response.error) {
+      return;
     }
+
+    const newUsersList = userList.filter((user) => user.id !== Number(id));
+    setUserList(newUsersList);
   };
 
   const handleUpdateBtn = (id) => {
@@ -71,7 +59,6 @@ export default function UsersList({ userList, setUserList }) {
             type="button"
           >
             Excluir
-
           </button>
         </div>
 

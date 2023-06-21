@@ -1,9 +1,9 @@
 import { toast } from 'react-hot-toast';
 import { BiError, BiTimer } from 'react-icons/bi';
+import { BsCheck2Circle } from 'react-icons/bs';
+import { FaExclamation } from 'react-icons/fa';
 import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
 import './notifications.css';
-
-import { BsCheck2Circle } from 'react-icons/bs';
 
 const shadowValue = 'rgba(0, 0, 0, 0.8) 0px 0 4px 0px';
 export const notifyNoProducts = () => toast(
@@ -23,8 +23,6 @@ export const notifyNoProducts = () => toast(
     style: {
       background: '#e4e3e3',
       boxShadow: shadowValue,
-      margin: 0,
-      padding: 0,
     },
   },
 );
@@ -41,14 +39,13 @@ const accessDenied = () => toast(
     style: {
       background: '#e4e3e3',
       boxShadow: shadowValue,
-      margin: 0,
-      padding: 0,
       marginTop: '20rem',
     },
   },
 );
 
 const defaultNotification = (status) => {
+  console.log(status);
   const notificationMessages = {
     400: 'A solicitação é inválida.',
     404: 'O recurso solicitado não foi encontrado.',
@@ -72,16 +69,12 @@ const defaultNotification = (status) => {
       style: {
         background: '#e4e3e3',
         boxShadow: shadowValue,
-        margin: 0,
-        padding: 0,
-        marginTop: '30rem',
-        width: '100%',
       },
     },
   );
 };
 
-export const notifyAdmin = (response) => {
+export const adminNotification = (response) => {
   const notificationMessages = {
     200: 'Usuário editado com sucesso!',
     201: 'Usuário criado com sucesso!',
@@ -91,9 +84,7 @@ export const notifyAdmin = (response) => {
     500: 'Error - Ocorreu um erro interno no servidor.',
   };
 
-  const defaultMessage = `Erro (${response.status})
-  - Ocorreu um erro durante a solicitação.`;
-
+  const defaultMessage = 'Erro durante a solicitação!';
   const notificationMessage = notificationMessages[response.status]
   || defaultMessage;
   toast(
@@ -108,19 +99,20 @@ export const notifyAdmin = (response) => {
         : <BsCheck2Circle className="default-icon color-green" />}
 
       <div className="column-container large-text">
+
+        {response.error
+        && <span className="error-span">{`Erro: ${response.status}` }</span>}
+
         <span className="error-span">{notificationMessage }</span>
+        <span className="error-span">{response.message }</span>
 
       </div>
     </button>,
     {
-      duration: 1200,
+      duration: 1800,
       style: {
         background: '#e4e3e3',
         boxShadow: shadowValue,
-        margin: 0,
-        padding: 0,
-        marginTop: '30rem',
-        width: '100%',
       },
     },
   );
@@ -132,3 +124,34 @@ export const notify = (status) => {
   if (status === forbidden || status === unauthorized) return accessDenied();
   defaultNotification(status);
 };
+
+export const notifyAdmin = (response) => {
+  if (response.status === forbidden || response.status === unauthorized) {
+    return accessDenied();
+  }
+  adminNotification(response);
+};
+
+export const noCartProducts = () => toast(
+  <button
+    className="default-notification-container"
+    type="button"
+    onClick={ () => toast.dismiss() }
+  >
+    <FaExclamation className="exclamation-icon" />
+    <div className="column-container large-text">
+      <span className="error-span">
+        Adicione produtos ao carrinho para finalizar a compra!
+      </span>
+    </div>
+  </button>,
+  {
+    position: 'bottom-center',
+    duration: 1200,
+    style: {
+      background: '#e4e3e3',
+      boxShadow: shadowValue,
+      marginBottom: '12rem',
+    },
+  },
+);

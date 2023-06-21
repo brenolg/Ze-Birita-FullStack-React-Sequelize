@@ -15,7 +15,7 @@ export const OrderDetailStyle = styled.div`
   outline: none;
   background-color: transparent;
   transition: 0.3s;
-  margin-bottom: 2rem;
+  margin-bottom: 6rem;
 }
 
 .return-btn:hover {
@@ -38,7 +38,7 @@ export const OrderDetailStyle = styled.div`
 
 .label-name {
   width: 50%;
-  margin-left: 4rem;
+  padding-left: 4rem;
 }
 
 .label-quantities{
@@ -53,7 +53,7 @@ export const OrderDetailStyle = styled.div`
   justify-content: space-between;
   background-color: var(--color-default-grey);
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 0px;
-  margin-bottom: 3rem;
+  margin-bottom: 6rem;
   height: 5rem;
   font-weight: 500;
   border-radius: 1rem;
@@ -72,7 +72,7 @@ export const OrderDetailStyle = styled.div`
   border-radius: 1rem 0 0 1rem;
   border-right: 2px solid gray;
   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.8);
-  box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 0px;
+  box-shadow: rgba(0, 0, 0, 0.6) 0 1px 8px 1px;
 }
 
 .order-products-container{
@@ -142,13 +142,24 @@ export const OrderDetailStyle = styled.div`
 
 .item-name{
   width: 50%;
-  margin-left: 4rem;
+  padding-left: 4rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px 0;
 }
 
 .quantity-div{
   width: 16%;
   display: flex;
+  height: 100%;
+  align-items: center;
   justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px 0;
+}
+
+.quantity-div:last-child{
+  border-radius: 0 1rem 1rem 0;
 }
 
 .total-order-container{

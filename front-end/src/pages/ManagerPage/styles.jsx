@@ -61,7 +61,6 @@ export const ManagerStyle = styled.main`
   color: var(--color-text-dark);
   font-weight: 900;
   width: 50%;
-
 }
 
 .register-select {

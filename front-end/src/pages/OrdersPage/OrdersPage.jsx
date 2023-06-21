@@ -1,33 +1,21 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import OrderItem from './OrderItem';
-import { getOrders } from '../../services/APICommunication';
 import Context from '../../context/Context';
+import { getOrders } from '../../services/APICommunication';
+import handleError from '../../services/HandleError';
+import OrderItem from './OrderItem';
 import { OrdersPageStyle } from './styles';
-import { notify } from '../../services/notifications/notifications';
 
 export default function OrdersPage() {
   const [order, setOrder] = useState([]);
-  const { userData } = useContext(Context);
+  const { userData, setLogIn } = useContext(Context);
   const history = useHistory();
-
-  const timer = 2500;
-  const forbidden = 401;
-  const unauthorized = 403;
-  const handleError = (response) => {
-    notify(response.status);
-    if (response.status === forbidden || response.status === unauthorized) {
-      setTimeout(() => {
-        history.push('/login');
-      }, timer);
-    }
-  };
 
   useEffect(() => {
     if (userData.token) {
       getOrders(userData.token).then((response) => {
         if (response.error) {
-          handleError(response);
+          handleError.defaultError(response, history, setLogIn);
           return;
         }
         setOrder(response.data);

@@ -8,7 +8,7 @@ import UsersList from './UsersList';
 import { ManagerStyle } from './styles';
 
 export default function ManagerPage() {
-  const { userData } = useContext(Context);
+  const { userData, setLogIn } = useContext(Context);
   const [userList, setUserList] = useState([]);
   const history = useHistory();
 
@@ -16,7 +16,7 @@ export default function ManagerPage() {
     if (userData.token) {
       getUsers(userData.token).then((response) => {
         if (response.error) {
-          handleError(response, history);
+          handleError.admin(response, history, setLogIn);
           return;
         }
         setUserList(response.data);

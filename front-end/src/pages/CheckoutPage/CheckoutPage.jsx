@@ -1,10 +1,10 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { CheckoutStyle } from './styles';
 import Context from '../../context/Context';
 import LocalStorage from '../../services/LocalStorageHandler';
-import SaleItem from './SaleItem';
 import SaleForm from './SaleForm';
+import SaleItem from './SaleItem';
+import { CheckoutStyle } from './styles';
 
 export default function CheckoutPage() {
   const { cartValue, setCartValue, logIn } = useContext(Context);
@@ -49,7 +49,6 @@ export default function CheckoutPage() {
           <div className="label label-price label-numbers">Valor Unitário</div>
           <div className="label label-sub-total label-numbers">Sub-total</div>
           <div className="label label-quantity label-numbers">Quantidade</div>
-          <div className="label label-delete">Remover Item</div>
 
         </div>
 

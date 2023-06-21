@@ -1,44 +1,27 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
+import { getCustomers, getSellers, postSale } from '../../services/APICommunication';
+import handleError from '../../services/HandleError';
 import LocalStorage from '../../services/LocalStorageHandler';
-import { notify } from '../../services/notifications/notifications';
-import {
-  postSale,
-  getSellers,
-  getCustomers,
-} from '../../services/APICommunication';
 
 export default function SaleForm() {
-  const { cartValue, logIn, userData } = useContext(Context);
-  const [userAddress, setUserAddress] = useState({
-    address: '',
-    number: '',
-  });
-
+  const { cartValue, logIn, userData, setLogIn } = useContext(Context);
   const [userOptionList, setUserOptionList] = useState([]);
   const [userOptionId, setUserOptionId] = useState([]);
   const [sellerOptionList, setSellerOptionList] = useState([]);
   const [sellerOptionId, setSellerOptionId] = useState([]);
+  const [userAddress, setUserAddress] = useState({
+    address: '',
+    number: '',
+  });
   const history = useHistory();
-
-  const timer = 2500;
-  const forbidden = 401;
-  const unauthorized = 403;
-  const handleError = (response) => {
-    notify(response.status);
-    if (response.status === forbidden || response.status === unauthorized) {
-      setTimeout(() => {
-        history.push('/login');
-      }, timer);
-    }
-  };
 
   useEffect(() => {
     if (userData.token) {
       getCustomers(userData.token).then((response) => {
         if (response.error) {
-          handleError(response);
+          handleError.defaultError(response, history, setLogIn);
           return;
         }
         setUserOptionList(response.data);
@@ -69,19 +52,25 @@ export default function SaleForm() {
     let userId;
     let sellerId;
 
-    if (userData.role === 'customer') {
-      userId = userData.id;
-      sellerId = eCommerceId;
-    }
+    const roleMapping = {
+      customer: {
+        userId: userData.id,
+        sellerId: eCommerceId,
+      },
+      seller: {
+        userId: userOptionId,
+        sellerId: userData.id,
+      },
+      administrator: {
+        userId: userOptionId,
+        sellerId: sellerOptionId,
+      },
+    };
 
-    if (userData.role === 'seller') {
-      userId = userOptionId;
-      sellerId = userData.id;
-    }
+    const userRole = userData.role;
 
-    if (userData.role === 'administrator') {
-      userId = userOptionId;
-      sellerId = sellerOptionId;
+    if (roleMapping[userRole]) {
+      ({ userId, sellerId } = roleMapping[userRole]);
     }
 
     const saleBody = {
@@ -96,7 +85,7 @@ export default function SaleForm() {
     const newSale = await postSale(saleBody, userData.token);
 
     if (newSale.error) {
-      handleError(newSale);
+      handleError.admin(newSale, history, setLogIn);
       return;
     }
 

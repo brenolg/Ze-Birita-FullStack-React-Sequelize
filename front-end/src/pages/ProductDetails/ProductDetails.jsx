@@ -1,16 +1,17 @@
-import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import React, { useContext, useEffect, useState } from 'react';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
-import { getProductDetails } from '../../services/APICommunication';
-import Context from '../../context/Context';
-import { ProductDetailsStyle } from './styles';
-import LocalStorage from '../../services/LocalStorageHandler';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Carrousel from '../../components/Carrousel';
+import Context from '../../context/Context';
+import { getProductDetails } from '../../services/APICommunication';
+import handleError from '../../services/HandleError';
+import LocalStorage from '../../services/LocalStorageHandler';
+import { ProductDetailsStyle } from './styles';
 /* eslint-disable react/jsx-max-depth */
 
 export default function ProductDetails({ match }) {
-  const { cartValue, setCartValue } = useContext(Context);
+  const { cartValue, setCartValue, setLogIn } = useContext(Context);
   const [comments, setComments] = useState([]);
   const [product, setProduct] = useState({});
   const [cardQuantity, setCardQuantity] = useState(0);
@@ -43,7 +44,11 @@ export default function ProductDetails({ match }) {
 
   useEffect(() => {
     getProductDetails(id).then((response) => {
-      setProduct(response);
+      if (response.message) {
+        handleError.defaultError(response, history, setLogIn);
+        return;
+      }
+      setProduct(response.data);
     });
     const allComments = createComments();
 
@@ -214,7 +219,10 @@ export default function ProductDetails({ match }) {
         <h2 className="carrousel-title large-text">
           Você também pode gostar
         </h2>
-        <Carrousel category={ product.category } />
+        {product.category && (
+          <Carrousel category={ product.category } />
+        )}
+
       </div>
 
     </ProductDetailsStyle>

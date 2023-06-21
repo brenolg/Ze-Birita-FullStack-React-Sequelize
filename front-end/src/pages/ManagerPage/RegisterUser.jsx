@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import Context from '../../context/Context';
 import { adminRegister } from '../../services/APICommunication';
-import { notifyAdmin } from '../../services/notifications/notifications';
+import handleError from '../../services/HandleError';
 
 export default function RegisterUser({ userList, setUserList }) {
+  const { setLogIn } = useContext(Context);
+  const history = useHistory();
+
   const [userValues, setUserValues] = useState({
     name: '',
     email: '',
@@ -18,14 +23,14 @@ export default function RegisterUser({ userList, setUserList }) {
 
   const createUser = async () => {
     const registerData = await adminRegister(userValues);
-    notifyAdmin(registerData);
+    handleError.admin(registerData, history, setLogIn);
 
     if (!registerData.error) {
       setUserValues({
         name: '',
         email: '',
         password: '',
-        role: '',
+        role: 'seller',
       });
       setUserList([...userList, registerData.data]);
     }

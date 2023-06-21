@@ -145,15 +145,14 @@ export const CheckoutStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.8rem;
 }
 
 .label-index {
   width: 52px;
+  padding-left: 1rem;
 }
-.label-delete {
-  width: 145px;
-  padding-right : 1rem;
-}
+
 .label-name {
   width: 50%;
   padding-right: 22rem;
@@ -163,6 +162,7 @@ export const CheckoutStyle = styled.div`
   padding: 0px 2.5rem;
   justify-content: flex-end;
 }
+
 .label-price{
   margin-left: 11rem;
 }
@@ -170,7 +170,7 @@ export const CheckoutStyle = styled.div`
   padding-right: 4.5rem;
 }
 .label-quantity  {
-  padding-right: 4rem;
+  margin-right: 12rem;
 }
 
 .checkout-form-section {

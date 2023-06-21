@@ -23,7 +23,7 @@ const newUserSchema = newLoginSchema.keys({
 });
 
 const newUpdateUserSchema = joi.object().keys({
-  name: joi.string().min(12),
+  name: joi.string().min(8),
   role: joi.string().valid('administrator', 'customer', 'seller'),
   email: joi.string().email(),
   password: joiPassword
@@ -53,8 +53,8 @@ const newSaleSchema = joi.object({
   userId: joi.number().integer().required(),
   sellerId: joi.number().integer().required(),
   totalPrice: joi.number().required(),
-  deliveryAddress: joi.string().required(),
-  deliveryNumber: joi.string().required(),
+  deliveryAddress: joi.string().min(5).required(),
+  deliveryNumber: joi.string().min(2).pattern(/\d/).required(),
   shoppingCart: joi.array().items(sale).required(),
   user: joi.object(),
 });

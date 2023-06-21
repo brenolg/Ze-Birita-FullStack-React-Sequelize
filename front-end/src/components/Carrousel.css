@@ -2,7 +2,7 @@
   background-color: #efefef;
   border-radius: 1rem;
   box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25);
-  height: auto;
+  height: 30rem;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -40,11 +40,13 @@
 
 .carrousel-name {
   color: var(--color-text-dark);
-  height: 3rem;
+  height: 4rem;
   margin: 0.8rem 0.6rem;
 }
 
 .carrousel-img-div {
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25);
+  padding: 1rem 3rem 0;
   position: relative;
 }
 
@@ -59,7 +61,7 @@
   font-weight: 900;
   height: 7rem;
   justify-content: center;
-  left: 0;
+  left: 1rem;
   position: absolute;
   text-align: center;
   text-shadow: 0 0 4px black;

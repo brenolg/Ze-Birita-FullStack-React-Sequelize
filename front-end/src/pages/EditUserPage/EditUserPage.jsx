@@ -4,17 +4,24 @@ import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../../context/Context';
 import { getUserDetails } from '../../services/APICommunication';
+import handleError from '../../services/HandleError';
+import UpdateUserForm from './UpdateUserForm ';
 import { EditUserStyle } from './styles';
 
 export default function EditUserPage({ match }) {
   const { id } = match.params;
-  const { userData } = useContext(Context);
+  const { userData, setLogIn } = useContext(Context);
   const [user, setUser] = useState({});
   const history = useHistory();
 
   useEffect(() => {
     if (userData.token) {
       getUserDetails(id, userData.token).then((response) => {
+        if (response.error) {
+          handleError.defaultError(response, history, setLogIn);
+          return;
+        }
+
         setUser(response.data);
       });
     }
@@ -49,6 +56,11 @@ export default function EditUserPage({ match }) {
             <span className="user-values">{user.role}</span>
           </div>
         </div>
+      </section>
+
+      <section className="patch-user-section">
+        <h1 className="info-title large-text">Atualização do Usuário</h1>
+        <UpdateUserForm id={ id } />
       </section>
     </EditUserStyle>
   );

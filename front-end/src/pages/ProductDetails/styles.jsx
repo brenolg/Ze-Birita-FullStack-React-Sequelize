@@ -45,6 +45,7 @@ export const ProductDetailsStyle = styled.main`
   width: 80%;
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 4px 0px;
   border-radius: 1rem;
+  padding: 1rem;
 }
 
 .infos-container {
@@ -126,9 +127,10 @@ export const ProductDetailsStyle = styled.main`
 
 .carrousel-category-container{
   display: flex;
+  position: relative;
   flex-direction: column;
   margin: 0 6vw;
-  height: 29rem;
+  height: 30rem;
   margin-bottom: 4rem;
 }
 

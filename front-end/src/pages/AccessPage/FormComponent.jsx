@@ -32,6 +32,7 @@ export default function AccessPageForm() {
     if (accessData.message) {
       setTimeout(() => setError(''), errorTimer);
       setError(accessData.message);
+      console.log(accessData);
       return;
     }
 

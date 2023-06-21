@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getProducts, getProductsByCategory } from '../services/APICommunication';
-import sale from '../images/bfsale.png';
-import './Carrousel.css';
+import React, { useEffect, useRef, useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import '../Global.css';
+import sale from '../images/bfsale.png';
+import { getProducts, getProductsByCategory } from '../services/APICommunication';
+import handleError from '../services/HandleError';
+import './Carrousel.css';
 
 export default function Carrousel({ category }) {
   const [productList, setProductList] = useState([]);
@@ -16,23 +17,31 @@ export default function Carrousel({ category }) {
 
   useEffect(() => {
     if (category === 'all') {
-      const arraySlice = 18;
+      const arraySlice = 12;
       getProducts().then((response) => {
-        setProductList(response.slice(0, arraySlice));
+        if (response.message) {
+          handleError.defaultError(response);
+          return;
+        }
+        setProductList(response.data.slice(0, arraySlice));
       });
     }
 
     if (category !== 'all' && category !== undefined) {
       getProductsByCategory(category).then((response) => {
-        setProductList(response);
+        if (response.message) {
+          handleError.defaultError(response);
+          return;
+        }
+        setProductList(response.data);
       });
     }
   }, [setProductList, blackFridayPath.isExact, category]);
 
   const buildHeight = () => {
     if (blackFridayPath.isExact) {
-      return '22rem';
-    } return '16rem';
+      return '17rem';
+    } return '15rem';
   };
 
   const percent = 1.25;

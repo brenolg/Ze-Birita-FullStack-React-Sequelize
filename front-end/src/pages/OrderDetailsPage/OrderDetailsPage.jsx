@@ -4,37 +4,25 @@ import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { useHistory } from 'react-router-dom';
 import Context from '../../context/Context';
 import { getOrderDetails } from '../../services/APICommunication';
-import { notify } from '../../services/notifications/notifications';
+import handleError from '../../services/HandleError';
 import OrderDetail from './OrderDetail';
 import Status from './Status';
 import { OrderDetailStyle } from './styles';
 
 export default function OrderDetailsPage({ match }) {
   const { id } = match.params;
-  const { userData } = useContext(Context);
+  const { userData, setLogIn } = useContext(Context);
   const [order, setOrder] = useState([]);
   const [products, setProducts] = useState([]);
   const [formattedDate, setFormattedDate] = useState('');
   const [status, setStatus] = useState('');
   const history = useHistory();
 
-  const timer = 2500;
-  const forbidden = 401;
-  const unauthorized = 403;
-  const handleError = (response) => {
-    notify(response.status, response.message);
-    if (response.status === forbidden || response.status === unauthorized) {
-      setTimeout(() => {
-        history.push('/login');
-      }, timer);
-    }
-  };
-
   useEffect(() => {
-    getOrderDetails(id, userData.token).then((response) => {
-      if (userData.token) {
+    if (userData.token) {
+      getOrderDetails(id, userData.token).then((response) => {
         if (response.error) {
-          handleError(response);
+          handleError.defaultError(response, history, setLogIn);
           return;
         }
         setOrder(response.data);
@@ -44,8 +32,8 @@ export default function OrderDetailsPage({ match }) {
         setFormattedDate(dataFormatada);
         setProducts(response.data.products);
         setStatus(response.data.status);
-      }
-    });
+      });
+    }
   }, [id, userData.token]);
 
   return (
@@ -54,7 +42,7 @@ export default function OrderDetailsPage({ match }) {
         <button
           className="return-btn large-text"
           type="button"
-          onClick={ () => history.push('/products') }
+          onClick={ () => history.push('/orders') }
         >
           <HiArrowNarrowLeft className="arrow-icon" />
           VOLTAR

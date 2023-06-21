@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import LocalStorage from '../../services/LocalStorageHandler';
 import Context from '../../context/Context';
+import LocalStorage from '../../services/LocalStorageHandler';
 
 export default function ProductCard({ id, name, price, url, priceArray }) {
   const {
@@ -12,6 +12,15 @@ export default function ProductCard({ id, name, price, url, priceArray }) {
 
   const [cardQuantity, setCardQuantity] = useState(0);
   const history = useHistory();
+
+  const handleImagePng = (event) => {
+    const imageSrc = event.target.src;
+    const hasPngExtension = imageSrc.endsWith('.png');
+    const padding = hasPngExtension ? '1rem' : '0';
+    return {
+      paddingTop: padding,
+    };
+  };
 
   const writeNewQuantity = (oldCart, newQuantity) => {
     const values = oldCart.map((cartProduct) => {
@@ -107,7 +116,12 @@ export default function ProductCard({ id, name, price, url, priceArray }) {
             {`R$ ${price.toFixed(2)}` }
           </figcaption>
 
-          <img className="product_img" src={ url } alt={ name } />
+          <img
+            className="product_img"
+            src={ url }
+            alt={ name }
+            style={ handleImagePng({ target: { src: url } }) }
+          />
         </figure>
       </button>
 

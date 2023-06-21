@@ -44,6 +44,12 @@ export default function Carrousel({ category }) {
     } return '15rem';
   };
 
+  const buildNameHeight = () => {
+    if (blackFridayPath.isExact) {
+      return '1rem';
+    } return '3.8rem';
+  };
+
   const percent = 1.25;
   const fakeValue = (value) => value * percent;
 
@@ -74,7 +80,13 @@ export default function Carrousel({ category }) {
         />
       </div>
 
-      <span className="carrousel-name small-text">{product.name}</span>
+      <span
+        className="carrousel-name small-text"
+        style={ { height: `${buildNameHeight()}` } }
+      >
+        {product.name}
+
+      </span>
 
       <div className="carrousel-values">
         {isExact && (

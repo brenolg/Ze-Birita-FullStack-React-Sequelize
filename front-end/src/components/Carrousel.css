@@ -38,10 +38,18 @@
   outline: none;
 }
 
+.carousel-item:hover {
+  opacity: 1;
+}
+
+.carousel-item:active {
+  transform: translate(-0%, -0%) scale(1);
+  transition: none;
+}
+
 .carrousel-name {
   color: var(--color-text-dark);
-  height: 4rem;
-  margin: 0.8rem 0.6rem;
+  margin: 0.8rem 2rem;
 }
 
 .carrousel-img-div {

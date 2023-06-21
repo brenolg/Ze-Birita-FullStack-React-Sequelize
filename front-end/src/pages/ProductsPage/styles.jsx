@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const ProductsStyle = styled.div`
-
   .container_products {
     display: flex;
     flex-flow: wrap;
@@ -133,7 +132,7 @@ const ProductsStyle = styled.div`
   }
 
   .carousel{
-    height: 30.5rem;
+    height: 28rem;
   }
 `;
 

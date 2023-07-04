@@ -130,13 +130,13 @@ export const CheckoutStyle = styled.div`
 }
 
 .label-div-container {
+  color: var(--color-text-dark);
   display: flex;
   height: 4em;
   width: 100%;
   justify-content: space-between;
   align-items: center;
 }
-
 .label-title {
   margin-bottom: 3rem;
   margin-top: 5rem;

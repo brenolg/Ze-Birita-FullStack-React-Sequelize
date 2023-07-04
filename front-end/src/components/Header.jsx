@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { BiUserCircle } from 'react-icons/bi';
-import { FiShoppingBag, FiLogIn } from 'react-icons/fi';
+import { FiLogIn, FiShoppingBag } from 'react-icons/fi';
+import { useHistory } from 'react-router-dom';
 import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import Context from '../context/Context';
+import logo from '../images/logo.png';
 import LocalStorage from '../services/LocalStorageHandler';
 import './Header.css';
 import SearchBar from './SearchBar';
-import logo from '../images/logo.png';
 
 export default function AccessPage() {
   const {
@@ -133,7 +133,7 @@ export default function AccessPage() {
           </button>
         )}
 
-        {userData.role !== 'administrator' && (
+        {logIn && (
           <div className="cart-container">
             <button
               className="bag-btn"

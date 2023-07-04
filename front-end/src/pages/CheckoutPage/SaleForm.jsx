@@ -201,7 +201,7 @@ export default function SaleForm() {
 
         <button className="large-text post-btn" type="button" onClick={ handlePostSale }>
           {userData
-          && userData.role === 'customer' ? 'Finalizar Compra' : 'Finalizar Vendas' }
+          && userData.role === 'customer' ? 'Finalizar Compra' : 'Finalizar Venda' }
         </button>
 
       </form>

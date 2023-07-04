@@ -15,7 +15,6 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
   <img src="https://contrib.rocks/image?repo=brenolg/Ze-Birita-FullStack-React-Sequelize" />
 </a>
 
-
 ## Funcionalidades
 
 - Registro e login para clientes, vendedores e administradores.
@@ -117,7 +116,7 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
 - Quando o usuário realiza a pesquisa, se a requisição for bem-sucedida, ele é redirecionado para a página de resultados de busca, onde os parâmetros pesquisados são exibidos na URL.
 - No caso de a requisição não retornar nenhum produto, o usuário é notificado sobre isso, sem ser redirecionado para outra página.
 
-<br/> <img width="100%" src="noproduct.gif" />
+<br/> <img width="100%" src="noproduct.png" />
 
 </details>
 
@@ -126,7 +125,27 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
     <strong> Página de Produtos e Search </strong>
   </summary><br>
 
-<br/> <img width="100%" src="product.gif" />
+- Ao entrar na página, é feita uma requisição ao back-end para obter os produtos disponíveis, que são então exibidos na tela.
+- A página possui um carrossel simulando uma promoção da Black Friday, mostrando a porcentagem de desconto, o valor atual, o valor anterior à promoção e a foto do produto em destaque.
+- Os cards exibindo os produtos contêm a foto, o preço e botões para adicionar ou diminuir a quantidade do produto.
+- Ao clicar no card de um produto, o usuário é redirecionado para a página de detalhes desse produto.
+- Sempre que a quantidade de um produto é alterada, o LocalStorage é atualizado, garantindo que o usuário não perca as informações do produto no carrinho durante a navegação.
+- A página de pesquisa realiza uma requisição ao back-end de acordo com as informações presentes na URL, buscando produtos com base nos parâmetros fornecidos.
+
+</details>
+
+<details>
+  <summary>
+    <strong> Página de detalhes de Produto </strong>
+  </summary><br>
+
+- Ao entrar na página, é feita uma requisição ao back-end para obter o produto em destaque, que será exibido na tela, juntamente com outros produtos no carrossel.
+- O carrossel na página mostra produtos da mesma categoria do produto em destaque, oferecendo ao usuário opções relacionadas.
+- A página simula um valor aleatório de reviews para os produtos e preenche as estrelas de acordo com esse valor, proporcionando uma representação visual da classificação do produto.
+- Os cards exibindo os produtos contêm a foto, o preço e botões para adicionar ou diminuir a quantidade do produto.
+- Sempre que a quantidade de um produto é alterada, o LocalStorage é atualizado para garantir que as informações do carrinho sejam mantidas durante a navegação.
+
+<br/> <img width="100%" src="productdetail.png" />
 
 </details>
 

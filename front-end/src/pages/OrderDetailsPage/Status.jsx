@@ -44,7 +44,7 @@ export default function Status({ status, setStatus, id }) {
   });
 
   const handleStatusBtn = ((statusBtn) => {
-    updateStatus(id, { status: statusBtn }, userData.token).then((response) => {
+    updateStatus(id, { status: statusBtn }, userData.toen).then((response) => {
       if (response.error) {
         handleError.defaultError(response, history, setLogIn);
         return;

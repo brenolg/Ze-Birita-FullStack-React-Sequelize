@@ -8,7 +8,7 @@ Ao fazer um pedido, o cliente espera que ele seja exibido no painel de pedidos d
 
 Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e registro), fluxo do cliente (produtos, checkout, pedidos e detalhes do pedido), fluxo da pessoa vendedora (pedidos e controle do pedido) e validação do status do pedido (teste sem atualização em tempo real e teste com atualização em tempo real). Além disso,  o fluxo da pessoa administradora, que envolve o gerenciamento de usuários.
 
-<img width="100%" src="demo.gif" />
+<img width="100%" src="./public/demo.gif" />
 
 ## Idealizadores
 <a href="https://github.com/brenolg/Ze-Birita-FullStack-React-Sequelize/graphs/contributors">
@@ -87,7 +87,7 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
       <strong> Demonstração </strong>
     </summary><br>
   
-  <img width="100%" src="redirect.gif" />
+  <img width="100%" src="./public/redirect.gif" />
   
   </details>
 </details>
@@ -105,7 +105,7 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
 - Se o usuário estiver logado, o seu nome é exibido na interface. Caso contrário, é mostrado um botão que redireciona para a página de login.
 - Existe também um link para realizar o logout da aplicação.
 
-<br/> <img width="100%" src="header.png" />
+<br/> <img width="100%" src="./public/header.png" />
 
 </details>
 
@@ -118,7 +118,7 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
 - Quando o usuário realiza a pesquisa, se a requisição for bem-sucedida, ele é redirecionado para a página de resultados de busca, onde os parâmetros pesquisados são exibidos na URL.
 - No caso de a requisição não retornar nenhum produto, o usuário é notificado sobre isso, sem ser redirecionado para outra página.
 
-<br/> <img width="100%" src="search.gif" />
+<br/> <img width="100%" src="./public/search.gif" />
 
 </details>
 
@@ -134,7 +134,7 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
 - Sempre que a quantidade de um produto é alterada, o LocalStorage é atualizado, garantindo que o usuário não perca as informações do produto no carrinho durante a navegação.
 - A página de pesquisa realiza uma requisição ao back-end de acordo com as informações presentes na URL, buscando produtos com base nos parâmetros fornecidos.
 
-<br/> <img width="100%" src="product.png" />
+<br/> <img width="100%" src="./public/product.png" />
 
 </details>
 
@@ -151,7 +151,7 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
 - Há um botão para a página de checkout.
 - Há um botão para retornar a página de produtos.
 
-<br/> <img width="100%" src="productDetail.png" />
+<br/> <img width="100%" src="./public/productDetail.png" />
 
 </details>
 
@@ -167,7 +167,7 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
 - O usuário é notificado com mensagens personalizadas caso ocorra algum erro durante a comunicação com o back-end.
 - No caso de o usuário ser um administrador ou vendedor, as notificações de erro são mais abrangentes, exibindo informações adicionais, como a mensagem de erro e o status do back-end. Isso visa facilitar a administração da aplicação pelos administradores e vendedores, fornecendo informações mais detalhadas sobre eventuais problemas.
 
-<br/> <img width="100%" src="checkout.gif" />
+<br/> <img width="100%" src="./public/checkout.gif" />
 
 </details>
 
@@ -181,7 +181,7 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
 - O status é renderizado com cores diferentes de acordo com o seu valor, permitindo uma fácil visualização do status da transação.
 - Ao clicar em um card, o usuário é redirecionado para a página de detalhes da venda/compra, onde é possível visualizar os produtos envolvidos na transação e gerenciar o status da venda.
 
-<br/> <img width="100%" src="order.png" />
+<br/> <img width="100%" src="./public/order.png" />
 
 </details>
 
@@ -198,7 +198,25 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
 - Os botões de administração do status são desabilitados caso o valor de mudança requisitado seja igual ao valor atual da venda/compra.
 - Há um botão disponível para retornar à página de pedidos, permitindo a navegação de volta à lista de pedidos do usuário.
 
-<br/> <img width="100%" src="order.png" />
+<br/> <img width="100%" src="./public/orderDetail.gif" />
+
+<details>
+  <summary>
+    <strong> Página de Gerenciamento de Usuários </strong>
+  </summary><br>
+
+
+:construction: <strong> Documentação em construção </strong> :construction:
+
+</details>
+
+<details>
+  <summary>
+    <strong> Página de Atualização de Usuários </strong>
+  </summary><br>
+
+
+:construction: <strong> Documentação em construção </strong> :construction:
 
 </details>
 

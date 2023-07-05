@@ -48,7 +48,7 @@ export default function ProductsPage() {
   }, [fetchProducts]);
 
   const handleCheckoutBtn = () => {
-    if (cartValue === 0) {
+    if (cartValue < 1) {
       noCartProducts();
       return;
     }

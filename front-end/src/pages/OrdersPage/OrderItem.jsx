@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
-export default function OrderItem({ index, id, date, status, price }) {
+export default function OrderItem({ id, date, status, price }) {
   const statusDom = useRef();
   const history = useHistory();
 
@@ -55,7 +55,7 @@ export default function OrderItem({ index, id, date, status, price }) {
 
       <div className="order-container index-container">
         <span className="index-content">Pedido</span>
-        <span className="index-content">{formattedIndex(index)}</span>
+        <span className="index-content">{formattedIndex(id)}</span>
       </div>
 
       <span
@@ -77,7 +77,6 @@ export default function OrderItem({ index, id, date, status, price }) {
 
 OrderItem.propTypes = ({
   id: PropTypes.number.isRequired,
-  index: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,

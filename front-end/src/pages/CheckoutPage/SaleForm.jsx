@@ -19,25 +19,37 @@ export default function SaleForm() {
 
   useEffect(() => {
     if (userData.token) {
-      getCustomers(userData.token).then((response) => {
-        if (response.error) {
-          handleError.defaultError(response, history, setLogIn);
-          return;
-        }
-        setUserOptionList(response.data);
-        setUserOptionId(response.data[0].id);
-      });
+      if (userData.role !== 'customer') {
+        getCustomers(userData.token).then((response) => {
+          if (response.error) {
+            handleError.defaultError(response, history, setLogIn);
+            return;
+          }
+          setUserOptionList(response.data);
+          setUserOptionId(response.data[0].id);
+        });
+      }
 
-      getSellers(userData.token).then((response) => {
-        setSellerOptionList(response);
-        setSellerOptionId(response[0].id);
-      });
+      if (userData.role !== 'customer') {
+        getSellers(userData.token).then((response) => {
+          setSellerOptionList(response);
+          setSellerOptionId(response[0].id);
+        });
+      }
     }
   }, [userData]); // Cria as listas de usuários e vendedores no select
 
   const handleAddressChange = ({ target: { name, value } }) => {
     const newState = { ...userAddress, [name]: value };
     setUserAddress(newState);
+  };
+
+  const handlePostError = (error) => {
+    if (userData.role !== 'customer') {
+      handleError.admin(error, history, setLogIn);
+      return;
+    }
+    handleError.defaultError(error, history, setLogIn);
   };
 
   const handlePostSale = async () => {
@@ -85,7 +97,7 @@ export default function SaleForm() {
     const newSale = await postSale(saleBody, userData.token);
 
     if (newSale.error) {
-      handleError.admin(newSale, history, setLogIn);
+      handlePostError(newSale);
       return;
     }
 
@@ -143,7 +155,7 @@ export default function SaleForm() {
             </label>
           )}
 
-          {userData.role && userData.role !== 'seller' && (
+          {userData.role && userData.role !== 'customer' && (
             <label
               className="user-label medium-text"
               htmlFor="sellerSelect"

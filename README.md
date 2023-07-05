@@ -97,10 +97,12 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
     <strong> Header </strong>
   </summary><br>
   
-- Links de navegação para as páginas da aplicação estão disponíveis no menu principal.
-- Os textos são renderizados de forma condicional, levando em consideração se o usuário é um cliente.
+- No menu principal, estão disponíveis links de navegação para as diferentes páginas da aplicação.
+- Os textos exibidos na interface são renderizados de forma condicional, levando em consideração se o usuário é um cliente, vendedor ou administrador.
 - O link para a página de administração de usuários só é visível para o usuário com perfil de administrador.
-- Há um link para a página de checkout, que exibe a quantidade e o valor total dos produtos selecionados.
+- Há um link para a página de checkout, que exibe a quantidade e o valor total dos produtos selecionados pelo usuário.
+- Existe um link para a página de vendas, que exibe a quantidade e o valor total dos produtos nas compras ou vendas do usuário.
+- Se o usuário estiver logado, o seu nome é exibido na interface. Caso contrário, é mostrado um botão que redireciona para a página de login.
 - Existe também um link para realizar o logout da aplicação.
 
 <br/> <img width="100%" src="header.png" />
@@ -116,7 +118,7 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
 - Quando o usuário realiza a pesquisa, se a requisição for bem-sucedida, ele é redirecionado para a página de resultados de busca, onde os parâmetros pesquisados são exibidos na URL.
 - No caso de a requisição não retornar nenhum produto, o usuário é notificado sobre isso, sem ser redirecionado para outra página.
 
-<br/> <img width="100%" src="noproduct.png" />
+<br/> <img width="100%" src="search.gif" />
 
 </details>
 
@@ -132,6 +134,8 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
 - Sempre que a quantidade de um produto é alterada, o LocalStorage é atualizado, garantindo que o usuário não perca as informações do produto no carrinho durante a navegação.
 - A página de pesquisa realiza uma requisição ao back-end de acordo com as informações presentes na URL, buscando produtos com base nos parâmetros fornecidos.
 
+<br/> <img width="100%" src="product.png" />
+
 </details>
 
 <details>
@@ -144,8 +148,57 @@ Os principais fluxos podem ser divididos em quatro grupos: fluxo comum (login e 
 - A página simula um valor aleatório de reviews para os produtos e preenche as estrelas de acordo com esse valor, proporcionando uma representação visual da classificação do produto.
 - Os cards exibindo os produtos contêm a foto, o preço e botões para adicionar ou diminuir a quantidade do produto.
 - Sempre que a quantidade de um produto é alterada, o LocalStorage é atualizado para garantir que as informações do carrinho sejam mantidas durante a navegação.
+- Há um botão para a página de checkout.
+- Há um botão para retornar a página de produtos.
 
-<br/> <img width="100%" src="productdetail.png" />
+<br/> <img width="100%" src="productDetail.png" />
+
+</details>
+
+<details>
+  <summary>
+    <strong> Página de Checkout/Carrinho</strong>
+  </summary><br>
+
+- Ao entrar na página, é realizada uma leitura do LocalStorage para obter os produtos previamente selecionados pelo usuário.
+- Os cards exibem os detalhes dos produtos, como nome, preço, valor unitário, sub-total, e contêm botões para adicionar, diminuir a quantidade do produto ou remover o produto do carrinho.
+- Sempre que a quantidade de um produto é alterada, o LocalStorage é atualizado para garantir que as informações do carrinho sejam mantidas durante a navegação.
+- Há um botão e um formulário para finalizar a compra ou venda, permitindo ao usuário concluir o processo.
+- O usuário é notificado com mensagens personalizadas caso ocorra algum erro durante a comunicação com o back-end.
+- No caso de o usuário ser um administrador ou vendedor, as notificações de erro são mais abrangentes, exibindo informações adicionais, como a mensagem de erro e o status do back-end. Isso visa facilitar a administração da aplicação pelos administradores e vendedores, fornecendo informações mais detalhadas sobre eventuais problemas.
+
+<br/> <img width="100%" src="checkout.gif" />
+
+</details>
+
+<details>
+  <summary>
+    <strong> Página de Vendas ou Compras </strong>
+  </summary><br>
+
+- Ao entrar na página, é feita uma requisição ao back-end para obter as informações das compras ou vendas relacionadas ao usuário.
+- Os cards exibem o número do pedido, a data, o status da venda/compra e o valor total.
+- O status é renderizado com cores diferentes de acordo com o seu valor, permitindo uma fácil visualização do status da transação.
+- Ao clicar em um card, o usuário é redirecionado para a página de detalhes da venda/compra, onde é possível visualizar os produtos envolvidos na transação e gerenciar o status da venda.
+
+<br/> <img width="100%" src="order.png" />
+
+</details>
+
+<details>
+  <summary>
+    <strong> Página de Detalhes de Vendas/Compras </strong>
+  </summary><br>
+
+- Ao entrar na página, é feita uma requisição ao back-end para obter as informações da compra ou venda.
+- A página exibe o número do pedido, o vendedor, a data, o valor total, o status da venda/compra e botões para administração do status.
+- Além disso, são listados os produtos do pedido, mostrando a quantidade, o valor unitário e o valor total por produto.
+- O status é renderizado com cores diferentes, dependendo do seu valor, para facilitar a visualização do status da transação.
+- Ao clicar nos botões de administração do status, é feita uma requisição ao back-end para atualizar o status da venda/compra. Se a requisição for bem-sucedida, o status é alterado no front-end.
+- Os botões de administração do status são desabilitados caso o valor de mudança requisitado seja igual ao valor atual da venda/compra.
+- Há um botão disponível para retornar à página de pedidos, permitindo a navegação de volta à lista de pedidos do usuário.
+
+<br/> <img width="100%" src="order.png" />
 
 </details>
 

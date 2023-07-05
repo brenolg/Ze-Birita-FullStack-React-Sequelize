@@ -107,6 +107,10 @@ export const OrderDetailStyle = styled.div`
   transition: 0.2s;
 }
 
+.status-btn:last-child {
+  border-radius: 0 1rem 1rem 0;
+}
+
 .status-btn:active {
   box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 6px 2px;
 }

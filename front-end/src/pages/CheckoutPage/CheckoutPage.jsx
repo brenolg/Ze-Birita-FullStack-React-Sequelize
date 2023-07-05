@@ -45,7 +45,7 @@ export default function CheckoutPage() {
         <div className="label-div-container small-text">
 
           <div className="label label-index">Item</div>
-          <div className="label label-name">Descrição</div>
+          <div className="label label-name">Nome</div>
           <div className="label label-price label-numbers">Valor Unitário</div>
           <div className="label label-sub-total label-numbers">Sub-total</div>
           <div className="label label-quantity label-numbers">Quantidade</div>
